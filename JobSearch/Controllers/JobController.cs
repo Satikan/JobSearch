@@ -14,12 +14,60 @@ namespace JobSearch.Controllers
     {
         JobRepository repository = new JobRepository();
 
-        // GET api/job/joball
+        // GET api/job/businesstype
         [HttpGet]
-        [ActionName("JobAll")]
-        public IEnumerable<Job> Get()
+        [ActionName("BusinessType")]
+        public IEnumerable<BusinessType> GetBusinessType()
         {
-            return repository.GetJobAll();
+            return repository.GetBusinessTypeAll();
+        }
+
+        // GET api/job/province
+        [HttpGet]
+        [ActionName("Province")]
+        public IEnumerable<Province> GetProvince()
+        {
+            return repository.GetProvinceAll();
+        }
+
+        // GET api/job/gender
+        [HttpGet]
+        [ActionName("Gender")]
+        public IEnumerable<Gender> GetGender()
+        {
+            return repository.GetGenderAll();
+        }
+
+        // GET api/job/status
+        [HttpGet]
+        [ActionName("Status")]
+        public IEnumerable<Status> GetStatus()
+        {
+            return repository.GetStatusAll();
+        }
+
+        // GET api/job/jobtype
+        [HttpGet]
+        [ActionName("Jobtype")]
+        public IEnumerable<Jobtype> GetJobtype()
+        {
+            return repository.GetJobtypeAll();
+        }
+
+        // GET api/job/cooperative
+        [HttpGet]
+        [ActionName("Cooperative")]
+        public IEnumerable<Datajob> GetCooperative()
+        {
+            return repository.GetCooperativeAll();
+        }
+
+        // GET api/job/internship
+        [HttpGet]
+        [ActionName("Internship")]
+        public IEnumerable<Datajob> GetInternship()
+        {
+            return repository.GetInternshipAll();
         }
 
         // GET api/<controller>/5
@@ -28,9 +76,40 @@ namespace JobSearch.Controllers
             return "value";
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        // POST api/job/employer
+        [HttpPost]
+        [ActionName("Employer")]
+        public IEnumerable<Employer> PostEmployer(Employer item)
         {
+
+            return repository.PostEmployerAll(item);
+        }
+
+        // POST api/job/seeker
+        [HttpPost]
+        [ActionName("Seeker")]
+        public IEnumerable<Employer> PostSeeker(Employer item)
+        {
+
+            return repository.PostSeekerAll(item);
+        }
+
+        // POST api/job/postjob
+        [HttpPost]
+        [ActionName("Postjob")]
+        public IEnumerable<Postjob> PostPostjob(Postjob item)
+        {
+
+            return repository.PostPostjobAll(item);
+        }
+
+        // POST api/job/alljob
+        [HttpPost]
+        [ActionName("Alljob")]
+        public IEnumerable<Datajob> PostAlljob(Datajob item)
+        {
+
+            return repository.PostAlljobAll(item);
         }
 
         // PUT api/<controller>/5

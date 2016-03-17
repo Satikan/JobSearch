@@ -1,0 +1,80 @@
+﻿<br />
+<section class="container">
+    <form name="FormNewJob" ng-submit="addstaff()" class="form-horizontal" role="form">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h1 class="box-title text-green">Applicant</h1>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Applicant</th>
+                            <th>View Profile</th>
+                            <th>Interview</th>
+                            <th>Cancel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Satikan Noothong</td>
+                            <td><button onclick="parent.location = '#/profile'" ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="fa fa-user"></i></button></td>
+                            <td><button ng-click="profile(n.StaffID)" class="btn btn-success btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-weixin"></i></button></td>
+                            <td><button ng-click="profile(n.StaffID)" class="btn btn-danger btn-icon" ><i class="fa fa-trash"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>Peerachat Kladput</td>
+                            <td><button onclick="parent.location = '#/profile'" ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="fa fa-user"></i></button></td>
+                            <td><button ng-click="profile(n.StaffID)" class="btn btn-success btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-weixin"></i></button></td>
+                            <td><button ng-click="profile(n.StaffID)" class="btn btn-danger btn-icon"><i class="fa fa-trash"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>Chayakorn Polkla</td>
+                            <td><button onclick="parent.location = '#/profile'" ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="fa fa-user"></i></button></td>
+                            <td><button ng-click="profile(n.StaffID)" class="btn btn-success btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-weixin"></i></button></td>
+                            <td><button ng-click="profile(n.StaffID)" class="btn btn-danger btn-icon"><i class="fa fa-trash"></i></button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
+
+        </div>
+    </form>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="box box-info">
+                <div class="box-header">
+                    <i class="fa fa-envelope"></i>
+                    <h3 class="box-title">Quick Email</h3>
+                    <!-- tools box -->
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                    </div><!-- /. tools -->
+                </div>
+                <div class="box-body">
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="emailto" placeholder="Email to:">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="subject" placeholder="Subject">
+                        </div>
+                        <div>
+                            <textarea class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="box-footer clearfix">
+                    <button class="pull-right btn btn-default" id="sendEmail">Send <i class="fa fa-arrow-circle-right"></i></button>
+                </div>
+            </div>
+        </div><!-- /.modal-dialog -->
+    </div>
+</section>
