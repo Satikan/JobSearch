@@ -110,16 +110,63 @@ namespace JobSearch.Controllers
         {
 
             return repository.PostAlljobAll(item);
+        }      
+
+        // POST api/job/permissiongroup
+        [HttpPost]
+        [ActionName("PermissionGroup")]
+        public IEnumerable<PermissionItemdata> PostPermissionGroup(PermissionItemdata item)
+        {
+            return repository.PostPermissionGroupAll(item);
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        // POST api/job/pageindex
+        [HttpPost]
+        [ActionName("PageIndex")]
+        public Employer PostStaffIndex(Employer item)
         {
+            return repository.PostIndexAll(item);
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        // POST api/job/login
+        [HttpPost]
+        [ActionName("Login")]
+        public Employer PostLogin(Employer item)
         {
+            return repository.PostLoginAll(item);
+        }
+
+        // POST api/job/image
+        [HttpPost]
+        [ActionName("Image")]
+        public HttpResponseMessage Post()
+        {
+            HttpResponseMessage result = null;
+            string imageName = "";
+            var httpRequest = HttpContext.Current.Request;
+            var dataid = httpRequest.Form[0];
+
+            if (httpRequest.Files.Count > 0)
+            {
+                var docfiles = new List<string>();
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    var fileImg = HttpContext.Current.Server.MapPath("~/images/" + postedFile.FileName);
+                    postedFile.SaveAs(fileImg);
+
+                    docfiles.Add(fileImg);
+                    imageName = postedFile.FileName.ToString();
+                }
+                result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
+            }
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            repository.PostJobImageAll(imageName, Convert.ToInt32(dataid));
+            return result;
         }
     }
 }

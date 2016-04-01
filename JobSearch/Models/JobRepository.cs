@@ -333,5 +333,137 @@ namespace JobSearch.Models
             return alljob.ToArray();
         }
 
+        public Employer PostIndexAll(Employer item)
+        {
+            objConn = objDB.EstablishConnection();
+            Employer jobData = new Employer();
+            string strSQL = "SELECT *, CONCAT(dc.Firstname,' ', dc.Lastname) AS NameUser FROM datacompanyanduser dc INNER JOIN Role r ON r.RoleID = dc.RoleID WHERE DataID = " + item.DataID + " ORDER BY DataID;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            jobData.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
+            jobData.Username = dt.Rows[0]["Username"].ToString();
+            jobData.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
+            jobData.Firstname = dt.Rows[0]["Firstname"].ToString();
+            jobData.Lastname = dt.Rows[0]["Lastname"].ToString();
+            jobData.Companyname = dt.Rows[0]["Companyname"].ToString();
+            jobData.EmployerAddress = dt.Rows[0]["EmployerAddress"].ToString();
+            jobData.Domicile = dt.Rows[0]["Domicile"].ToString();
+            jobData.PresentAddress = dt.Rows[0]["PresentAddress"].ToString();
+            jobData.District = dt.Rows[0]["District"].ToString();
+            jobData.SubDistrict = dt.Rows[0]["SubDistrict"].ToString();
+            jobData.ProvinceID = Convert.ToInt32(dt.Rows[0]["ProvinceID"].ToString());
+            jobData.Website = dt.Rows[0]["Website"].ToString();
+            jobData.PictureName = dt.Rows[0]["PictureName"].ToString();
+            jobData.Email = dt.Rows[0]["Email"].ToString();
+
+            return jobData;
+        }
+
+        public IEnumerable<PermissionItemdata> PostPermissionGroupAll(PermissionItemdata item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<PermissionItemdata> manage = new List<PermissionItemdata>();
+            string strSQL = "SELECT pg.PermissionGroupID, pg.PermissionGroupName FROM permissionitems pt ";
+            strSQL += "INNER JOIN permissiongroup pg ON pg.PermissionGroupID = pt.PermissionGroupID ";
+            strSQL += "LEFT JOIN staffaccess sa ON sa.PermissionItemID = pt.PermissionItemID ";
+            strSQL += "WHERE pt.PermissionItemParent = 0 AND pt.Deleted = 0 AND sa.StaffRoleID = '" + item.RoleID + "' ";
+            strSQL += "GROUP BY sa.StaffRoleID, pt.PermissionGroupID ORDER BY sa.StaffRoleID, pt.PermissionGroupID, pt.PermissionItemID;";
+            string strSQLitem = "SELECT pg.PermissionGroupID, pt.PermissionItemUrl, pt.PermissionItemID, pt.PermissionItemName, pt.PermissionItemIcon FROM permissionitems pt ";
+            strSQLitem += "INNER JOIN permissiongroup pg ON pg.PermissionGroupID = pt.PermissionGroupID ";
+            strSQLitem += "LEFT JOIN staffaccess sa ON sa.PermissionItemID = pt.PermissionItemID ";
+            strSQLitem += "WHERE pt.PermissionItemParent = 0 AND pt.Deleted = 0 AND sa.StaffRoleID = '" + item.RoleID + "' ";
+            strSQLitem += "GROUP BY pt.PermissionItemID;";
+
+            DataTable dt = objDB.List(strSQL, objConn);
+            DataTable dtitem = objDB.List(strSQLitem, objConn);
+            objConn.Close();
+
+            if (dt.Rows.Count > 0)
+            {
+                // Create Main Array
+
+                // Create Object
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    PermissionItemdata manageStaff = new PermissionItemdata();
+                    manageStaff.GroupName = Convert.ToString(dt.Rows[i]["PermissionGroupName"]);
+                    // Add Group Name AS String
+
+                    DataRow[] dr = dtitem.Select(" PermissionGroupID = " + dt.Rows[i]["PermissionGroupID"].ToString());
+
+                    // Add Group Parent AS Array
+                    List<PermissionItemParent> manageParent = new List<PermissionItemParent>();
+
+                    if (dr.Length > 0)
+                    {
+                        for (int j = 0; j < dr.Length; j++)
+                        {
+                            PermissionItemParent manageStaffparent = new PermissionItemParent();
+                            // Add Object PermissionGroupID
+                            manageStaffparent.PermissionGroupID = Convert.ToString(dr[j]["PermissionGroupID"]);
+                            // Add Object PermissionItemUrl
+                            manageStaffparent.PermissionItemUrl = Convert.ToString(dr[j]["PermissionItemUrl"]);
+                            // Add Object PermissionItemID
+                            manageStaffparent.PermissionItemID = Convert.ToString(dr[j]["PermissionItemID"]);
+                            // Add Object PermissionItemName
+                            manageStaffparent.PermissionItemName = Convert.ToString(dr[j]["PermissionItemName"]);
+
+                            manageStaffparent.PermissionItemIcon = Convert.ToString(dr[j]["PermissionItemIcon"]);
+
+                            manageParent.Add(manageStaffparent);
+                        }
+                    }
+                    manageStaff.GroupParent = manageParent;
+                    manage.Add(manageStaff);
+                }
+            }
+            return manage.ToArray();
+        }
+
+        public Employer PostLoginAll(Employer item)
+        {
+            objConn = objDB.EstablishConnection();
+            Employer login = new Employer();
+            string strSQL = "SELECT * FROM datacompanyanduser dc INNER JOIN role r ON r.RoleID = dc.RoleID WHERE dc.Username = '" + item.Username + "' AND dc.Password = sha1('" + item.Password + "') OR dc.Email = '" + item.Username + "' AND dc.Password = sha1('" + item.Password + "'); ";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+            if (dt.Rows.Count > 0)
+            {
+                login.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
+                login.Username = dt.Rows[0]["Username"].ToString();
+                login.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
+                login.Firstname = dt.Rows[0]["Firstname"].ToString();
+                login.Lastname = dt.Rows[0]["Lastname"].ToString();
+                login.Companyname = dt.Rows[0]["Companyname"].ToString();
+                login.PictureName = dt.Rows[0]["PictureName"].ToString();
+                login.Email = dt.Rows[0]["Email"].ToString();
+                login.status = "true";
+
+            }
+            else
+            {
+                login.status = "false";
+
+            }
+            return login;
+        }
+
+        public Employer PostJobImageAll(string imageName, int dataid)
+        {
+            objConn = objDB.EstablishConnection();
+            Employer jobimg = new Employer();
+
+            string strSQL = "UPDATE datacompanyanduser SET PictureName = '" + imageName + "'";
+            //strSQL += "WHERE StaffID = '" + StaffID + "';";
+            strSQL += "WHERE DataID = '" + dataid + "';";
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return jobimg;
+        }
+
+
     }
 }

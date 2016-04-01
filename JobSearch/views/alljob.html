@@ -1,16 +1,13 @@
-﻿<br />
-<section class="container">
-    <form name="FormNewJob" class="form-horizontal" role="form">
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h1 class="box-title text-green">All Job</h1>
-                <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-                </div>
-            </div>
+﻿<div class="container">
 
-            <div class="box-body">
+    <div class="card">
+        <div class="card-header bgm-cyan">
+            <h2>All Job</h2>
+            <br />
+        </div>
+
+        <form ng-submit="" class="form-horizontal" role="form">
+            <div class="card-body card-padding">
                 <div class="form-group pull-right">
                     <label for="Province" class="col-sm-3 control-label">Search</label>
                     <div class="col-sm-8">
@@ -26,7 +23,7 @@
                             <th><center>JobTitle</center></th>
                             <th><center>Contactname</center></th>
                             <th><center>Salary</center></th>
-                            <th><center>No. of Position</center></th>                            
+                            <th><center>No. of Position</center></th>
                             <th><center>Applicant</center></th>
                             <th><center>Edit Job</center></th>
                             <th><center>Delect Job</center></th>
@@ -39,12 +36,12 @@
                             <td align="center">{{n.Salary}}</td>
                             <td align="center">{{n.NumberPosition}}</td>
                             <td align="center"><button onclick="parent.location = '#/applicant'" class="btn btn-info btn-icon"><i class="fa fa-user-plus"></i></button></td>
-                            <td align="center"><button ng-click="EDstaff(n.StaffID)" class="btn btn-warning btn-icon"><i class="fa fa-edit"></i></button></td>
+                            <td align="center"><button onclick="parent.location = '#/editJob'" class="btn btn-warning btn-icon"><i class="fa fa-edit"></i></button></td>
                             <td align="center"><button ng-click="deletestaff(n.StaffID)" class="btn btn-danger btn-icon"><i class="fa fa-trash-o"></i></button></td>
                         </tr>
                     </tbody>
                 </table>
             </div><!-- /.box-body -->
-        </div>
-    </form>
-</section>
+            </form>
+    </div>
+    </div>
