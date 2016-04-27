@@ -125,7 +125,7 @@ namespace JobSearch.Models
         {
             objConn = objDB.EstablishConnection();
             List<Datajob> cooperative = new List<Datajob>();
-            string strSQL = "SELECT * FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE JobTypeID = 1 AND pv.LangID = 1;";
+            string strSQL = "SELECT * FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE JobTypeID = 1 AND pv.LangID = 1 AND pj.Deleted = 0;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
             if (dt.Rows.Count > 0)
@@ -292,6 +292,60 @@ namespace JobSearch.Models
             return postjob.ToArray();
         }
 
+        public IEnumerable<Datajob> PostDetailJobAll(Datajob item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Datajob> jobdetail = new List<Datajob>();
+            string strSQL = "SELECT * FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE pj.JobID = " + item.JobID + " AND pv.LangID = 1;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Datajob alljobdetail = new Datajob();
+
+                    alljobdetail.JobID = Convert.ToInt32(dt.Rows[i]["JobID"].ToString());
+                    alljobdetail.JobTitle = dt.Rows[i]["JobTitle"].ToString();
+                    alljobdetail.JobDescription = dt.Rows[i]["JobDescription"].ToString();
+                    alljobdetail.Keyskills = dt.Rows[i]["Keyskills"].ToString();
+                    alljobdetail.Salary = dt.Rows[i]["Salary"].ToString();
+                    alljobdetail.NumberPosition = dt.Rows[i]["NumberPosition"].ToString();
+                    alljobdetail.Qualification = dt.Rows[i]["Qualification"].ToString();
+                    alljobdetail.JobTypeID = Convert.ToInt32(dt.Rows[i]["JobTypeID"].ToString());
+                    alljobdetail.Contactname = dt.Rows[i]["Contactname"].ToString();
+                    alljobdetail.Position = dt.Rows[i]["Position"].ToString();
+                    alljobdetail.Email = dt.Rows[i]["Email"].ToString();
+                    alljobdetail.Telephone = dt.Rows[i]["Telephone"].ToString();
+                    alljobdetail.DateRange = dt.Rows[i]["DateRange"].ToString();
+                    alljobdetail.Companyname = dt.Rows[i]["Companyname"].ToString();
+                    alljobdetail.EmployerAddress = dt.Rows[i]["EmployerAddress"].ToString();
+                    alljobdetail.ProvinceName = dt.Rows[i]["ProvinceName"].ToString();
+                    alljobdetail.District = dt.Rows[i]["District"].ToString();
+                    alljobdetail.SubDistrict = dt.Rows[i]["SubDistrict"].ToString();
+                    alljobdetail.Postcode = dt.Rows[i]["Postcode"].ToString();
+                    alljobdetail.Website = dt.Rows[i]["Website"].ToString();
+
+                    jobdetail.Add(alljobdetail);
+                }
+            }
+            return jobdetail.ToArray();
+        }
+
+        public IEnumerable<Postjob> PostJobDeleteAll(Postjob item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Postjob> jobdelete = new List<Postjob>();
+
+            string strSQL = "UPDATE postjob SET Deleted = '" + item.Deleted + "'";
+            strSQL += "WHERE JobID = '" + item.JobID + "';";
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return jobdelete;
+        }
+
         public IEnumerable<Datajob> PostAlljobAll(Datajob item)
         {
             objConn = objDB.EstablishConnection();
@@ -337,7 +391,7 @@ namespace JobSearch.Models
         {
             objConn = objDB.EstablishConnection();
             Employer jobData = new Employer();
-            string strSQL = "SELECT *, CONCAT(dc.Firstname,' ', dc.Lastname) AS NameUser FROM datacompanyanduser dc INNER JOIN Role r ON r.RoleID = dc.RoleID WHERE DataID = " + item.DataID + " ORDER BY DataID;";
+            string strSQL = "SELECT *, CONCAT(dc.Firstname,' ', dc.Lastname) AS NameUser FROM datacompanyanduser dc INNER JOIN Role r ON r.RoleID = dc.RoleID INNER JOIN Provinces p ON p.ProvinceID = dc.ProvinceID WHERE DataID = " + item.DataID + " AND p.LangID = 1 ORDER BY DataID;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
 
@@ -346,16 +400,25 @@ namespace JobSearch.Models
             jobData.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
             jobData.Firstname = dt.Rows[0]["Firstname"].ToString();
             jobData.Lastname = dt.Rows[0]["Lastname"].ToString();
+            jobData.GenderID = Convert.ToInt32(dt.Rows[0]["GenderID"].ToString());
+            jobData.StatusID = Convert.ToInt32(dt.Rows[0]["StatusID"].ToString());
+            jobData.Education = dt.Rows[0]["Education"].ToString();
+            jobData.Specialskill = dt.Rows[0]["Specialskill"].ToString();
+            jobData.Position = dt.Rows[0]["Position"].ToString();
             jobData.Companyname = dt.Rows[0]["Companyname"].ToString();
+            jobData.BusinessTypeID = Convert.ToInt32(dt.Rows[0]["BusinessTypeID"].ToString());
             jobData.EmployerAddress = dt.Rows[0]["EmployerAddress"].ToString();
             jobData.Domicile = dt.Rows[0]["Domicile"].ToString();
             jobData.PresentAddress = dt.Rows[0]["PresentAddress"].ToString();
             jobData.District = dt.Rows[0]["District"].ToString();
             jobData.SubDistrict = dt.Rows[0]["SubDistrict"].ToString();
             jobData.ProvinceID = Convert.ToInt32(dt.Rows[0]["ProvinceID"].ToString());
+            jobData.ProvinceName = dt.Rows[0]["ProvinceName"].ToString();
+            jobData.Postcode = dt.Rows[0]["Postcode"].ToString();
             jobData.Website = dt.Rows[0]["Website"].ToString();
             jobData.PictureName = dt.Rows[0]["PictureName"].ToString();
             jobData.Email = dt.Rows[0]["Email"].ToString();
+            jobData.Telephone = dt.Rows[0]["Telephone"].ToString();
 
             return jobData;
         }

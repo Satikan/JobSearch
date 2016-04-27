@@ -34,14 +34,14 @@
             </li>
 
             <li class="logo hidden-xs">
-                <a href="index.html">Job S&P</a>
+                <a href="index.html#/">Job S&P</a>
             </li>
 
             <li class="pull-right">
                 <ul class="top-menu">
 
                     <li class="dropdown">
-                        <a data-toggle="dropdown" href=""><img class="img-circle" src="../images/{{staffindex.PictureName}}" style="width:42px; height:42px;" alt=""></a>
+                        <a data-toggle="dropdown" href=""><img class="img-circle" ng-src="../images/{{staffindex.PictureName}}" style="width:42px; height:42px;" alt=""></a>
                         
                         <ul class="dropdown-menu dm-icon pull-right">
                             <li>
@@ -52,10 +52,10 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="" onclick="parent.location = '#/profile'"><i class="md md-person"></i> View Profile</a>
+                                <a href="" ng-click="profile()"><i class="md md-person"></i> View Profile</a>
                             </li>
                             <li>
-                                <a href="login.html" ng-click="logout()"><i class="md md-history"></i> Logout</a>
+                                <a href="" ng-click="logout()"><i class="md md-history"></i> Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -168,7 +168,7 @@
                     <div class="profile-menu">
                         <a href="">
                             <div class="profile-pic">
-                                <img src="../images/{{staffindex.PictureName}}" alt="">
+                                <img ng-src="../images/{{staffindex.PictureName}}" alt="">
                             </div>
 
                             <div class="profile-info">
@@ -260,7 +260,6 @@
     <script src="template/vendors/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
     <script src="template/vendors/sweet-alert/sweet-alert.min.js"></script>
     <script src="template/vendors/waves/waves.min.js"></script>
-    <script src="template/vendors/moment/moment.min.js"></script>
     <script src="template/vendors/summernote/summernote.min.js"></script>
     <script src="template/vendors/summernote/summernote.js"></script>
     <script src="template/js/flot-charts/curved-line-chart.js"></script>
@@ -275,5 +274,6 @@
     <script src="js/ng-file-upload-shim.js"></script>
     <script src="js/angular-file-upload.min.js"></script>
     <script src="js/angularJS/app.js"></script>
+
 </body>
 </html>

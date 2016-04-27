@@ -5,8 +5,8 @@
             <h2>Internship</h2>
             <br />
         </div>
-        <form name="FormNewJob" ng-submit="addstaff()" class="form-horizontal" role="form">
 
+        <form name="FormNewJob" ng-submit="addstaff()" class="form-horizontal" role="form">
                 <div class="card-body card-padding">
                     <div class="form-group pull-right">
                         <label for="Province" class="col-sm-3 control-label">Search</label>
@@ -36,7 +36,8 @@
                                 <td align="center">{{n.Salary}}</td>
                                 <td align="center">{{n.NumberPosition}}</td>
                                 <td align="center">{{n.DateRange}}</td>
-                                <td align="center"><button class="btn btn-info btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus"></i></button></td>
+                                <td align="center"><button class="btn btn-info btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="md md-description"></i></button></td>
+                                <td align="center"><button class="btn btn-danger btn-icon"><i class="md md-delete"></i></button></td>
                             </tr>
 
                         </tbody>
@@ -44,40 +45,37 @@
                 </div><!-- /.box-body -->
         </form>
 
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myLargeModalLabel">
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myLargeModalLabel" ng-controller="ImageController">
             <div class="modal-dialog">
-                <div class="box box-info">
-                    <div class="box-header">
-                        <h2 class="box-title" style="color:blue"><b>Detail</b></h2>
-                        <div class="pull-right box-tools">
-                            <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="modal-header card-padding">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="ma md-close"></i></button>
+                            </div>
                         </div>
-                        <div class="box-body">
-                            <div class="card">
-                                <div class="card-body card-padding">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h5><b>Company Name :</b> บริษัท ไทยรูท ดอทคอม จำกัด</h5>
-                                            <h5><b>Job Description :</b> ออกแบบ Website และ Mobile Application ได้อย่าง รวดเร็วและมืออาชีพ</h5>
-                                            <h5><b>Qualification :</b> </h5><ul>
-                                                <li>เพศชาย/หญิง อายุไม่เกิน 30 ปี</li>
-                                                <li>
-                                                    วุฒิปวส.ขึ้นไปในสาขาที่เกี่ยวข้อง
-                                                </li>
-                                                <li>
-                                                    สามารถทำงานเป็นทีมได้
-                                                </li>
-                                                <li>
-                                                    มีความคิดสร้างสรรค์ รักออกแบบ มีความตั้งใจในการทำงานสูง
-                                                </li>
-                                                <li>   มี Sense ในการออกแบบ User Interface ให้สวยงามและใช้งานง่าย</li>
-                                            </ul>
-                                            <h5><b>Contact Name :</b> คุณสุพรรณี (ฝ่ายบุคคล)</h5>
-                                            <h5><b>Tel :</b> 02-353-6999</h5>
-                                            <h5><b>Email :</b> jobthai_80@trustmail.jobthai.com</h5>
-                                            <h5><b>Website :</b> www.gdl-technology.com</h5>
-                                        </div>
-                                    </div>
+                        <div class="modal-body card-padding">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5><b>Company Name :</b> บริษัท ไทยรูท ดอทคอม จำกัด</h5>
+                                    <h5><b>Job Description :</b> ออกแบบ Website และ Mobile Application ได้อย่าง รวดเร็วและมืออาชีพ</h5>
+                                    <h5><b>Qualification :</b> </h5><ul>
+                                        <li>เพศชาย/หญิง อายุไม่เกิน 30 ปี</li>
+                                        <li>
+                                            วุฒิปวส.ขึ้นไปในสาขาที่เกี่ยวข้อง
+                                        </li>
+                                        <li>
+                                            สามารถทำงานเป็นทีมได้
+                                        </li>
+                                        <li>
+                                            มีความคิดสร้างสรรค์ รักออกแบบ มีความตั้งใจในการทำงานสูง
+                                        </li>
+                                        <li>   มี Sense ในการออกแบบ User Interface ให้สวยงามและใช้งานง่าย</li>
+                                    </ul>
+                                    <h5><b>Contact Name :</b> คุณสุพรรณี (ฝ่ายบุคคล)</h5>
+                                    <h5><b>Tel :</b> 02-353-6999</h5>
+                                    <h5><b>Email :</b> jobthai_80@trustmail.jobthai.com</h5>
+                                    <h5><b>Website :</b> www.gdl-technology.com</h5>
                                 </div>
                             </div>
                         </div>
@@ -87,6 +85,6 @@
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
-        </div>
+        </div><!-- /.modal -->
     </div>
 </div>

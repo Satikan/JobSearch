@@ -74,6 +74,8 @@ namespace JobSearch.Models
 
         public int ProvinceID { get; set; }
 
+        public string ProvinceName { get; set; }
+
         public string Postcode { get; set; }
 
         public string Website { get; set; }
@@ -122,6 +124,8 @@ namespace JobSearch.Models
         public string Telephone { get; set; }
 
         public string DateRange { get; set; }
+
+        public int Deleted { get; set; }
     }
 
     public class Datajob

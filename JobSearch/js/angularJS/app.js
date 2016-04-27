@@ -47,9 +47,13 @@ app.config(['$routeProvider',
                    templateUrl: 'views/internship.html',
                    controller: 'InternshipController'
                }).
-               when('/profile', {
+               when('/profileUser', {
                    templateUrl: 'views/profileUser.html',
-                   //controller: 'NewJobController'
+                   controller: 'ProfileUserController'
+               }).
+               when('/profileEmployer', {
+                   templateUrl: 'views/profileEmployer.html',
+                   controller: 'ProfileEmployerController'
                }).
               when('/login', {
                   templateUrl: 'login.html',
@@ -168,7 +172,7 @@ app.controller("RegisterEmployerController", function ($scope, $http, $routePara
     $http.get("api/job/province").success(function (data) {
 
         $scope.province = data;
-        //console.log($scope.province);
+        console.log($scope.province);
     });
 
     //------------------------------------------------------- ADD Employers -------------------------------------------------------//
@@ -177,7 +181,7 @@ app.controller("RegisterEmployerController", function ($scope, $http, $routePara
 
             if ($scope.Firstname == null, $scope.Lastname == null, $scope.Gender == null, $scope.EmployerAddress == null, $scope.Domicile == null, $scope.PresentAddress == null,
                 $scope.StatusID == null, $scope.Education == null, $scope.Specialskill == null, $scope.Position == null, $scope.Email == null,
-                $scope.Telephone == null, $scope.District == null, $scope.SubDistrict == null, $scope.Postcode == null) {
+                $scope.Telephone == null, $scope.District == null, $scope.SubDistrict == null, $scope.Postcode == null, $scope.FileResume == null) {
 
                 $scope.Firstname = "";
                 $scope.Lastname = "";
@@ -193,7 +197,8 @@ app.controller("RegisterEmployerController", function ($scope, $http, $routePara
                 $scope.Telephone = "";
                 $scope.District = "";
                 $scope.SubDistrict = "";
-                $scope.Postcode = ""
+                $scope.Postcode = "";
+                $scope.FileResume = "";
             }
             $scope.RoleID = 2;
             $scope.PictureName = "Employer.jpg";
@@ -308,22 +313,19 @@ app.controller("RegisterSeekerController", function ($scope, $http, $routeParams
         });
     }
 
-    //$scope.reload = function () {
-    //    window.location.reload(true);
-    //}
+    $scope.reload = function () {
+        window.location.reload(true);
+    }
 
-    //$scope.status = localStorage.getItem('StaffStatus');
+    $scope.status = localStorage.getItem('StaffStatus');
 
-    //if ($scope.status != 'true') {
-    //    //alert($scope.status);
-    //    window.location = 'login.html';
-    //}
+    if ($scope.status != 'true') {
+        //alert($scope.status);
+        window.location = 'login.html';
+    }
 });
 
 app.controller("NewJobController", function ($scope, $http, $routeParams) {
-
-    //$scope.password = null;
-    //$scope.passwordConfirmation = null;
 
     //----------------------------------------------------- GET businesstype -----------------------------------------------------//
 
@@ -376,8 +378,52 @@ app.controller("CooperativeController", function ($scope, $http, $routeParams) {
     $http.get("api/job/cooperative").success(function (data) {
 
         $scope.cooperative = data;
+        //console.log($scope.cooperative);
     });
 
+    $scope.detail = function (id) {
+
+        var detailjob = {
+                "JobID": id
+            };
+
+            //console.log(staff);
+        $http.post("api/job/detailjob", detailjob).success(function (data, header, status, config) {
+
+            $scope.detailjob = data[0];
+            console.log($scope.detailjob);
+            });
+    }
+
+    $scope.deleteCooperative = function (id) {
+
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+
+        }, function () {
+
+            //swal("Deleted!", "Your file has been deleted.", "success");
+
+            var job = {
+                "JobID": id,
+                "Deleted": 1
+            };
+
+            $http.post("api/job/jobdelete", job).success(function (data, header, status, config) {
+
+                $scope.job = data;
+                console.log($scope.job)
+            });
+
+            window.location.reload(true);
+        });
+    }
 });
 
 app.controller("InternshipController", function ($scope, $http, $routeParams) {
@@ -393,7 +439,6 @@ app.controller("InternshipController", function ($scope, $http, $routeParams) {
 
 app.controller("AlljobController", function ($scope, $http, $routeParams) {
 
-    //$scope.DataID = localStorage.getItem('StaffID');
     $scope.DataID = 2;
     var dataid = {
         'DataID': $scope.DataID
@@ -403,6 +448,21 @@ app.controller("AlljobController", function ($scope, $http, $routeParams) {
 
         $scope.alljob = data;
 
+    });
+
+});
+
+app.controller("ProfileUserController", function ($scope, $http, $routeParams) {
+
+    $scope.DataID = localStorage.getItem('DataID');
+    var dataid = {
+        'DataID': $scope.DataID
+    }
+
+    $http.post("api/job/pageindex", dataid).success(function (data) {
+
+        $scope.alluser = data;
+        console.log($scope.alluser);
     });
 
 });
@@ -427,6 +487,19 @@ app.controller("PermissionGroupController", function ($scope, $http, $routeParam
     $scope.Lastname = localStorage.getItem('Lastname');
     $scope.Companyname = localStorage.getItem('Companyname');
     $scope.Email = localStorage.getItem('Email');
+
+    $scope.profile = function () {
+        console.log($scope.Role);
+        if ($scope.Role == 1) {
+            window.location = "#/profileUser";
+        }
+        if ($scope.Role == 2) {
+            window.location = "#/profileEmployer";
+        }
+        if ($scope.Role == 3) {
+            window.location = "#/profileUser";
+        }
+    }
 
     //------------------------------------------------------- Log out ---------------------------------------------------------//
 
@@ -511,7 +584,7 @@ app.controller("LoginController", function ($scope, $location, $http, $routePara
             localStorage.setItem('Lastname', data.Lastname);
             localStorage.setItem('Companyname', data.Companyname);
             localStorage.setItem('PictureName', data.PictureName);
-            localStorage.setItem('Email', data.Email);
+            localStorage.setItem('E-mail', data.Email);
             localStorage.setItem('Status', data.status);
             localStorage.setItem('ma-layout-status', 1);
             $scope.status = localStorage.getItem('Status');

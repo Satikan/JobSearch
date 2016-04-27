@@ -103,6 +103,22 @@ namespace JobSearch.Controllers
             return repository.PostPostjobAll(item);
         }
 
+        // POST api/job/DetailJob
+        [HttpPost]
+        [ActionName("DetailJob")]
+        public IEnumerable<Datajob> PostDetailJob(Datajob item)
+        {
+            return repository.PostDetailJobAll(item);
+        }
+
+        // POST api/job/JobDelete
+        [HttpPost]
+        [ActionName("JobDelete")]
+        public IEnumerable<Postjob> PostJobDelete(Postjob item)
+        {
+            return repository.PostJobDeleteAll(item);
+        }
+
         // POST api/job/alljob
         [HttpPost]
         [ActionName("Alljob")]

@@ -5,74 +5,86 @@
             <h2>Full Time</h2>
             <br />
         </div>
-        <form name="FormNewJob" ng-submit="addstaff()" class="form-horizontal" role="form">
 
-                <div class="card-body card-padding">
-                    <div class="form-group pull-right">
-                        <label for="Province" class="col-sm-3 control-label">Search</label>
-                        <div class="col-sm-8">
-                            <div class="fg-line">
-                                <input type="text" id="search" name="search" ng-model="search" class="form-control input-sm" placeholder="Search">
-                            </div>
+        <form name="FormNewJob" ng-submit="addstaff()" class="form-horizontal" role="form">
+            <div class="card-body card-padding">
+                <div class="form-group pull-right">
+                    <label for="Province" class="col-sm-3 control-label">Search</label>
+                    <div class="col-sm-8">
+                        <div class="fg-line">
+                            <input type="text" id="search" name="search" ng-model="search" class="form-control input-sm" placeholder="Search">
                         </div>
                     </div>
-                    <!--<table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Company Name</th>
-                                <th>Province</th>
-                                <th>Positions</th>
-                                <th>Salary</th>
-                                <th>Date range</th>
-                                <th>Detail</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>บริษัท ไทยรูท ดอทคอม จำกัด</td>
-                                <td>Phuket</td>
-                                <td>PHP Programmer</td>
-                                <td>30,000 - 40,000 Baht</td>
-                                <td>13/03/2559 - 02/03/2559</td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="fa fa-plus"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>บริษัท ไทยรูท ดอทคอม จำกัด</td>
-                                <td>Phuket</td>
-                                <td>Mobile Application Developer</td>
-                                <td>30,000 - 40,000 Baht</td>
-                                <td>13/03/2559 - 02/03/2559</td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="fa fa-plus"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>Optimum Enterprise Co., Ltd.</td>
-                                <td>Bangkok</td>
-                                <td>Programmer</td>
-                                <td>30,000 - 40,000 Baht</td>
-                                <td>13/03/2559 - 02/03/2559</td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="fa fa-plus"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>THiNKNET CO., LTD.</td>
-                                <td>Bangkok</td>
-                                <td>System Analyst</td>
-                                <td>30,000 - 40,000 Baht</td>
-                                <td>13/03/2559 - 02/03/2559</td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="fa fa-plus"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>บริษัท เพอร์เพิล วอยซ์ จำกัด</td>
-                                <td>Bangkok</td>
-                                <td>Web Developer</td>
-                                <td>30,000 - 40,000 Baht</td>
-                                <td>13/03/2559 - 02/03/2559</td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="fa fa-plus"></i></button></td>
-                            </tr>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th><center>Company Name</center></th>
+                            <th><center>Province</center></th>
+                            <th><center>Positions</center></th>
+                            <th><center>Salary</center></th>
+                            <th><center>No. of Position</center></th>
+                            <th><center>Date range</center></th>
+                            <th><center>Detail</center></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="n in internship | filter:search">
+                            <td align="center">{{n.Companyname}}</td>
+                            <td align="center">{{n.ProvinceName}}</td>
+                            <td align="center">{{n.JobTitle}}</td>
+                            <td align="center">{{n.Salary}}</td>
+                            <td align="center">{{n.NumberPosition}}</td>
+                            <td align="center">{{n.DateRange}}</td>
+                            <td align="center"><button class="btn btn-info btn-icon" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="md md-description"></i></button></td>
+                            <td align="center"><button class="btn btn-danger btn-icon"><i class="md md-delete"></i></button></td>
+                        </tr>
 
-                        </tbody>
-                    </table>-->
-                </div><!-- /.box-body -->
-
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
         </form>
+
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myLargeModalLabel" ng-controller="ImageController">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="modal-header card-padding">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="ma md-close"></i></button>
+                            </div>
+                        </div>
+                        <div class="modal-body card-padding">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5><b>Company Name :</b> บริษัท ไทยรูท ดอทคอม จำกัด</h5>
+                                    <h5><b>Job Description :</b> ออกแบบ Website และ Mobile Application ได้อย่าง รวดเร็วและมืออาชีพ</h5>
+                                    <h5><b>Qualification :</b> </h5><ul>
+                                        <li>เพศชาย/หญิง อายุไม่เกิน 30 ปี</li>
+                                        <li>
+                                            วุฒิปวส.ขึ้นไปในสาขาที่เกี่ยวข้อง
+                                        </li>
+                                        <li>
+                                            สามารถทำงานเป็นทีมได้
+                                        </li>
+                                        <li>
+                                            มีความคิดสร้างสรรค์ รักออกแบบ มีความตั้งใจในการทำงานสูง
+                                        </li>
+                                        <li>   มี Sense ในการออกแบบ User Interface ให้สวยงามและใช้งานง่าย</li>
+                                    </ul>
+                                    <h5><b>Contact Name :</b> คุณสุพรรณี (ฝ่ายบุคคล)</h5>
+                                    <h5><b>Tel :</b> 02-353-6999</h5>
+                                    <h5><b>Email :</b> jobthai_80@trustmail.jobthai.com</h5>
+                                    <h5><b>Website :</b> www.gdl-technology.com</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Apply Now</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     </div>
 </div>

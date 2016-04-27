@@ -20,23 +20,21 @@
                         </span>
                     </div>
 
-
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Job Type</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <div class="col-sm-9">
-                                    <div class="fg-line select">
-                                        <select class="form-control" id="JobType" name="JobType" ng-model="JobTypeID" ng-options="options.JobTypeID as options.JobTypeName for options in jobtype" required>
-                                            <option value="">-- Select Job Type --</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        <div class="fg-line">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Job Type</label>
+                            <div class="col-sm-3">
+                                <select id="JobTypeID" name="JobTypeID" ng-model="JobTypeID" ng-options="options.JobTypeID as options.JobTypeName for options in jobtype" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" required>
+                                    <option value="">-- Select Job Type --</option>
+                                </select>                                                       
+                            </div>
+                            <div class="col-sm-4">                   
+                                    <input ng-model="cooperative" name="cooperative" id="cooperative" type="text" ng-show="JobTypeID == 1" class="form-control input-sm" placeholder="eg. cooperative" required>                        
+                            </div>
+                            <div class="col-sm-4">
+                                <input ng-model="Internship" name="Internship" id="Internship" type="text" ng-show="JobTypeID == 2" class="form-control input-sm" placeholder="eg. Internship" required>
                             </div>
                         </div>
-                        <span class="error text-red" ng-show="FormNewJob.JobType.$error.required">
-                            Required!
-                        </span>
                     </div>
 
                     <div class="form-group">
@@ -124,13 +122,13 @@
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-4">
                             <div class="fg-line">
-                                <input id="Email" ng-model="Email" type="email" name="email" class="form-control input-sm" placeholder="eg. jobsearch@hotmail.com" required>
+                                <input id="Email" ng-model="Email" type="email" name="Email" class="form-control input-sm" placeholder="eg. jobsearch@hotmail.com" required>
                             </div>
                         </div>
-                        <span class="error text-red" ng-show="FormNewJob.email.$error.required">
+                        <span class="error text-red" ng-show="FormNewJob.Email.$error.required">
                             Required!
                         </span>
-                        <span class="error text-red" ng-show="FormNewJob.email.$error.email">
+                        <span class="error text-red" ng-show="FormNewJob.Email.$error.email">
                             Not valid email!
                         </span>
                     </div>

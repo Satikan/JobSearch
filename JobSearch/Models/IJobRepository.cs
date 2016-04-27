@@ -18,6 +18,8 @@ namespace JobSearch.Models
         IEnumerable<Employer> PostEmployerAll(Employer item);
         IEnumerable<Employer> PostSeekerAll(Employer item);
         IEnumerable<Postjob> PostPostjobAll(Postjob item);
+        IEnumerable<Postjob> PostJobDeleteAll(Postjob item);
+        IEnumerable<Datajob> PostDetailJobAll(Datajob item);
         IEnumerable<Datajob> PostAlljobAll(Datajob item);
         IEnumerable<PermissionItemdata> PostPermissionGroupAll(PermissionItemdata item);
         Employer PostLoginAll(Employer item);
