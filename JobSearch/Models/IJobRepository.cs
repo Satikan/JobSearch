@@ -24,6 +24,7 @@ namespace JobSearch.Models
         IEnumerable<PermissionItemdata> PostPermissionGroupAll(PermissionItemdata item);
         Employer PostLoginAll(Employer item);
         Employer PostJobImageAll(string imageName, int dataid);
+        Employer PostJobFileAll(string filename, int dataid);
         Employer PostIndexAll(Employer item);
     }
 }

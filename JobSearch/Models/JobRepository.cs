@@ -527,6 +527,18 @@ namespace JobSearch.Models
             return jobimg;
         }
 
+        public Employer PostJobFileAll(string filename, int dataid)
+        {
+            objConn = objDB.EstablishConnection();
+            Employer jobfile = new Employer();
 
+            string strSQL = "UPDATE datacompanyanduser SET FileResume = '" + filename + "'";
+            //strSQL += "WHERE StaffID = '" + StaffID + "';";
+            strSQL += "WHERE DataID = '" + dataid + "';";
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return jobfile;
+        }
     }
 }

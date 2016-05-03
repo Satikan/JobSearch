@@ -184,5 +184,40 @@ namespace JobSearch.Controllers
             repository.PostJobImageAll(imageName, Convert.ToInt32(dataid));
             return result;
         }
+
+        // POST api/job/fileupload
+        [HttpPost]
+        [ActionName("FileUpload")]
+        public HttpResponseMessage PostFile()
+        {
+            
+            HttpResponseMessage result = null;
+            string filename = "";
+            var httpRequest = HttpContext.Current.Request;
+            var dataid = httpRequest.Form[0];
+
+            if (httpRequest.Files.Count > 0)
+            {
+                var docfiles = new List<string>();
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    var fileresume = HttpContext.Current.Server.MapPath("~/FileResume/" + postedFile.FileName);
+                    postedFile.SaveAs(fileresume);
+
+                    docfiles.Add(fileresume);
+                    filename = postedFile.FileName.ToString();
+                }
+                result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
+            }
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            repository.PostJobFileAll(filename, Convert.ToInt32(dataid));
+            return result;
+        }
+        }
     }
 }

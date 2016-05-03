@@ -120,7 +120,7 @@
                 <div class="pmbb-body p-l-30">
                     <div class="pmbb-view">
                         <span class="btn btn-primary btn-file m-r-10">
-                            <span class="fileinput-new" data-toggle="modal" data-target=".bs-example-modal-lg">Select file</span>
+                            <span class="fileinput-new" data-toggle="modal" data-target="#myModal">Select file</span>
                         </span>
                     </div>
                 </div>
@@ -212,15 +212,14 @@
     </div>
 
 
-    <div ng-controller="uploadController" class="modal fade" id="preventClick" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="myModal" ng-controller="FileController" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Choosen Patch File</h3>
                 </div>
                 <div class="modal-body">
-                    <div class="card">
-                        <div class="card-body card-padding" ng-controller="UploadFilecontroller">
+                        <div class="card-body card-padding">
                             <div class="row">
                                 <div class="col-md-3">
                                     <h4>Select files</h4>
@@ -240,11 +239,11 @@
                                     <!--Multiple
                                     <input type="file" nv-file-select="" uploader="uploader" multiple /><br />
                                     Single-->
-                                    <input type="file" nv-file-select="" uploader="uploader" />
+                                    <input type="file" nv-file-select="" uploader="uploader" multiple/>
                                 </div>
                                 <div class="col-md-9" style="margin-bottom: 40px">
-                                    <h4>Upload queue</h4>
-                                    <p>Queue length: {{ uploader.queue.length }}</p>
+                                    <!--<h4>Upload queue</h4>
+                                    <p>Queue length: {{ uploader.queue.length }}</p>-->
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -284,27 +283,17 @@
                                         </tbody>
                                     </table>
                                     <br />
-                                    <div>
+                                    <!--<div>
                                         <div>
                                             Queue progress:
                                             <div class="progress" style="">
                                                 <div class="progress-bar progress-bar-info active" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                                             </div>
                                         </div>
-                                        <!--<button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                                            <span class="glyphicon glyphicon-upload"></span> Upload all
-                                        </button>
-                                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                                            <span class="glyphicon glyphicon-trash"></span> Remove all
-                                        </button>-->
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="close" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
