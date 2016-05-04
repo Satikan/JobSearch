@@ -201,13 +201,12 @@ app.controller('ImageController', ['$scope', 'FileUploader', function ($scope, F
 
 }]);
 
-app.controller('FileController', ['$scope', 'FileUploader', '$http', function ($scope, FileUploader, $http) {
+app.controller('FileuploadController', ['$scope', 'FileUploader', function ($scope, FileUploader) {
     var uploader = $scope.uploader = new FileUploader({
         url: 'api/job/fileupload',
         formData: {
             'DataID': localStorage.getItem('DataID')
         }
-
     });
 
     // FILTERS
@@ -251,10 +250,10 @@ app.controller('FileController', ['$scope', 'FileUploader', '$http', function ($
     uploader.onCompleteItem = function (fileItem, response, status, headers) {
         console.info('onCompleteItem', fileItem, response, status, headers);
 
-        //setTimeout(
-        //    function () {
-        //        window.location.reload(true);
-        //    }, 1000);
+        setTimeout(
+            function () {
+                window.location.reload(true);
+            }, 1000);
     };
     uploader.onCompleteAll = function () {
         console.info('onCompleteAll');
@@ -492,6 +491,27 @@ app.controller("CooperativeController", function ($scope, $http, $routeParams) {
         //console.log($scope.cooperative);
     });
 
+    $scope.RoleId = localStorage.getItem('RoleID');
+    var btdelete = 0;
+    if ($scope.RoleId == 1)
+        btdelete = 1;
+    $scope.buttondelete = btdelete;
+
+    $scope.applycoop = function (id) {
+
+        var applycoopjob = {
+            "DataID" : localStorage.getItem('DataID'),
+            "JobID": id
+        };
+
+        //console.log(applycoopjob);
+        $http.post("api/job/applycoop", applycoopjob).success(function (data, header, status, config) {
+
+            $scope.applycoopjob = data;
+        });
+        window.location.reload(true);
+    }
+
     $scope.detail = function (id) {
 
         var detailjob = {
@@ -550,9 +570,8 @@ app.controller("InternshipController", function ($scope, $http, $routeParams) {
 
 app.controller("AlljobController", function ($scope, $http, $routeParams) {
 
-    $scope.DataID = 2;
     var dataid = {
-        'DataID': $scope.DataID
+        'DataID': localStorage.getItem('DataID')
     }
 
     $http.post("api/job/alljob", dataid).success(function (data) {
@@ -560,6 +579,36 @@ app.controller("AlljobController", function ($scope, $http, $routeParams) {
         $scope.alljob = data;
 
     });
+
+    $scope.deletejob = function (id) {
+
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+
+        }, function () {
+
+            //swal("Deleted!", "Your file has been deleted.", "success");
+
+            var job = {
+                "JobID": id,
+                "Deleted": 1
+            };
+
+            $http.post("api/job/jobdelete", job).success(function (data, header, status, config) {
+
+                $scope.job = data;
+                console.log($scope.job)
+            });
+
+            window.location.reload(true);
+        });
+    }
 
 });
 

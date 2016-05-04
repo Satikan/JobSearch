@@ -20,10 +20,10 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th><center>JobTitle</center></th>
-                            <th><center>Contactname</center></th>
+                            <th><center>Job Title</center></th>
+                            <th><center>Contact Name</center></th>
                             <th><center>Salary</center></th>
-                            <th><center>No. of Position</center></th>
+                            <th><center>Total job number</center></th>
                             <th><center>Applicant</center></th>
                             <th><center>Edit Job</center></th>
                             <th><center>Delect Job</center></th>
@@ -37,7 +37,7 @@
                             <td align="center">{{n.NumberPosition}}</td>
                             <td align="center"><button onclick="parent.location = '#/applicant'" class="btn btn-info btn-icon"><i class="md md-people"></i></button></td>
                             <td align="center"><button onclick="parent.location = '#/editJob'" class="btn btn-warning btn-icon"><i class="md md-edit"></i></button></td>
-                            <td align="center"><button ng-click="deletestaff(n.StaffID)" class="btn btn-danger btn-icon"><i class="md md-delete"></i></button></td>
+                            <td align="center"><button ng-click="deletejob(n.JobID)" class="btn btn-danger btn-icon"><i class="md md-delete"></i></button></td>
                         </tr>
                     </tbody>
                 </table>

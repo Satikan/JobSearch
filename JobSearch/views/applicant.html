@@ -10,32 +10,21 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Applicant</th>
-                                <th>View Profile</th>
-                                <th>Interview</th>
-                                <th>Cancel</th>
+                                <th><center>Applicant</center></th>                                
+                                <th><center>View Profile</center></th>
+                                <th><center>Resume</center></th>
+                                <th><center>Interview</center></th>
+                                <th><center>Cancel</center></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Mr.Satikan Noothong</td>
-                                <td><button onclick="parent.location = '#/profile'" ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="md md-person"></i></button></td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-success btn-icon" data-toggle="modal" href="#modalDefault"><i class="md fa-weixin"></i></button></td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-danger btn-icon"><i class="ma ma-close"></i></button></td>
+                                <td align="center">Mr.Satikan Noothong</td>
+                                <td align="center"><button onclick="parent.location = '#/profile'" ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="md md-person"></i></button></td>
+                                <td align="center"><button onclick="parent.location = '#/profile'" ng-click="profile(n.StaffID)" class="btn btn-success btn-icon"><i class="md md-file-download"></i></button></td>
+                                <td align="center"><button ng-click="profile(n.StaffID)" class="btn btn-primary btn-icon" data-toggle="modal" href="#modalDefault"><i class="md md-email"></i></button></td>
+                                <td align="center"><button ng-click="profile(n.StaffID)" class="btn btn-danger btn-icon"><i class="md md-close"></i></button></td>
                             </tr>
-                            <tr>
-                                <td>Mr.Peerachat Kladput</td>
-                                <td><button onclick="parent.location = '#/profile'" ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="md md-person"></i></button></td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-success btn-icon" data-toggle="modal" href="#modalDefault"><i class="fa fa-weixin"></i></button></td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-danger btn-icon"><i class="fa fa-trash"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>Mr.Chayakorn Polkla</td>
-                                <td><button onclick="parent.location = '#/profile'" ng-click="profile(n.StaffID)" class="btn btn-info btn-icon"><i class="md md-person"></i></button></td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-success btn-icon" data-toggle="modal" href="#modalDefault"><i class="fa fa-weixin"></i></button></td>
-                                <td><button ng-click="profile(n.StaffID)" class="btn btn-danger btn-icon"><i class="fa fa-trash"></i></button></td>
-                            </tr>
-
                         </tbody>
                     </table>
                     

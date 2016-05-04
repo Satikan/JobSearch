@@ -292,6 +292,27 @@ namespace JobSearch.Models
             return postjob.ToArray();
         }
 
+        public IEnumerable<Apply> PostApplyCoopAll(Apply item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Apply> postjob = new List<Apply>();
+
+            int rowid;
+
+            string strSQL1 = "SELECT MAX(ApplyID) AS rowid FROM apply;";
+            DataTable dt = objDB.List(strSQL1, objConn);
+            rowid = Convert.ToInt32(dt.Rows[0]["rowid"].ToString());
+            int maxid = rowid + 1;
+
+            string strSQL2 = "INSERT INTO apply(ApplyID, DataID, JobID) ";
+            strSQL2 += "VALUES ('" + maxid + "','" + item.DataID + "', '" + item.JobID + "')";
+
+            objDB.sqlExecute(strSQL2, objConn);
+            objConn.Close();
+
+            return postjob.ToArray();
+        }
+
         public IEnumerable<Datajob> PostDetailJobAll(Datajob item)
         {
             objConn = objDB.EstablishConnection();
@@ -346,11 +367,24 @@ namespace JobSearch.Models
             return jobdelete;
         }
 
+        public IEnumerable<Postjob> PostJobEmployerDeleteAll(Postjob item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Postjob> jobemdelete = new List<Postjob>();
+
+            string strSQL = "UPDATE postjob SET Deleted = '" + item.Deleted + "'";
+            strSQL += "WHERE JobID = '" + item.JobID + "';";
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return jobemdelete;
+        }
+
         public IEnumerable<Datajob> PostAlljobAll(Datajob item)
         {
             objConn = objDB.EstablishConnection();
             List<Datajob> alljob = new List<Datajob>();
-            string strSQL = "SELECT * FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE pj.DataID = " + item.DataID + " AND pv.LangID = 1;";
+            string strSQL = "SELECT * FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE pj.DataID = " + item.DataID + " AND pv.LangID = 1 AND pj.Deleted = 0;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
 
@@ -429,13 +463,13 @@ namespace JobSearch.Models
             List<PermissionItemdata> manage = new List<PermissionItemdata>();
             string strSQL = "SELECT pg.PermissionGroupID, pg.PermissionGroupName FROM permissionitems pt ";
             strSQL += "INNER JOIN permissiongroup pg ON pg.PermissionGroupID = pt.PermissionGroupID ";
-            strSQL += "LEFT JOIN staffaccess sa ON sa.PermissionItemID = pt.PermissionItemID ";
-            strSQL += "WHERE pt.PermissionItemParent = 0 AND pt.Deleted = 0 AND sa.StaffRoleID = '" + item.RoleID + "' ";
-            strSQL += "GROUP BY sa.StaffRoleID, pt.PermissionGroupID ORDER BY sa.StaffRoleID, pt.PermissionGroupID, pt.PermissionItemID;";
+            strSQL += "LEFT JOIN access sa ON sa.PermissionItemID = pt.PermissionItemID ";
+            strSQL += "WHERE pt.PermissionItemParent = 0 AND pt.Deleted = 0 AND sa.RoleID = '" + item.RoleID + "' ";
+            strSQL += "GROUP BY sa.RoleID, pt.PermissionGroupID ORDER BY sa.RoleID, pt.PermissionGroupID, pt.PermissionItemID;";
             string strSQLitem = "SELECT pg.PermissionGroupID, pt.PermissionItemUrl, pt.PermissionItemID, pt.PermissionItemName, pt.PermissionItemIcon FROM permissionitems pt ";
             strSQLitem += "INNER JOIN permissiongroup pg ON pg.PermissionGroupID = pt.PermissionGroupID ";
-            strSQLitem += "LEFT JOIN staffaccess sa ON sa.PermissionItemID = pt.PermissionItemID ";
-            strSQLitem += "WHERE pt.PermissionItemParent = 0 AND pt.Deleted = 0 AND sa.StaffRoleID = '" + item.RoleID + "' ";
+            strSQLitem += "LEFT JOIN access sa ON sa.PermissionItemID = pt.PermissionItemID ";
+            strSQLitem += "WHERE pt.PermissionItemParent = 0 AND pt.Deleted = 0 AND sa.RoleID = '" + item.RoleID + "' ";
             strSQLitem += "GROUP BY pt.PermissionItemID;";
 
             DataTable dt = objDB.List(strSQL, objConn);

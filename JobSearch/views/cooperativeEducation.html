@@ -26,7 +26,7 @@
                             <th><center>Total job number</center></th>
                             <th><center>Date range</center></th>
                             <th><center>Detail</center></th>
-                            <th><center>Delete</center></th>
+                            <th ng-show="buttondelete == 1"><center>Delete</center></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +38,7 @@
                             <td align="center">{{n.NumberPosition}}</td>
                             <td align="center">{{n.DateRange}}</td>
                             <td align="center"><button class="btn btn-info btn-icon" ng-click="detail(n.JobID)" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="md md-description"></i></button></td>
-                            <td align="center"><button class="btn btn-danger btn-icon" ng-click="deleteCooperative(n.JobID)"><i class="md md-delete"></i></button></td>
+                            <td align="center" ng-show="buttondelete == 1"><button class="btn btn-danger btn-icon" ng-click="deleteCooperative(n.JobID)"><i class="md md-delete"></i></button></td>
                                             
                         </tr>
 
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Apply Now</button>
+                            <button type="button" ng-click="applycoop(detailjob.JobID)" class="btn btn-primary">Apply Now</button>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->

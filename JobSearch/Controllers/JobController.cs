@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Web;
@@ -119,6 +120,14 @@ namespace JobSearch.Controllers
             return repository.PostJobDeleteAll(item);
         }
 
+        // POST api/job/JobDelete
+        [HttpPost]
+        [ActionName("JobEmployerDelete")]
+        public IEnumerable<Postjob> PostJobEmployerDelete(Postjob item)
+        {
+            return repository.PostJobEmployerDeleteAll(item);
+        }
+
         // POST api/job/alljob
         [HttpPost]
         [ActionName("Alljob")]
@@ -150,6 +159,14 @@ namespace JobSearch.Controllers
         public Employer PostLogin(Employer item)
         {
             return repository.PostLoginAll(item);
+        }
+
+        // POST api/job/applycoop
+        [HttpPost]
+        [ActionName("ApplyCoop")]
+        public IEnumerable<Apply> PostApplyCoop(Apply item)
+        {
+            return repository.PostApplyCoopAll(item);
         }
 
         // POST api/job/image
@@ -202,11 +219,16 @@ namespace JobSearch.Controllers
                 foreach (string file in httpRequest.Files)
                 {
                     var postedFile = httpRequest.Files[file];
-                    var fileresume = HttpContext.Current.Server.MapPath("~/FileResume/" + postedFile.FileName);
-                    postedFile.SaveAs(fileresume);
+                    string fileresume = HttpContext.Current.Server.MapPath("~/resume/");
 
-                    docfiles.Add(fileresume);
-                    filename = postedFile.FileName.ToString();
+                    string fileExtension = Path.GetExtension(postedFile.FileName);
+                    string renameFile = "Resume" + dataid + fileExtension;
+
+                    var filePath = fileresume + @"\" + renameFile;
+                    postedFile.SaveAs(filePath);
+
+                    docfiles.Add(filePath);
+                    filename = renameFile;
                 }
                 result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
             }
@@ -220,4 +242,3 @@ namespace JobSearch.Controllers
         }
         }
     }
-}

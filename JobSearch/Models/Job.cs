@@ -84,6 +84,8 @@ namespace JobSearch.Models
 
         public string PictureName { get; set; }
 
+        public string FileResume { get; set; }
+
         public string Email { get; set; }
 
         public int StatusID { get; set; }
@@ -199,6 +201,15 @@ namespace JobSearch.Models
         public string PermissionItemName { get; set; }
 
         public string PermissionItemIcon { get; set; }
+    }
+
+    public class Apply
+    {
+        public int ApplyID { get; set; }
+
+        public int DataID { get; set; }
+
+        public int JobID { get; set; }
     }
 
 }
