@@ -10,12 +10,10 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Job Title</label>
                         <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input type="text" id="JobTitle" name="JobTitle" ng-model="JobTitle" class="form-control input-sm" placeholder="eg. Developer" required>
-                            </div>
+                                <input type="text" id="JobTitle" name="JobTitle" ng-model="JobTitle" class="form-control input-sm" placeholder="eg. Developer" required>                        
                         </div>
                         <!--<label class="control-label text-danger">*</label>-->
-                        <span class="error text-red" ng-show="FormNewJob.JobTitle.$error.required">
+                        <span class="error text-danger" ng-show="FormNewJob.JobTitle.$error.required">
                             Required!
                         </span>
                     </div>
@@ -45,7 +43,7 @@
                             </div>
                         </div>
                         <!--<label class="control-label text-danger">*</label>-->
-                        <span class="error text-red" ng-show="FormNewJob.JobDescription.$error.required">
+                        <span class="error text-danger" ng-show="FormNewJob.JobDescription.$error.required">
                             Required!
                         </span>
                     </div>
@@ -101,7 +99,7 @@
                                 <input ng-model="Contactname" name="Contactname" id="Contactname" type="text" class="form-control input-sm" placeholder="eg. Malinee Sittipanit" required>
                             </div>
                         </div>
-                        <span class="error text-red" ng-show="FormNewJob.Contactname.$error.required">
+                        <span class="error text-danger" ng-show="FormNewJob.Contactname.$error.required">
                             Required!
                         </span>
                     </div>
@@ -113,7 +111,7 @@
                                 <input ng-model="Position" name="Position" id="Position" type="text" class="form-control input-sm" placeholder="eg. programmer" required>
                             </div>
                         </div>
-                        <span class="error text-red" ng-show="FormNewJob.Position.$error.required">
+                        <span class="error text-danger" ng-show="FormNewJob.Position.$error.required">
                             Required!
                         </span>
                     </div>
@@ -125,10 +123,10 @@
                                 <input id="Email" ng-model="Email" type="email" name="Email" class="form-control input-sm" placeholder="eg. jobsearch@hotmail.com" required>
                             </div>
                         </div>
-                        <span class="error text-red" ng-show="FormNewJob.Email.$error.required">
+                        <span class="error text-danger" ng-show="FormNewJob.Email.$error.required">
                             Required!
                         </span>
-                        <span class="error text-red" ng-show="FormNewJob.Email.$error.email">
+                        <span class="error text-danger" ng-show="FormNewJob.Email.$error.email">
                             Not valid email!
                         </span>
                     </div>
@@ -140,7 +138,7 @@
                                 <input ng-model="Telephone" name="Telephone" id="Telephone" type="text" class="form-control input-sm" placeholder="eg. 089-999-9999" required>
                             </div>
                         </div>
-                        <span class="error text-red" ng-show="FormNewJob.Telephone.$error.required">
+                        <span class="error text-danger" ng-show="FormNewJob.Telephone.$error.required">
                             Required!
                         </span>
                     </div>

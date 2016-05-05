@@ -201,6 +201,33 @@ namespace JobSearch.Models
             return internship.ToArray();
         }
 
+        public IEnumerable<Employer> GetApplicantAll(int id)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Employer> applicant = new List<Employer>();
+            string strSQL = "SELECT a.DataID, dc.Firstname, dc.Lastname, dc.GenderID, dc.FileResume, dc.Email FROM datacompanyanduser dc INNER JOIN Apply a ON a.DataID = dc.DataID WHERE a.JobID = " + id + " ORDER BY a.DataID;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Employer applicantData = new Employer();
+
+                    applicantData.DataID = Convert.ToInt32(dt.Rows[i]["DataID"].ToString());
+                    applicantData.Firstname = dt.Rows[i]["Firstname"].ToString();
+                    applicantData.Lastname = dt.Rows[i]["Lastname"].ToString();
+                    applicantData.GenderID = Convert.ToInt32(dt.Rows[i]["GenderID"].ToString());
+                    applicantData.FileResume = dt.Rows[i]["FileResume"].ToString();
+                    applicantData.Email = dt.Rows[i]["Email"].ToString();
+
+                    applicant.Add(applicantData);
+                }
+            }
+            return applicant.ToArray();
+        }
+
         public IEnumerable<Employer> PostEmployerAll(Employer item)
         {
             objConn = objDB.EstablishConnection();

@@ -23,11 +23,11 @@ app.config(['$routeProvider',
                    templateUrl: 'views/alljob.html',
                    controller: 'AlljobController'
                }).
-               when('/editJob', {
+               when('/editJob/:id', {
                    templateUrl: 'views/editJob.html',
                    controller: 'EditJobController'
                }).
-               when('/applicant', {
+               when('/applicant/:id', {
                    templateUrl: 'views/applicant.html',
                    controller: 'ApplicantController'
                }).
@@ -423,16 +423,16 @@ app.controller("RegisterSeekerController", function ($scope, $http, $routeParams
         });
     }
 
-    $scope.reload = function () {
-        window.location.reload(true);
-    }
+    //$scope.reload = function () {
+    //    window.location.reload(true);
+    //}
 
-    $scope.status = localStorage.getItem('StaffStatus');
+    //$scope.status = localStorage.getItem('StaffStatus');
 
-    if ($scope.status != 'true') {
-        //alert($scope.status);
-        window.location = 'login.html';
-    }
+    //if ($scope.status != 'true') {
+    //    //alert($scope.status);
+    //    window.location = 'login.html';
+    //}
 });
 
 app.controller("NewJobController", function ($scope, $http, $routeParams) {
@@ -580,6 +580,15 @@ app.controller("AlljobController", function ($scope, $http, $routeParams) {
 
     });
 
+    $scope.applicantjob = function (id) {
+        
+        window.location = "#/applicant/" + id;
+    };
+
+    $scope.editjob = function (id) {
+        window.location = "#/editJob/" + id;
+    };
+
     $scope.deletejob = function (id) {
 
         swal({
@@ -610,6 +619,49 @@ app.controller("AlljobController", function ($scope, $http, $routeParams) {
         });
     }
 
+});
+
+app.controller("ApplicantController", function ($scope, $http, $routeParams) {
+
+    //------------------------------------------------------- GET STAFF -------------------------------------------------------//
+
+    $scope.getapplicant = function () {
+        $http.get("api/job/applicant/" + $routeParams.id).success(function (data) {
+
+            $scope.applicant = data;
+            console.log($scope.applicant);
+        });
+    };
+
+    $scope.deleteApplicant = function (id) {
+
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+
+        }, function () {
+
+            //swal("Deleted!", "Your file has been deleted.", "success");
+
+            var job = {
+                "JobID": id,
+                "Deleted": 1
+            };
+
+            $http.post("api/job/jobdelete", job).success(function (data, header, status, config) {
+
+                $scope.job = data;
+                console.log($scope.job)
+            });
+
+            window.location.reload(true);
+        });
+    }
 });
 
 app.controller("ProfileUserController", function ($scope, $http, $routeParams) {

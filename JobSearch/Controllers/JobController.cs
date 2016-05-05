@@ -72,9 +72,11 @@ namespace JobSearch.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        [HttpGet]
+        [ActionName("Applicant")]
+        public IEnumerable<Employer> GetApplicant(int id)
         {
-            return "value";
+            return repository.GetApplicantAll(id);
         }
 
         // POST api/job/employer

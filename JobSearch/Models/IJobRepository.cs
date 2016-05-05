@@ -15,6 +15,7 @@ namespace JobSearch.Models
         IEnumerable<Jobtype> GetJobtypeAll();
         IEnumerable<Datajob> GetCooperativeAll();
         IEnumerable<Datajob> GetInternshipAll();
+        IEnumerable<Employer> GetApplicantAll(int id);
         IEnumerable<Employer> PostEmployerAll(Employer item);
         IEnumerable<Employer> PostSeekerAll(Employer item);
         IEnumerable<Postjob> PostPostjobAll(Postjob item);
