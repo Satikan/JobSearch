@@ -73,6 +73,22 @@ namespace JobSearch.Controllers
 
         // GET api/<controller>/5
         [HttpGet]
+        [ActionName("UserOnly")]
+        public Employer GetUser(int id)
+        {
+            return repository.GetUserOnly(id);
+        }
+
+        // GET api/<controller>/5
+        [HttpGet]
+        [ActionName("EmployerOnly")]
+        public Employer GetEmployer(int id)
+        {
+            return repository.GetEmployerOnly(id);
+        }
+
+        // GET api/<controller>/5
+        [HttpGet]
         [ActionName("Applicant")]
         public IEnumerable<Employer> GetApplicant(int id)
         {
@@ -120,6 +136,14 @@ namespace JobSearch.Controllers
         public IEnumerable<Postjob> PostJobDelete(Postjob item)
         {
             return repository.PostJobDeleteAll(item);
+        }
+
+        // POST api/job/applycancle
+        [HttpPost]
+        [ActionName("ApplyCancle")]
+        public IEnumerable<Apply> PostApplyCancle(Apply item)
+        {
+            return repository.PostApplyCancleAll(item);
         }
 
         // POST api/job/JobDelete

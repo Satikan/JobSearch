@@ -15,11 +15,14 @@ namespace JobSearch.Models
         IEnumerable<Jobtype> GetJobtypeAll();
         IEnumerable<Datajob> GetCooperativeAll();
         IEnumerable<Datajob> GetInternshipAll();
+        Employer GetUserOnly(int id);
+        Employer GetEmployerOnly(int id);
         IEnumerable<Employer> GetApplicantAll(int id);
         IEnumerable<Employer> PostEmployerAll(Employer item);
         IEnumerable<Employer> PostSeekerAll(Employer item);
         IEnumerable<Postjob> PostPostjobAll(Postjob item);
         IEnumerable<Postjob> PostJobDeleteAll(Postjob item);
+        IEnumerable<Apply> PostApplyCancleAll(Apply item);
         IEnumerable<Postjob> PostJobEmployerDeleteAll(Postjob item);
         IEnumerable<Datajob> PostDetailJobAll(Datajob item);
         IEnumerable<Datajob> PostAlljobAll(Datajob item);

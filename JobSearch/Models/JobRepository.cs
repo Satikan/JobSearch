@@ -83,7 +83,7 @@ namespace JobSearch.Models
         {
             objConn = objDB.EstablishConnection();
             List<Status> status = new List<Status>();
-            string strSQL = "SELECT * FROM status;";
+            string strSQL = "SELECT * FROM statuss;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
             if (dt.Rows.Count > 0)
@@ -201,11 +201,85 @@ namespace JobSearch.Models
             return internship.ToArray();
         }
 
+        public Employer GetUserOnly(int id)
+        {
+            objConn = objDB.EstablishConnection();
+            Employer userDataOnly = new Employer();
+            string strSQL = "SELECT *, CONCAT(dc.Firstname,' ', dc.Lastname) AS NameUser FROM datacompanyanduser dc INNER JOIN Role r ON r.RoleID = dc.RoleID INNER JOIN Provinces p ON p.ProvinceID = dc.ProvinceID INNER JOIN Gender g ON g.GenderID = dc.GenderID INNER JOIN statuss s ON s.StatusID = dc.StatusID WHERE DataID = " + id + " AND p.LangID = 1 ORDER BY DataID;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            userDataOnly.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
+            userDataOnly.Username = dt.Rows[0]["Username"].ToString();
+            userDataOnly.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
+            userDataOnly.Firstname = dt.Rows[0]["Firstname"].ToString();
+            userDataOnly.Lastname = dt.Rows[0]["Lastname"].ToString();
+            userDataOnly.GenderID = Convert.ToInt32(dt.Rows[0]["GenderID"].ToString());
+            userDataOnly.GenderName = dt.Rows[0]["GenderName"].ToString();
+            userDataOnly.StatusID = Convert.ToInt32(dt.Rows[0]["StatusID"].ToString());
+            userDataOnly.StatusName = dt.Rows[0]["StatusName"].ToString();
+            userDataOnly.Education = dt.Rows[0]["Education"].ToString();
+            userDataOnly.Specialskill = dt.Rows[0]["Specialskill"].ToString();
+            userDataOnly.Position = dt.Rows[0]["Position"].ToString();
+            userDataOnly.Companyname = dt.Rows[0]["Companyname"].ToString();
+            userDataOnly.BusinessTypeID = Convert.ToInt32(dt.Rows[0]["BusinessTypeID"].ToString());
+            userDataOnly.EmployerAddress = dt.Rows[0]["EmployerAddress"].ToString();
+            userDataOnly.Domicile = dt.Rows[0]["Domicile"].ToString();
+            userDataOnly.PresentAddress = dt.Rows[0]["PresentAddress"].ToString();
+            userDataOnly.District = dt.Rows[0]["District"].ToString();
+            userDataOnly.SubDistrict = dt.Rows[0]["SubDistrict"].ToString();
+            userDataOnly.ProvinceID = Convert.ToInt32(dt.Rows[0]["ProvinceID"].ToString());
+            userDataOnly.ProvinceName = dt.Rows[0]["ProvinceName"].ToString();
+            userDataOnly.Postcode = dt.Rows[0]["Postcode"].ToString();
+            userDataOnly.Website = dt.Rows[0]["Website"].ToString();
+            userDataOnly.PictureName = dt.Rows[0]["PictureName"].ToString();
+            userDataOnly.FileResume = dt.Rows[0]["FileResume"].ToString();
+            userDataOnly.Email = dt.Rows[0]["Email"].ToString();
+            userDataOnly.Telephone = dt.Rows[0]["Telephone"].ToString();
+
+            return userDataOnly;
+        }
+
+        public Employer GetEmployerOnly(int id)
+        {
+            objConn = objDB.EstablishConnection();
+            Employer EmployerDataOnly = new Employer();
+            string strSQL = "SELECT * FROM datacompanyanduser dc INNER JOIN Role r ON r.RoleID = dc.RoleID INNER JOIN Provinces p ON p.ProvinceID = dc.ProvinceID INNER JOIN Businesstype b ON b.BusinessTypeID = dc.BusinessTypeID WHERE DataID = " + id + " AND p.LangID = 1 ORDER BY DataID;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            EmployerDataOnly.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
+            EmployerDataOnly.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
+            EmployerDataOnly.Firstname = dt.Rows[0]["Firstname"].ToString();
+            EmployerDataOnly.Lastname = dt.Rows[0]["Lastname"].ToString();
+            EmployerDataOnly.Education = dt.Rows[0]["Education"].ToString();
+            EmployerDataOnly.Specialskill = dt.Rows[0]["Specialskill"].ToString();
+            EmployerDataOnly.Position = dt.Rows[0]["Position"].ToString();
+            EmployerDataOnly.Companyname = dt.Rows[0]["Companyname"].ToString();
+            EmployerDataOnly.BusinessTypeID = Convert.ToInt32(dt.Rows[0]["BusinessTypeID"].ToString());
+            EmployerDataOnly.BusinessTypeName = dt.Rows[0]["BusinessTypeName"].ToString();
+            EmployerDataOnly.EmployerAddress = dt.Rows[0]["EmployerAddress"].ToString();
+            EmployerDataOnly.Domicile = dt.Rows[0]["Domicile"].ToString();
+            EmployerDataOnly.PresentAddress = dt.Rows[0]["PresentAddress"].ToString();
+            EmployerDataOnly.District = dt.Rows[0]["District"].ToString();
+            EmployerDataOnly.SubDistrict = dt.Rows[0]["SubDistrict"].ToString();
+            EmployerDataOnly.ProvinceID = Convert.ToInt32(dt.Rows[0]["ProvinceID"].ToString());
+            EmployerDataOnly.ProvinceName = dt.Rows[0]["ProvinceName"].ToString();
+            EmployerDataOnly.Postcode = dt.Rows[0]["Postcode"].ToString();
+            EmployerDataOnly.Website = dt.Rows[0]["Website"].ToString();
+            EmployerDataOnly.PictureName = dt.Rows[0]["PictureName"].ToString();
+            EmployerDataOnly.FileResume = dt.Rows[0]["FileResume"].ToString();
+            EmployerDataOnly.Email = dt.Rows[0]["Email"].ToString();
+            EmployerDataOnly.Telephone = dt.Rows[0]["Telephone"].ToString();
+
+            return EmployerDataOnly;
+        }
+
         public IEnumerable<Employer> GetApplicantAll(int id)
         {
             objConn = objDB.EstablishConnection();
             List<Employer> applicant = new List<Employer>();
-            string strSQL = "SELECT a.DataID, dc.Firstname, dc.Lastname, dc.GenderID, dc.FileResume, dc.Email FROM datacompanyanduser dc INNER JOIN Apply a ON a.DataID = dc.DataID WHERE a.JobID = " + id + " ORDER BY a.DataID;";
+            string strSQL = "SELECT a.ApplyID, a.DataID, dc.Firstname, dc.Lastname, dc.GenderID, dc.FileResume, dc.Email FROM datacompanyanduser dc INNER JOIN Apply a ON a.DataID = dc.DataID WHERE a.JobID = " + id + " ORDER BY a.DataID;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
 
@@ -215,6 +289,7 @@ namespace JobSearch.Models
                 {
                     Employer applicantData = new Employer();
 
+                    applicantData.ApplyID = Convert.ToInt32(dt.Rows[i]["ApplyID"].ToString());
                     applicantData.DataID = Convert.ToInt32(dt.Rows[i]["DataID"].ToString());
                     applicantData.Firstname = dt.Rows[i]["Firstname"].ToString();
                     applicantData.Lastname = dt.Rows[i]["Lastname"].ToString();
@@ -310,8 +385,8 @@ namespace JobSearch.Models
             rowid = Convert.ToInt32(dt.Rows[0]["rowid"].ToString());
             int maxid = rowid + 1;
 
-            string strSQL2 = "INSERT INTO postjob(JobID, JobTitle, JobDescription, Keyskills, Salary, NumberPosition, Qualification, JobTypeID, Contactname, Position, Email, Telephone, DateRange) ";
-            strSQL2 += "VALUES ('" + maxid + "','" + item.JobTitle + "', '" + item.JobDescription + "','" + item.Keyskills + "','" + item.Salary + "','" + item.NumberPosition + "','" + item.Qualification + "','" + item.JobTypeID + "','" + item.Contactname + "','" + item.Position + "','" + item.Email + "','" + item.Telephone + "','" + item.DateRange + "')";
+            string strSQL2 = "INSERT INTO postjob(JobID, DataID, JobTitle, JobDescription, Keyskills, Salary, NumberPosition, Qualification, JobTypeID, Contactname, Position, Email, Telephone, DateRange, DateStart, ClosingDate) ";
+            strSQL2 += "VALUES ('" + maxid + "','" + item.DataID + "' , '" + item.JobTitle + "', '" + item.JobDescription + "','" + item.Keyskills + "','" + item.Salary + "','" + item.NumberPosition + "','" + item.Qualification + "','" + item.JobTypeID + "','" + item.Contactname + "','" + item.Position + "','" + item.Email + "','" + item.Telephone + "','" + item.DateRange + "','" + item.DateStart + "','" + item.ClosingDate + "')";
 
             objDB.sqlExecute(strSQL2, objConn);
             objConn.Close();
@@ -394,6 +469,19 @@ namespace JobSearch.Models
             return jobdelete;
         }
 
+        public IEnumerable<Apply> PostApplyCancleAll(Apply item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Apply> applycancle = new List<Apply>();
+
+            string strSQL = "UPDATE apply SET Deleted = '" + item.Deleted + "'";
+            strSQL += "WHERE ApplyID = '" + item.ApplyID + "';";
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return applycancle;
+        }
+
         public IEnumerable<Postjob> PostJobEmployerDeleteAll(Postjob item)
         {
             objConn = objDB.EstablishConnection();
@@ -451,37 +539,37 @@ namespace JobSearch.Models
         public Employer PostIndexAll(Employer item)
         {
             objConn = objDB.EstablishConnection();
-            Employer jobData = new Employer();
+            Employer userData = new Employer();
             string strSQL = "SELECT *, CONCAT(dc.Firstname,' ', dc.Lastname) AS NameUser FROM datacompanyanduser dc INNER JOIN Role r ON r.RoleID = dc.RoleID INNER JOIN Provinces p ON p.ProvinceID = dc.ProvinceID WHERE DataID = " + item.DataID + " AND p.LangID = 1 ORDER BY DataID;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
 
-            jobData.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
-            jobData.Username = dt.Rows[0]["Username"].ToString();
-            jobData.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
-            jobData.Firstname = dt.Rows[0]["Firstname"].ToString();
-            jobData.Lastname = dt.Rows[0]["Lastname"].ToString();
-            jobData.GenderID = Convert.ToInt32(dt.Rows[0]["GenderID"].ToString());
-            jobData.StatusID = Convert.ToInt32(dt.Rows[0]["StatusID"].ToString());
-            jobData.Education = dt.Rows[0]["Education"].ToString();
-            jobData.Specialskill = dt.Rows[0]["Specialskill"].ToString();
-            jobData.Position = dt.Rows[0]["Position"].ToString();
-            jobData.Companyname = dt.Rows[0]["Companyname"].ToString();
-            jobData.BusinessTypeID = Convert.ToInt32(dt.Rows[0]["BusinessTypeID"].ToString());
-            jobData.EmployerAddress = dt.Rows[0]["EmployerAddress"].ToString();
-            jobData.Domicile = dt.Rows[0]["Domicile"].ToString();
-            jobData.PresentAddress = dt.Rows[0]["PresentAddress"].ToString();
-            jobData.District = dt.Rows[0]["District"].ToString();
-            jobData.SubDistrict = dt.Rows[0]["SubDistrict"].ToString();
-            jobData.ProvinceID = Convert.ToInt32(dt.Rows[0]["ProvinceID"].ToString());
-            jobData.ProvinceName = dt.Rows[0]["ProvinceName"].ToString();
-            jobData.Postcode = dt.Rows[0]["Postcode"].ToString();
-            jobData.Website = dt.Rows[0]["Website"].ToString();
-            jobData.PictureName = dt.Rows[0]["PictureName"].ToString();
-            jobData.Email = dt.Rows[0]["Email"].ToString();
-            jobData.Telephone = dt.Rows[0]["Telephone"].ToString();
+            userData.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
+            userData.Username = dt.Rows[0]["Username"].ToString();
+            userData.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
+            userData.Firstname = dt.Rows[0]["Firstname"].ToString();
+            userData.Lastname = dt.Rows[0]["Lastname"].ToString();
+            userData.GenderID = Convert.ToInt32(dt.Rows[0]["GenderID"].ToString());
+            userData.StatusID = Convert.ToInt32(dt.Rows[0]["StatusID"].ToString());
+            userData.Education = dt.Rows[0]["Education"].ToString();
+            userData.Specialskill = dt.Rows[0]["Specialskill"].ToString();
+            userData.Position = dt.Rows[0]["Position"].ToString();
+            userData.Companyname = dt.Rows[0]["Companyname"].ToString();
+            userData.BusinessTypeID = Convert.ToInt32(dt.Rows[0]["BusinessTypeID"].ToString());
+            userData.EmployerAddress = dt.Rows[0]["EmployerAddress"].ToString();
+            userData.Domicile = dt.Rows[0]["Domicile"].ToString();
+            userData.PresentAddress = dt.Rows[0]["PresentAddress"].ToString();
+            userData.District = dt.Rows[0]["District"].ToString();
+            userData.SubDistrict = dt.Rows[0]["SubDistrict"].ToString();
+            userData.ProvinceID = Convert.ToInt32(dt.Rows[0]["ProvinceID"].ToString());
+            userData.ProvinceName = dt.Rows[0]["ProvinceName"].ToString();
+            userData.Postcode = dt.Rows[0]["Postcode"].ToString();
+            userData.Website = dt.Rows[0]["Website"].ToString();
+            userData.PictureName = dt.Rows[0]["PictureName"].ToString();
+            userData.Email = dt.Rows[0]["Email"].ToString();
+            userData.Telephone = dt.Rows[0]["Telephone"].ToString();
 
-            return jobData;
+            return userData;
         }
 
         public IEnumerable<PermissionItemdata> PostPermissionGroupAll(PermissionItemdata item)

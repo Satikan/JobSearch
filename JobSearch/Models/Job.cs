@@ -46,6 +46,8 @@ namespace JobSearch.Models
     {
         public int DataID { get; set; }
 
+        public int ApplyID { get; set; }
+
         public string Username { get; set; }
 
         public string Password { get; set; }
@@ -60,6 +62,8 @@ namespace JobSearch.Models
 
         public int BusinessTypeID { get; set; }
 
+        public string BusinessTypeName { get; set; }
+
         public string EmployerAddress { get; set; }
 
         public string Domicile { get; set; }
@@ -67,6 +71,8 @@ namespace JobSearch.Models
         public string PresentAddress { get; set; }
 
         public int GenderID { get; set; }
+
+        public string GenderName { get; set; }
 
         public string District { get; set; }
 
@@ -90,6 +96,8 @@ namespace JobSearch.Models
 
         public int StatusID { get; set; }
 
+        public string StatusName { get; set; }
+
         public string Education { get; set; }
 
         public string Specialskill { get; set; }
@@ -102,6 +110,8 @@ namespace JobSearch.Models
     public class Postjob
     {
         public int JobID { get; set; }
+
+        public int DataID { get; set; }
 
         public string JobTitle { get; set; }
 
@@ -126,6 +136,10 @@ namespace JobSearch.Models
         public string Telephone { get; set; }
 
         public string DateRange { get; set; }
+
+        public string DateStart { get; set; }
+
+        public string ClosingDate { get; set; }
 
         public int Deleted { get; set; }
     }
@@ -210,6 +224,8 @@ namespace JobSearch.Models
         public int DataID { get; set; }
 
         public int JobID { get; set; }
+
+        public int Deleted { get; set; }
     }
 
 }

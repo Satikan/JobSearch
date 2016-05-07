@@ -20,11 +20,10 @@
                         <tbody>
                             <tr ng-repeat="n in applicant">
                                 <td align="center">Mr.{{n.Firstname}}&nbsp;&nbsp;{{n.Lastname}}</td>
-                                <td align="center"><button onclick="parent.location = '#/profile'" ng-click="profile(n.DataID)" class="btn btn-info btn-icon"><i class="md md-person"></i></button></td>
-                                <!--<td align="center"><button onclick="window.open('../resume/{{n.FileResume}}')" class="btn btn-success btn-icon"><i class="md md-file-download"></i></button></td>-->
+                                <td align="center"><button ng-click="profileApplicant(n.DataID)" class="btn btn-info btn-icon"><i class="md md-person"></i></button></td>
                                 <td align="center"><a href="../resume/{{n.FileResume}}" class="btn btn-success btn-icon" role="button"><i class="md md-file-download"></i></a></td>
-                                <td align="center"><button ng-click="profile(n.StaffID)" class="btn btn-primary btn-icon" data-toggle="modal" href="#modalDefault"><i class="md md-email"></i></button></td>
-                                <td align="center"><button ng-click="profile(n.StaffID)" class="btn btn-danger btn-icon"><i class="md md-close"></i></button></td>
+                                <td align="center"><button ng-click="interview(n.DataID)" class="btn btn-primary btn-icon" data-toggle="modal" href="#modalDefault"><i class="md md-email"></i></button></td>
+                                <td align="center"><button ng-click="cancleApplicant(n.ApplyID)" class="btn btn-danger btn-icon"><i class="md md-close"></i></button></td>
                             </tr>
                         </tbody>
                     </table>

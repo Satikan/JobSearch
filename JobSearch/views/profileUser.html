@@ -1,22 +1,22 @@
 ﻿
 <div class="container">
 
-    <div class="card" id="profile-main">
+    <div class="card" id="profile-main" ng-init="profileOnly()">
         <div class="pm-overview c-overflow">
             <div class="pmo-pic">
                 <div class="p-relative">
                     <a href="">
-                        <img class="img-responsive" ng-src="../images/{{alluser.PictureName}}" alt="">
+                        <img class="img-responsive" ng-src="../images/{{useronly.PictureName}}" alt="">
                     </a>
 
 
-                    <a href="" class="pmop-edit" data-toggle="modal" data-target=".bs-example-modal-lg">
+                    <a href="" class="pmop-edit" data-toggle="modal" data-target=".bs-example-modal-lg" ng-show="ButtonUploadFile == 1">
                         <i class="md md-camera-alt"></i> <span class="hidden-xs">Update Profile Picture</span>
                     </a>
                 </div>
 
                 <div class="pmo-stat">
-                    <h3 class="m-0 c-white">{{alluser.Firstname}}&nbsp;{{alluser.Lastname}}</h3>
+                    <h3 class="m-0 c-white">{{useronly.Firstname}}&nbsp;{{useronly.Lastname}}</h3>
                     
                 </div>
             </div>
@@ -25,31 +25,33 @@
                 <h2>Contact</h2>
 
                 <ul>
-                    <li><i class="md md-phone"></i> {{alluser.Telephone}}</li>
-                    <li><i class="md md-email"></i> {{alluser.Email}}</li>                    
+                    <li><i class="md md-phone"></i> {{useronly.Telephone}}</li>
+                    <li><i class="md md-email"></i> {{useronly.Email}}</li>                    
                     <li>
                         <i class="md md-location-on"></i>
                         <address class="m-b-0">
-                            {{alluser.PresentAddress}},
-                            {{alluser.District}}, {{alluser.SubDistrict}}, <br />
-                            {{alluser.ProvinceName}}, {{alluser.Postcode}}
+                            {{useronly.PresentAddress}},
+                            {{useronly.District}}, {{useronly.SubDistrict}}, <br />
+                            {{useronly.ProvinceName}}, {{useronly.Postcode}}
                         </address>
                     </li>
                 </ul>
             </div>
-
+            <!--<div class="pmo-block pmo-items hidden-xs">
+                <button tooltip-placement="right" uib-tooltip="Back" onclick="parent.location = '#/alljob'" class="btn btn-danger btn-icon"><i class="md md-arrow-back"></i></button>
+            </div>-->
         </div>
 
         <div class="pm-body clearfix">
             <ul class="tab-nav tn-justified">
-                <li class="active waves-effect"><a href=""><h2>Profile &nbsp;{{alluser.Firstname}}&nbsp;{{alluser.Lastname}}</h2></a></li>
+                <li class="active waves-effect"><a href=""><h2>Profile &nbsp;{{useronly.Firstname}}&nbsp;{{useronly.Lastname}}</h2></a></li>
             </ul>
 
             <div class="pmb-block">
                 <div class="pmbb-header">
                     <h2><i class="md md-person m-r-5"></i> Personal Information</h2>
 
-                    <ul class="actions">
+                    <ul class="actions" ng-show="ButtonUploadFile == 1">
                         <li class="dropdown">
                             <a href="" data-toggle="dropdown">
                                 <i class="md md-more-vert"></i>
@@ -67,19 +69,19 @@
                     <div class="pmbb-view">
                         <dl class="dl-horizontal">
                             <dt>Full Name</dt>
-                            <dd>Mallinda Hollaway</dd>
+                            <dd>{{useronly.Firstname}}&nbsp;{{useronly.Lastname}}</dd>
                         </dl>
                         <dl class="dl-horizontal">
                             <dt>Gender</dt>
-                            <dd>Female</dd>
-                        </dl>
-                        <dl class="dl-horizontal">
-                            <dt>Birthday</dt>
-                            <dd>June 23, 1990</dd>
-                        </dl>
+                            <dd>{{useronly.GenderName}}</dd>
+                        </dl>                      
                         <dl class="dl-horizontal">
                             <dt>Martial Status</dt>
-                            <dd>Single</dd>
+                            <dd>{{useronly.StatusName}}</dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>Position</dt>
+                            <dd>{{useronly.Position}}</dd>
                         </dl>
                     </div>
                 </div>
@@ -93,7 +95,7 @@
                 <div class="pmbb-body p-l-30">
                     <div class="pmbb-view">
                         
-                            <h5 style="color:#5e5e5e">{{alluser.Education}}</h5>
+                            <h5 style="color:#5e5e5e">{{useronly.Education}}</h5>
                         
                     </div>
 
@@ -107,7 +109,7 @@
                 </div>
                 <div class="pmbb-body p-l-30">
                     <div class="pmbb-view">
-                        <h5 style="color:#5e5e5e">{{alluser.Specialskill}}</h5>
+                        <h5 style="color:#5e5e5e">{{useronly.Specialskill}}</h5>
                     </div>
                 </div>
             </div>
@@ -119,9 +121,13 @@
                 </div>
                 <div class="pmbb-body p-l-30">
                     <div class="pmbb-view">
-                        <span class="btn btn-primary btn-file m-r-10">
+                        <span class="btn btn-primary btn-file m-r-10" ng-show="ButtonUploadFile == 1">
                             <span class="fileinput-new" data-toggle="modal" data-target="#myModal">Select file</span>
                         </span>
+                        <h5>
+                            <i class="md md-file-download"></i>
+                            Download: [<a href="../resume/{{useronly.FileResume}}">FILE RESUME</a>]
+                        </h5>
                     </div>
                 </div>
             </div>

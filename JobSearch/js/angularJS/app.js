@@ -47,11 +47,11 @@ app.config(['$routeProvider',
                    templateUrl: 'views/internship.html',
                    controller: 'InternshipController'
                }).
-               when('/profileUser', {
+               when('/profileUser/:id', {
                    templateUrl: 'views/profileUser.html',
                    controller: 'ProfileUserController'
                }).
-               when('/profileEmployer', {
+               when('/profileEmployer/:id', {
                    templateUrl: 'views/profileEmployer.html',
                    controller: 'ProfileEmployerController'
                }).
@@ -266,9 +266,6 @@ app.controller('FileuploadController', ['$scope', 'FileUploader', function ($sco
 
 app.controller("RegisterEmployerController", function ($scope, $http, $routeParams) {
 
-    //$scope.password = null;
-    //$scope.passwordConfirmation = null;
-
     //----------------------------------------------------- GET businesstype -----------------------------------------------------//
 
     $http.get("api/job/businesstype").success(function (data) {
@@ -282,7 +279,7 @@ app.controller("RegisterEmployerController", function ($scope, $http, $routePara
     $http.get("api/job/province").success(function (data) {
 
         $scope.province = data;
-        console.log($scope.province);
+        //console.log($scope.province);
     });
 
     //------------------------------------------------------- ADD Employers -------------------------------------------------------//
@@ -328,7 +325,7 @@ app.controller("RegisterEmployerController", function ($scope, $http, $routePara
                 "PictureName": $scope.PictureName
             };
 
-            console.log(employer);
+            //console.log(employer);
             $http.post("api/job/employer", employer).success(function (data, header, status, config) {
 
                 $scope.employer = data;
@@ -435,7 +432,7 @@ app.controller("RegisterSeekerController", function ($scope, $http, $routeParams
     //}
 });
 
-app.controller("NewJobController", function ($scope, $http, $routeParams) {
+app.controller("NewJobController", function ($scope, $http, $routeParams, $filter) {
 
     //----------------------------------------------------- GET businesstype -----------------------------------------------------//
 
@@ -449,17 +446,13 @@ app.controller("NewJobController", function ($scope, $http, $routeParams) {
 
     $scope.addjob = function () {
 
-        if ($scope.Keyskills == null, $scope.Salary == null, $scope.Qualification == null, $scope.DateRange == null, $scope.NumberPosition == null) {
-
-            $scope.Keyskills = "";
-            $scope.Salary = "";
-            $scope.NumberPosition = "";
-            $scope.Qualification = "";
-            $scope.DateRange = "";
-        }
+        
+        var date = $filter('date')(new Date(), 'yyyy-MM-d HH:mm:ss');//get current date
+        var dataid = localStorage.getItem('DataID');
 
         var postjob = {
             "JobTitle": $scope.JobTitle,
+            "DataID": dataid,
             "JobDescription": $scope.JobDescription,
             "Keyskills": $scope.Keyskills,
             "Salary": $scope.Salary,
@@ -470,13 +463,27 @@ app.controller("NewJobController", function ($scope, $http, $routeParams) {
             "Position": $scope.Position,
             "Email": $scope.Email,
             "Telephone": $scope.Telephone,
-            "DateRange": $scope.DateRange
+            "DateRange": $scope.DateRange,
+            "DateStart": date,
+            "ClosingDate": $scope.ClosingDate
         };
+        //console.log(postjob);
+
+        swal({
+            title: "Do you want to post job",
+            type: "info", showCancelButton: true,
+            confirmButtonColor: "#00BFFF",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+        }, function () {
 
         $http.post("api/job/postjob", postjob).success(function (data, header, status, config) {
 
             $scope.postjob = data;
             //window.location = "login.html"
+        });
+            //window.location.reload(true);
+        window.location.reload(true);
         });
     }
 });
@@ -549,7 +556,7 @@ app.controller("CooperativeController", function ($scope, $http, $routeParams) {
             $http.post("api/job/jobdelete", job).success(function (data, header, status, config) {
 
                 $scope.job = data;
-                console.log($scope.job)
+                //console.log($scope.job)
             });
 
             window.location.reload(true);
@@ -612,7 +619,7 @@ app.controller("AlljobController", function ($scope, $http, $routeParams) {
             $http.post("api/job/jobdelete", job).success(function (data, header, status, config) {
 
                 $scope.job = data;
-                console.log($scope.job)
+                //console.log($scope.job)
             });
 
             window.location.reload(true);
@@ -629,11 +636,16 @@ app.controller("ApplicantController", function ($scope, $http, $routeParams) {
         $http.get("api/job/applicant/" + $routeParams.id).success(function (data) {
 
             $scope.applicant = data;
-            console.log($scope.applicant);
+            console.log($scope.applicant)
         });
     };
 
-    $scope.deleteApplicant = function (id) {
+    $scope.profileApplicant = function (id) {
+
+            window.location = "#/profileUser/" + id;
+    }
+
+    $scope.cancleApplicant = function (id) {
 
         swal({
             title: "Are you sure?",
@@ -648,15 +660,15 @@ app.controller("ApplicantController", function ($scope, $http, $routeParams) {
 
             //swal("Deleted!", "Your file has been deleted.", "success");
 
-            var job = {
-                "JobID": id,
+            var applyCancle = {
+                "ApplyID": id,
                 "Deleted": 1
             };
 
-            $http.post("api/job/jobdelete", job).success(function (data, header, status, config) {
+            $http.post("api/job/applycancle", applyCancle).success(function (data, header, status, config) {
 
-                $scope.job = data;
-                console.log($scope.job)
+                $scope.applyCancle = data;
+                //console.log($scope.job)
             });
 
             window.location.reload(true);
@@ -666,16 +678,39 @@ app.controller("ApplicantController", function ($scope, $http, $routeParams) {
 
 app.controller("ProfileUserController", function ($scope, $http, $routeParams) {
 
-    $scope.DataID = localStorage.getItem('DataID');
-    var dataid = {
-        'DataID': $scope.DataID
-    }
+    $scope.profileOnly = function () {
+        $http.get("api/job/useronly/" + $routeParams.id).success(function (data) {
 
-    $http.post("api/job/pageindex", dataid).success(function (data) {
+            $scope.useronly = data;
+            //console.log($scope.useronly);
+        });
+    };
 
-        $scope.alluser = data;
-        console.log($scope.alluser);
-    });
+    $scope.Role = localStorage.getItem('RoleID');
+    var buttonuploadFile = 0;
+    if ($scope.Role == 3)
+        buttonuploadFile = 1;
+
+    $scope.ButtonUploadFile = buttonuploadFile;
+
+});
+
+app.controller("ProfileEmployerController", function ($scope, $http, $routeParams) {
+
+    $scope.profileEmployerOnly = function () {
+        $http.get("api/job/employeronly/" + $routeParams.id).success(function (data) {
+
+            $scope.employeronly = data;
+            console.log($scope.employeronly);
+        });
+    };
+
+    $scope.Role = localStorage.getItem('RoleID');
+    var buttonuploadFile = 0;
+    if ($scope.Role == 2)
+        buttonuploadFile = 1;
+
+    $scope.ButtonUploadFile = buttonuploadFile;
 
 });
 
@@ -700,16 +735,16 @@ app.controller("PermissionGroupController", function ($scope, $http, $routeParam
     $scope.Companyname = localStorage.getItem('Companyname');
     $scope.Email = localStorage.getItem('Email');
 
-    $scope.profile = function () {
-        console.log($scope.Role);
+    $scope.profile = function (id) {
+        
         if ($scope.Role == 1) {
-            window.location = "#/profileUser";
+            window.location = "#/profileUser/" + id;
         }
         if ($scope.Role == 2) {
-            window.location = "#/profileEmployer";
+            window.location = "#/profileEmployer/" + id;
         }
         if ($scope.Role == 3) {
-            window.location = "#/profileUser";
+            window.location = "#/profileUser/" + id;
         }
     }
 
@@ -726,8 +761,8 @@ app.controller("PermissionGroupController", function ($scope, $http, $routeParam
     }
     $http.post("api/job/pageindex", dataid).success(function (data) {
 
-        $scope.staffindex = data;
-        //console.log($scope.staffindex);
+        $scope.index = data;
+        //console.log($scope.index);
 
         $(document).ready(function () {
             //Welcome Message (not for login page)
@@ -756,7 +791,7 @@ app.controller("PermissionGroupController", function ($scope, $http, $routeParam
             };
 
             if (!$('.login-content')[0]) {
-                notify('Welcome back ' + $scope.staffindex.Firstname, 'inverse');
+                notify('Welcome back ' + $scope.index.Firstname, 'inverse');
             }
         });
     });
@@ -767,7 +802,6 @@ app.controller("PermissionGroupController", function ($scope, $http, $routeParam
     $scope.status = localStorage.getItem('Status');
 
     if ($scope.status != 'true') {
-        //alert($scope.status);
         window.location = 'login.html';
     }
 });
