@@ -135,9 +135,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="images\1.jpg" />
-    <Content Include="images\2.JPG" />
-    <Content Include="images\3.jpg" />
     <Content Include="images\Admin-icon.png" />
+    <Content Include="template\img\bg.png" />
     <Content Include="images\default-user-icon-profile.png" />
     <Content Include="images\Employer.jpg" />
     <Content Include="images\web_programmer.png" />

@@ -1408,6 +1408,7 @@ body {
   line-height: 1.42857143;
   color: #5e5e5e;
   background-color: #edecec;
+  /*background-image: url(../img/bg.png);*/
 }
 
 input,

@@ -501,12 +501,12 @@ body.login-content:after {
 }
 
 body.login-content:before {
-  height: 50%;
+  height: 100%;
   width: 100%;
-  /*position: absolute;*/
+  position: absolute;
   top: 0;
   left: 0;
-  background: #00bcd4;
+  background-image: url(../img/bg.png);
   content: "";
   z-index: 0;
 }
@@ -2031,7 +2031,7 @@ div.fc-row {
   background: none !important;
   border-bottom: 1px solid #e0e0e0 !important;
   border-radius: 0;
-  padding-left: 0;
+  /*padding-left: 0;*/
   padding-right: 0;
 }
 

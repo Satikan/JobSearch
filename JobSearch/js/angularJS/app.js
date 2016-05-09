@@ -275,7 +275,7 @@ app.controller("RegisterEmployerController", function ($scope, $http, $routePara
     $http.get("api/job/businesstype").success(function (data) {
 
         $scope.businesstype = data;
-
+        
     });
 
     //------------------------------------------------------ GET PROVINCE -----------------------------------------------------//
@@ -283,7 +283,7 @@ app.controller("RegisterEmployerController", function ($scope, $http, $routePara
     $http.get("api/job/province").success(function (data) {
 
         $scope.province = data;
-        //console.log($scope.province);
+        console.log($scope.province);
     });
 
     //------------------------------------------------------- ADD Employers -------------------------------------------------------//

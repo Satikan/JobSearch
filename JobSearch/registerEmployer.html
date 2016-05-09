@@ -1,13 +1,20 @@
 ﻿<!DOCTYPE html>
+<html ng-app="myApp">
 <!--[if IE 9 ]><html class="ie9"><![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Material Admin</title>
+    <title>Register For Employers</title>
 
     <!-- Vendor CSS -->
+    <link href="template/vendors/animate-css/animate.css" rel="stylesheet" />
     <link href="template/vendors/animate-css/animate.min.css" rel="stylesheet">
+    <link href="template/vendors/noUiSlider/jquery.nouislider.min.css" rel="stylesheet">
+    <link href="template/vendors/farbtastic/farbtastic.css" rel="stylesheet">
+    <link href="template/vendors/summernote/summernote.css" rel="stylesheet" />
+    <link href="template/vendors/light-gallery/lightGallery.min.css" rel="stylesheet">
+    <link href="template/vendors/mediaelement/mediaelementplayer.css" rel="stylesheet">
     <link href="template/vendors/sweet-alert/sweet-alert.min.css" rel="stylesheet">
     <link href="template/vendors/material-icons/material-design-iconic-font.min.css" rel="stylesheet">
     <link href="template/vendors/socicon/socicon.min.css" rel="stylesheet">
@@ -17,28 +24,76 @@
     <link href="template/css/app.min.2.css" rel="stylesheet">
 </head>
 
-<body class="login-content">
+<body class="login-content" ng-controller="RegisterEmployerController">
     <!-- Login -->
-    <div class="lc-block toggled" id="l-login">
-        <div class="input-group m-b-20">
-            <span class="input-group-addon"><i class="md md-person"></i></span>
-            <div class="fg-line">
-                <input type="text" class="form-control" placeholder="Username">
+    <div class="lc-block toggled" id="l-login" style="width: 700px;">
+        <h1 style="font-size:40px;" class="text-uppercase text-info">Register For Employers</h1><br /><br />
+        <form name="FormRegisterEmployer" ng-submit="addemployers()" role="form">
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-person"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="Username" placeholder="Username" required>
+                </div>
+                <span class="input-group-addon"><i class="md md-lock-outline"></i></span>
+                <div class="fg-line">
+                    <input type="password" class="form-control" ng-model="Password" placeholder="Password" required>
+                </div>
             </div>
-        </div>
 
-        <div class="input-group m-b-20">
-            <span class="input-group-addon"><i class="md md-accessibility"></i></span>
-            <div class="fg-line">
-                <input type="password" class="form-control" placeholder="Password">
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-business"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="Companyname" placeholder="Company Name" required/>
+                </div>
+                <span class="input-group-addon" style="padding-right: 22px;"><i class="md md-business"></i></span>
+                <div style="width: 182px;">
+                    <select id="Business" class="btn btn-default dropdown-toggle" ng-model="BusinessTypeID" ng-options="options.BusinessTypeID as options.BusinessTypeName for options in businesstype" style="width: 240px;height: 34px;top: 6px;" required>
+                        <option value="">-- Select Business Type --</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="clearfix"></div>
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-place"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="EmployerAddress" placeholder="Address" required/>
+                </div>
+                <span class="input-group-addon" style="padding-right: 22px;"><i class="md md-place"></i></span>
+                <div style="width: 182px;">
+                    <select id="Province" class="btn btn-default dropdown-toggle" ng-model="ProvinceID" ng-options="options.ProvinceID as options.ProvinceName for options in province" style="width: 240px;height: 34px;top: 6px;" required>
+                        <option value="">-- Select Povince --</option>
+                    </select>
+                </div>
+            </div>
 
-        <a href="" class="btn btn-login btn-danger btn-float"><i class="md md-arrow-forward"></i></a>
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-place"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="District" placeholder="District">
+                </div>
+                <span class="input-group-addon"><i class="md md-place"></i></span>
+                <div class="fg-line">
+                    <input type="password" class="form-control" ng-model="SubDistrict" placeholder="Sub-district">
+                </div>
+            </div>
 
-    </div>
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-place"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="Postcode" placeholder="Postcode">
+                </div>
+                <span class="input-group-addon"><i class="md md-public"></i></span>
+                <div class="fg-line">
+                    <input type="password" class="form-control" ng-model="Website" placeholder="Website">
+                </div>
+            </div>
+
+            <br />
+
+            <button style="width:90px; height:35px;" type="submit" ng-disabled="FormRegisterEmployer.$invalid" class="btn btn-primary btn-sm">Register</button>
+            <button style="width:70px; height:35px;" type="button" ng-click="cancleRegisterEmployer()" class="btn btn-danger btn-sm">cancle</button>
+        </form>
+</div>
 
     <!-- Older IE warning message -->
     <!--[if lt IE 9]>
@@ -83,10 +138,42 @@
     <!-- Javascript Libraries -->
     <script src="template/js/jquery-2.1.1.min.js"></script>
     <script src="template/js/bootstrap.min.js"></script>
+    <script src="template/vendors/moment/moment.min.js"></script>
+    <script src="template/vendors/nicescroll/jquery.nicescroll.min.js"></script>
 
+    <script src="template/vendors/flot/jquery.flot.min.js"></script>
+    <script src="template/vendors/flot/jquery.flot.resize.min.js"></script>
+    <script src="template/vendors/flot/plugins/curvedLines.js"></script>
+    <script src="template/vendors/sparklines/jquery.sparkline.min.js"></script>
+    <script src="template/vendors/easypiechart/jquery.easypiechart.min.js"></script>
+
+    <script src="template/vendors/simpleWeather/jquery.simpleWeather.min.js"></script>
+    <script src="template/vendors/auto-size/jquery.autosize.min.js"></script>
+    <script src="template/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="template/vendors/chosen/chosen.jquery.min.js"></script>
+    <script src="template/vendors/input-mask/input-mask.min.js"></script>
+    <script src="template/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="template/vendors/fileinput/fileinput.min.js"></script>
+    <script src="template/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+    <script src="template/vendors/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="template/vendors/sweet-alert/sweet-alert.min.js"></script>
     <script src="template/vendors/waves/waves.min.js"></script>
+    <script src="template/vendors/light-gallery/lightGallery.min.js"></script>
+    <script src="template/vendors/mediaelement/mediaelement-and-player.min.js"></script>
+    <script src="template/vendors/summernote/summernote.min.js"></script>
+    <script src="template/vendors/summernote/summernote.js"></script>
+    <script src="template/js/flot-charts/curved-line-chart.js"></script>
+    <script src="template/js/flot-charts/line-chart.js"></script>
 
+    <script src="template/js/charts.js"></script>
     <script src="template/js/functions.js"></script>
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/ng-file-upload.js"></script>
+    <script src="js/ng-file-upload-shim.js"></script>
+    <script src="js/angular-file-upload.min.js"></script>
+    <script src="js/angularJS/app.js"></script>
 
 </body>
 </html>
