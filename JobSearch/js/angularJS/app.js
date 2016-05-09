@@ -31,6 +31,10 @@ app.config(['$routeProvider',
                    templateUrl: 'views/editProfileEmployer.html',
                    controller: 'EditProfileEmployer'
                }).
+               when('/editprofileuser/:id', {
+                   templateUrl: 'views/editProfileUser.html',
+                   controller: 'EditProfileUser'
+               }).
                when('/applicant/:id', {
                    templateUrl: 'views/applicant.html',
                    controller: 'ApplicantController'
@@ -783,6 +787,10 @@ app.controller("ApplicantController", function ($scope, $http, $routeParams) {
 });
 
 app.controller("ProfileUserController", function ($scope, $http, $routeParams) {
+
+    $scope.editprofileUser = function (id) {
+        window.location = "#/editprofileuser/" + id;
+    };
 
     $scope.profileOnly = function () {
         $http.get("api/job/useronly/" + $routeParams.id).success(function (data) {

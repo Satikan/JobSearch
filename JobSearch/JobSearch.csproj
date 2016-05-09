@@ -153,9 +153,7 @@
     <Content Include="js\ng-file-upload.js" />
     <Content Include="js\ng-file-upload.min.js" />
     <Content Include="login.html" />
-    <Content Include="registerEm.html" />
     <Content Include="registerEmployer.html" />
-    <Content Include="registerSe.html" />
     <Content Include="registerSeeker.html" />
     <Content Include="template\bootstrap\css\bootstrap.css" />
     <Content Include="template\bootstrap\css\bootstrap.min.css" />

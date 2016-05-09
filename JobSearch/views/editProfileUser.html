@@ -1,10 +1,158 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-	<meta charset="utf-8" />
-</head>
-<body>
+﻿<div class="container">
 
-</body>
-</html>
+    <div class="card">
+        <div class="card-header bgm-cyan">
+            <h2>Edit Profile</h2>
+            <br />
+        </div>
+        <form name="FormEditProfileUser" ng-submit="editProfileUser()" class="form-horizontal" role="form">
+            <div class="card-body card-padding" ng-init="getprofileUser()">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">First Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" id="Firstname" name="Firstname" ng-model="profileemployer.Firstname" class="form-control input-sm" required>
+                    </div>
+                    <span class="error text-danger" ng-show="FormEditProfileEmployer.Firstname.$error.required">
+                        Required!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Last Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" id="Lastname" name="Lastname" ng-model="profileemployer.Lastname" class="form-control input-sm" required>
+                    </div>
+                    <span class="error text-danger" ng-show="FormEditProfileEmployer.Lastname.$error.required">
+                        Required!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">E-mail</label>
+                    <div class="col-sm-4">
+                        <input type="email" id="Email" name="Email" ng-model="profileemployer.Email" class="form-control input-sm" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                    </div>
+                    <span class="error text-danger" ng-show="FormEditProfileEmployer.Email.$error.required">
+                        Required!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <div class="fg-line">
+                        <label class="col-sm-2 control-label">Gender</label>
+                        <div class="col-sm-3">
+                            <select id="GenderID" name="GenderID" ng-model="profileemployer.GenderID" ng-options="options.GenderID as options.GenderName for options in gender" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" required>
+                                <option value="">-- Select Gender --</option>
+                            </select>
+                        </div>
+                        <span class="error text-danger" ng-show="FormEditProfileEmployer.GenderID.$error.required">
+                            Required!
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="fg-line">
+                        <label class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-3">
+                            <select id="StatusID" name="StatusID" ng-model="profileemployer.StatusID" ng-options="options.StatusID as options.StatusName for options in status" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" required>
+                                <option value="">-- Select Status --</option>
+                            </select>
+                        </div>
+                        <span class="error text-danger" ng-show="FormEditProfileEmployer.StatusID.$error.required">
+                            Required!
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Salary" class="col-sm-2 control-label">Position</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input type="text" id="Position" name="Position" ng-model="profileemployer.Position" class="form-control input-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Salary" class="col-sm-2 control-label">Domicile</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input type="text" id="Domicile" name="Domicile" ng-model="profileemployer.Domicile" class="form-control input-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Salary" class="col-sm-2 control-label">Present Address</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input type="text" id="PresentAddress" name="PresentAddress" ng-model="profileemployer.PresentAddress" class="form-control input-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="fg-line">
+                        <label class="col-sm-2 control-label">Province</label>
+                        <div class="col-sm-3">
+                            <select id="ProvinceID" name="ProvinceID" ng-model="profileemployer.ProvinceID" ng-options="options.ProvinceID as options.ProvinceName for options in province" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" required>
+                                <option value="">-- Select Province --</option>
+                            </select>
+                        </div>
+                        <span class="error text-danger" ng-show="FormEditProfileEmployer.ProvinceID.$error.required">
+                            Required!
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="NumberPosition" class="col-sm-2 control-label">District</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input type="text" id="District" name="District" ng-model="profileemployer.District" class="form-control input-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="NumberPosition" class="col-sm-2 control-label">Sub-district</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input type="text" id="SubDistrict" name="SubDistrict" ng-model="profileemployer.SubDistrict" class="form-control input-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Contactname" class="col-sm-2 control-label">Postcode</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input ng-model="profileemployer.Postcode" name="Postcode" id="Postcode" type="text" class="form-control input-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Position" class="col-sm-2 control-label">Telephone</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input ng-model="profileemployer.Telephone" name="Telephone" id="Telephone" type="text" class="form-control input-sm" required>
+                        </div>
+                    </div>
+                    <span class="error text-danger" ng-show="FormEditProfileEmployer.Telephone.$error.required">
+                        Required!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10 row dialog">
+                        <button ng-disabled="!FormEditProfileEmployer.$valid" type="submit" class="btn btn-primary btn-sm">Update Profile</button>
+                        <button type="button" ng-click="btnCancel()" class="btn btn-danger btn-sm">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

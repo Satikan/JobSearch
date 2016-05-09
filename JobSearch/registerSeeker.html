@@ -28,22 +28,22 @@
     <!-- Login -->
     <div class="lc-block toggled" id="l-login" style="width: 700px;">
         <h1 style="font-size:40px;" class="text-uppercase text-info">Register For Seeker</h1><br /><br />
-        <form name="FormRegisterEmployer" ng-submit="addjobseeker()" role="form">
+        <form name="FormRegisterSeeker" ng-submit="addjobseeker()" role="form">
             <div class="input-group m-b-20">
                 <span class="input-group-addon"><i class="md md-person"></i></span>
                 <div class="fg-line">
                     <input type="text" class="form-control" ng-model="Firstname" placeholder="First Name" required>
                 </div>
-                <span class="input-group-addon"><i class="md md-lock-outline"></i></span>
+                <span class="input-group-addon"><i class="md md-account-child"></i></span>
                 <div class="fg-line">
-                    <input type="text" class="form-control" ng-model="Lastname" placeholder="Lastname" required>
+                    <input type="text" class="form-control" ng-model="Lastname" placeholder="Last Name" required>
                 </div>
             </div>
 
             <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="md md-business"></i></span>
+                <span class="input-group-addon"><i class="md md-email"></i></span>
                 <div class="fg-line">
-                    <input type="email" class="form-control" ng-model="Email" placeholder="E-mail" required />
+                    <input type="email" class="form-control" ng-model="Email" placeholder="E-mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required />
                 </div>
                 <span class="input-group-addon"><i class="md md-lock-outline"></i></span>
                 <div class="fg-line">
@@ -52,21 +52,21 @@
             </div>
 
             <div class="input-group m-b-20">
-                <span class="input-group-addon" style="padding-right: 21px;"><i class="md md-place"></i></span>
+                <span class="input-group-addon" style="padding-right: 21px;"><i class="md md-accessibility"></i></span>
                 <div style="width: 182px;">
-                    <select id="Gender" class="btn btn-default dropdown-toggle" ng-model="GenderID" ng-options="options.GenderID as options.GenderName for options in gender" style="width: 240px;height: 34px;" required>
-                        <option value="">-- Select Povince --</option>
+                    <select id="Gender" class="btn btn-default dropdown-toggle" ng-model="GenderID" ng-options="options.GenderID as options.GenderName for options in gender" style="width: 240px;height: 34px;" >
+                        <option value="">-- Select Gender --</option>
                     </select>
                 </div>
-                <span class="input-group-addon" style="padding-right: 22px;"><i class="md md-place"></i></span>
+                <span class="input-group-addon" style="padding-right: 22px;"><i class="md md-favorite"></i></span>
                 <div style="width: 182px;">
-                    <select id="Status" class="btn btn-default dropdown-toggle" ng-model="StatusID" ng-options="options.StatusID as options.StatusName for options in status" style="width: 240px;height: 34px;" required>
-                        <option value="">-- Select Povince --</option>
+                    <select id="Status" class="btn btn-default dropdown-toggle" ng-model="StatusID" ng-options="options.StatusID as options.StatusName for options in status" style="width: 240px;height: 34px;" >
+                        <option value="">-- Select Status --</option>
                     </select>
                 </div>
             </div>
 
-            <div class="input-group m-b-20">
+            <!--<div class="input-group m-b-20">
                 <span class="input-group-addon"><i class="md md-place" style="padding-bottom: 22px;"></i></span>
                 <div class="fg-line">
                     <textarea class="form-control" rows="3" ng-model="Education" name="Education" placeholder="Education"></textarea>
@@ -75,23 +75,58 @@
                 <div class="fg-line">
                     <textarea class="form-control" rows="3" ng-model="Specialskill" name="Specialskill" placeholder="Special Skill"></textarea>
                 </div>
+            </div>-->
+
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-portrait"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="Position" placeholder="Position" required>
+                </div>
+                <span class="input-group-addon"><i class="md md-place"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="Domicile" placeholder="Domicile" >
+                </div>
             </div>
 
             <div class="input-group m-b-20">
                 <span class="input-group-addon"><i class="md md-place"></i></span>
                 <div class="fg-line">
-                    <input type="text" class="form-control" ng-model="Postcode" placeholder="Postcode">
+                    <input type="text" class="form-control" ng-model="PresentAddress" placeholder="Present Address" required />
                 </div>
-                <span class="input-group-addon"><i class="md md-public"></i></span>
+                <span class="input-group-addon" style="padding-right: 22px;"><i class="md md-place"></i></span>
+                <div style="width: 182px;">
+                    <select id="Province" class="btn btn-default dropdown-toggle" ng-model="ProvinceID" ng-options="options.ProvinceID as options.ProvinceName for options in province" style="width: 240px;height: 34px;top: 6px;" required>
+                        <option value="">-- Select Povince --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-place"></i></span>
                 <div class="fg-line">
-                    <input type="password" class="form-control" ng-model="Website" placeholder="Website">
+                    <input type="text" class="form-control" ng-model="District" placeholder="District" required>
+                </div>
+                <span class="input-group-addon"><i class="md md-place"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="SubDistrict" placeholder="Sub-district" required>
+                </div>
+            </div>
+
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-place"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="Postcode" placeholder="Postcode" pattern="\d*">
+                </div>
+                <span class="input-group-addon"><i class="md md-phone"></i></span>
+                <div class="fg-line">
+                    <input type="text" class="form-control" ng-model="Telephone" placeholder="Telephone" required>
                 </div>
             </div>
 
             <br />
 
-            <button style="width:90px; height:35px;" type="submit" ng-disabled="FormRegisterEmployer.$invalid" class="btn btn-primary btn-sm">Register</button>
-            <button style="width:70px; height:35px;" type="button" ng-click="cancleRegisterEmployer()" class="btn btn-danger btn-sm">cancle</button>
+            <button style="width:90px; height:35px;" type="submit" ng-disabled="FormRegisterSeeker.$invalid" class="btn btn-primary btn-sm">Register</button>
+            <button style="width:70px; height:35px;" type="button" onclick="parent.location = 'login.html'" class="btn btn-danger btn-sm">cancle</button>
         </form>
     </div>
 
