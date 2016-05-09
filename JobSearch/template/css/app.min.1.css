@@ -11808,7 +11808,7 @@ input:focus {
 
 .form-control {
   box-shadow: none;
-  border: 0;
+  /*border: 0;*/
   border-bottom: 1px solid #e0e0e0;
 }
 
@@ -14930,7 +14930,7 @@ html:not(.ie9) .select.fg-line:before {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding: 0;
+  /*padding: 0;*/
   border-radius: 0;
 }
 

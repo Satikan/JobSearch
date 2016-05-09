@@ -5,48 +5,67 @@
             <h2>Applicant</h2>
             <br />
         </div>
-        <form name="FormNewJob" ng-submit="addstaff()" class="form-horizontal" role="form">
-                <div class="card-body card-padding" ng-init="getapplicant()">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th><center>Applicant</center></th>                                
-                                <th><center>View Profile</center></th>
-                                <th><center>Resume</center></th>
-                                <th><center>Interview</center></th>
-                                <th><center>Cancel</center></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="n in applicant">
-                                <td align="center">Mr.{{n.Firstname}}&nbsp;&nbsp;{{n.Lastname}}</td>
-                                <td align="center"><button ng-click="profileApplicant(n.DataID)" class="btn btn-info btn-icon"><i class="md md-person"></i></button></td>
-                                <td align="center"><a href="../resume/{{n.FileResume}}" class="btn btn-success btn-icon" role="button"><i class="md md-file-download"></i></a></td>
-                                <td align="center"><button ng-click="interview(n.DataID)" class="btn btn-primary btn-icon" data-toggle="modal" href="#modalDefault"><i class="md md-email"></i></button></td>
-                                <td align="center"><button ng-click="cancleApplicant(n.ApplyID)" class="btn btn-danger btn-icon"><i class="md md-close"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                </div><!-- /.box-body -->
-        </form>
+
+        <div class="card-body card-padding" ng-init="getapplicant()">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th><center>Applicant</center></th>
+                        <th><center>View Profile</center></th>
+                        <th><center>Resume</center></th>
+                        <th><center>Interview</center></th>
+                        <th><center>Cancel</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="n in applicant">
+                        <td align="center">Mr.{{n.Firstname}}&nbsp;&nbsp;{{n.Lastname}}</td>
+                        <td align="center"><button ng-click="profileApplicant(n.DataID)" class="btn btn-info btn-icon"><i class="md md-person"></i></button></td>
+                        <td align="center"><a href="../resume/{{n.FileResume}}" class="btn btn-success btn-icon" role="button"><i class="md md-file-download"></i></a></td>
+                        <td align="center"><button ng-click="getinterview(n.DataID)" class="btn btn-primary btn-icon" data-toggle="modal" href="#modalDefault"><i class="md md-email"></i></button></td>
+                        <td align="center"><button ng-click="cancleApplicant(n.ApplyID)" class="btn btn-danger btn-icon"><i class="md md-close"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        </div><!-- /.box-body -->
     </div>
 
-    <div class="modal fade" id="modalDefault" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Modal title</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper. Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla. Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link">Save changes</button>
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+    <form name="FormApplicant" ng-submit="interview()">
+        <div class="modal fade" id="modalDefault" tabindex="-1" role="dialog" ng-submit="interview()">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="pull-left">
+                            <h4 class="modal-title"><i class="md md-email"></i> Quick Email</h4>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="ma md-close"></i></button>
+                        </div>
+                    </div><br /><br />
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="email" class="form-control" ng-model="EmailFrom" name="EmailFrom" placeholder="Email From : " required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" ng-model="PasswordEmailFrom" name="emailto" placeholder="Password Email : " required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" ng-model="interviews.Email" name="emailto" disabled>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="Subject" name="subject" placeholder="Subject">
+                        </div>
+                        <div>
+                            <textarea class="textarea" placeholder="Message" ng-model="MessageInterview" style="width: 100%; height: 160px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="pull-right btn btn-info" type="submit" ng-disabled="!FormApplicant.$valid" id="sendEmail">Send Email</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </form>
 </div>

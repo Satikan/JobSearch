@@ -6,6 +6,9 @@ using System.Data.SqlClient;
 using POSMySQL.POSControl;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Net;
+using System.Net.Mail;
+using System.IO;
 using System.Text;
 using System.Configuration;
 namespace JobSearch.Models
@@ -41,7 +44,7 @@ namespace JobSearch.Models
         {
             objConn = objDB.EstablishConnection();
             List<Province> province = new List<Province>();
-            string strSQL = "SELECT * FROM provinces WHERE LangID = 1;";
+            string strSQL = "SELECT * FROM provinces WHERE LangID = 1 ORDER BY provincename;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
             if (dt.Rows.Count > 0)
@@ -201,6 +204,33 @@ namespace JobSearch.Models
             return internship.ToArray();
         }
 
+        public Datajob GetJobOnlyAll(int id)
+        {
+            objConn = objDB.EstablishConnection();
+            Datajob jobDataOnly = new Datajob();
+            string strSQL = "SELECT * FROM postjob WHERE JobID = " + id + ";";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            jobDataOnly.JobID = Convert.ToInt32(dt.Rows[0]["JobID"].ToString());
+            jobDataOnly.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
+            jobDataOnly.JobTitle = dt.Rows[0]["JobTitle"].ToString();
+            jobDataOnly.JobDescription = dt.Rows[0]["JobDescription"].ToString();
+            jobDataOnly.Keyskills = dt.Rows[0]["Keyskills"].ToString();
+            jobDataOnly.Salary = dt.Rows[0]["Salary"].ToString();
+            jobDataOnly.NumberPosition = dt.Rows[0]["NumberPosition"].ToString();
+            jobDataOnly.Qualification = dt.Rows[0]["Qualification"].ToString();
+            jobDataOnly.JobTypeID = Convert.ToInt32(dt.Rows[0]["JobTypeID"].ToString());
+            jobDataOnly.Contactname = dt.Rows[0]["Contactname"].ToString();
+            jobDataOnly.Position = dt.Rows[0]["Position"].ToString();
+            jobDataOnly.Email = dt.Rows[0]["Email"].ToString();
+            jobDataOnly.Telephone = dt.Rows[0]["Telephone"].ToString();
+            jobDataOnly.DateRange = dt.Rows[0]["DateRange"].ToString();
+            jobDataOnly.ClosingDate = dt.Rows[0]["ClosingDate"].ToString();
+
+            return jobDataOnly;
+        }
+
         public Employer GetUserOnly(int id)
         {
             objConn = objDB.EstablishConnection();
@@ -250,6 +280,7 @@ namespace JobSearch.Models
 
             EmployerDataOnly.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
             EmployerDataOnly.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
+            EmployerDataOnly.Username = dt.Rows[0]["Username"].ToString();
             EmployerDataOnly.Firstname = dt.Rows[0]["Firstname"].ToString();
             EmployerDataOnly.Lastname = dt.Rows[0]["Lastname"].ToString();
             EmployerDataOnly.Education = dt.Rows[0]["Education"].ToString();
@@ -279,7 +310,7 @@ namespace JobSearch.Models
         {
             objConn = objDB.EstablishConnection();
             List<Employer> applicant = new List<Employer>();
-            string strSQL = "SELECT a.ApplyID, a.DataID, dc.Firstname, dc.Lastname, dc.GenderID, dc.FileResume, dc.Email FROM datacompanyanduser dc INNER JOIN Apply a ON a.DataID = dc.DataID WHERE a.JobID = " + id + " ORDER BY a.DataID;";
+            string strSQL = "SELECT a.ApplyID, a.DataID, dc.Firstname, dc.Lastname, dc.GenderID, dc.FileResume, dc.Email FROM datacompanyanduser dc INNER JOIN Apply a ON a.DataID = dc.DataID WHERE a.JobID = " + id + " AND a.Deleted = 0 ORDER BY a.DataID;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
 
@@ -336,6 +367,20 @@ namespace JobSearch.Models
             objConn.Close();
 
             return employer.ToArray();
+        }
+
+        public IEnumerable<Employer> PostEditProfileEmployerAll(Employer item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Employer> posteditemployer = new List<Employer>();
+
+            string strSQL = "UPDATE datacompanyanduser SET Companyname = '" + item.Companyname + "', BusinessTypeID = '" + item.BusinessTypeID + "', EmployerAddress = '" + item.EmployerAddress + "', ProvinceID = '" + item.ProvinceID + "', District = '" + item.District + "', SubDistrict = '" + item.SubDistrict + "', Postcode = '" + item.Postcode + "', Website = '" + item.Website + "'";
+            strSQL += "WHERE DataID = '" + item.DataID + "';";
+
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return posteditemployer.ToArray();
         }
 
         public IEnumerable<Employer> PostSeekerAll(Employer item)
@@ -415,6 +460,20 @@ namespace JobSearch.Models
             return postjob.ToArray();
         }
 
+        public IEnumerable<Postjob> PostPostEditjobAll(Postjob item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Postjob> posteditjob = new List<Postjob>();
+
+            string strSQL = "UPDATE postjob SET DataID = '" + item.DataID + "', JobTitle = '" + item.JobTitle + "', JobDescription = '" + item.JobDescription + "', Keyskills = '" + item.Keyskills + "', Salary = '" + item.Salary + "', NumberPosition = '" + item.NumberPosition + "', Qualification = '" + item.Qualification + "', JobTypeID = '" + item.JobTypeID + "', Contactname = '" + item.Contactname + "', Position = '" + item.Position + "', Email = '" + item.Email + "', Telephone = '" + item.Telephone + "', DateRange = '" + item.DateRange + "', ClosingDate = '" + item.ClosingDate +"'";
+            strSQL += "WHERE JobID = '" + item.JobID + "';";
+
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return posteditjob.ToArray();
+        }
+
         public IEnumerable<Datajob> PostDetailJobAll(Datajob item)
         {
             objConn = objDB.EstablishConnection();
@@ -456,6 +515,36 @@ namespace JobSearch.Models
             return jobdetail.ToArray();
         }
 
+        public IEnumerable<Employer> PostNotificationEmployerAll(Employer item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Employer> notification = new List<Employer>();
+            string strSQL = "SELECT a.ApplyID, a.DataID, dc.Firstname, dc.Lastname, dc.GenderID, dc.FileResume, dc.Email, dc.PictureName, p.JobTitle FROM datacompanyanduser dc INNER JOIN Apply a ON a.DataID = dc.DataID INNER JOIN postjob p ON p.JobID = a.JobID WHERE p.DataID = '" + item.DataID + "' AND a.Deleted = 0 AND a.Hide = 0 ORDER BY a.DataID;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Employer notificationData = new Employer();
+
+                    notificationData.ApplyID = Convert.ToInt32(dt.Rows[i]["ApplyID"].ToString());
+                    notificationData.DataID = Convert.ToInt32(dt.Rows[i]["DataID"].ToString());
+                    notificationData.Firstname = dt.Rows[i]["Firstname"].ToString();
+                    notificationData.Lastname = dt.Rows[i]["Lastname"].ToString();
+                    notificationData.GenderID = Convert.ToInt32(dt.Rows[i]["GenderID"].ToString());
+                    notificationData.FileResume = dt.Rows[i]["FileResume"].ToString();
+                    notificationData.PictureName = dt.Rows[i]["PictureName"].ToString();
+                    notificationData.JobTitle = dt.Rows[i]["JobTitle"].ToString();
+                    notificationData.Email = dt.Rows[i]["Email"].ToString();
+
+                    notification.Add(notificationData);
+                }
+            }
+            return notification.ToArray();
+        }
+
         public IEnumerable<Postjob> PostJobDeleteAll(Postjob item)
         {
             objConn = objDB.EstablishConnection();
@@ -482,6 +571,19 @@ namespace JobSearch.Models
             return applycancle;
         }
 
+        public IEnumerable<Apply> PostCountHideAll(Apply item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Apply> CountHide = new List<Apply>();
+
+            string strSQL = "UPDATE apply SET Hide = '" + item.Hide + "'";
+            strSQL += "WHERE ApplyID = '" + item.ApplyID + "';";
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return CountHide;
+        }
+
         public IEnumerable<Postjob> PostJobEmployerDeleteAll(Postjob item)
         {
             objConn = objDB.EstablishConnection();
@@ -493,6 +595,22 @@ namespace JobSearch.Models
             objConn.Close();
 
             return jobemdelete;
+        }
+
+        public Employer PostInterviewOnly(Employer item)
+        {
+            objConn = objDB.EstablishConnection();
+            Employer interview = new Employer();
+
+            string strSQL = "SELECT DataID, Email FROM datacompanyanduser WHERE DataID = '" + item.DataID + "';";
+            objDB.sqlExecute(strSQL, objConn);
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            interview.DataID = Convert.ToInt32(dt.Rows[0]["DataID"].ToString());
+            interview.Email = dt.Rows[0]["Email"].ToString();
+
+            return interview;
         }
 
         public IEnumerable<Datajob> PostAlljobAll(Datajob item)
@@ -689,5 +807,64 @@ namespace JobSearch.Models
 
             return jobfile;
         }
+
+        public IEnumerable<Email> sentMail(Email items)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Email> sentMail = new List<Email>();
+
+            string sqlEmail = "SELECT DataID, Email FROM datacompanyanduser WHERE DataID = '" + items.DataID + "';";
+            DataTable dtSentMail = objDB.List(sqlEmail, objConn);
+            objConn.Close();
+
+            //string hostAddr = ConfigurationManager.AppSettings["Host"].ToString();
+            //string mailAuthen = ConfigurationManager.AppSettings["MailAuthen"].ToString();
+            //string passAuthen = ConfigurationManager.AppSettings["PassAuthen"].ToString();
+            string EmailTo = dtSentMail.Rows[0]["Email"].ToString();
+
+            try
+            {
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress(items.EmailFrom.ToString());
+
+                mailMessage.Subject = items.Subject.ToString();
+                mailMessage.Body = items.MessageInterview.ToString();
+                mailMessage.IsBodyHtml = true;
+                mailMessage.To.Add(items.EmailTo.ToString());
+
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.live.com";
+                smtp.EnableSsl = true;
+
+                NetworkCredential networkCre = new NetworkCredential();
+                networkCre.UserName = items.EmailFrom.ToString();
+                networkCre.Password = items.PasswordEmailFrom.ToString();
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = networkCre;
+                smtp.Timeout = 10000;
+                smtp.Port = 587;
+
+                smtp.Send(mailMessage);//ON ERROR
+                Console.WriteLine("Message Sent");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+
+            //MailMessage mail = new MailMessage(items.EmailFrom.ToString(), items.EmailTo.ToString());
+            //SmtpClient client = new SmtpClient();
+            //client.Port = 25;
+            //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            //client.UseDefaultCredentials = false;
+            //client.Host = "smtp.gmail.com";
+            //mail.Subject = items.Subject.ToString();
+            //mail.Body = items.MessageInterview.ToString();
+            //client.Send(mail);
+
+            return sentMail;
+        }
+
     }
 }

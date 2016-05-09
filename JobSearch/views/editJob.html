@@ -6,161 +6,159 @@
             <br />
         </div>
         <form name="FormEditJob" ng-submit="editjob()" class="form-horizontal" role="form">
-                <div class="card-body card-padding">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Job Title</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input type="text" id="JobTitle" name="JobTitle" ng-model="JobTitle" class="form-control input-sm" placeholder="Developer" required>
-                            </div>
-                        </div>
-                        <!--<label class="control-label text-danger">*</label>-->
-                        <span class="error text-red" ng-show="FormEditJob.JobTitle.$error.required">
-                            Required!
-                        </span>
+            <div class="card-body card-padding" ng-init="getjobEdit()">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Job Title</label>
+                    <div class="col-sm-4">
+                        <input type="text" id="JobTitle" name="JobTitle" ng-model="jobonly.JobTitle" class="form-control input-sm" required>
                     </div>
+                    <span class="error text-danger" ng-show="FormEditJob.JobTitle.$error.required">
+                        Required!
+                    </span>
+                </div>
 
-                    <div class="form-group">
-                        <label for="JobDescription" class="col-sm-2 control-label">Job Description</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <textarea class="form-control" rows="3" ng-model="JobDescription" name="JobDescription" placeholder="Computer programmers design a set of programs that acts as instructions for a computer to process information." required></textarea>
-                            </div>
-                        </div>
-                        <!--<label class="control-label text-danger">*</label>-->
-                        <span class="error text-red" ng-show="FormEditJob.JobDescription.$error.required">
-                            Required!
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Keyskills" class="col-sm-2 control-label">Key Skills</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <textarea class="form-control" rows="3" ng-model="Keyskills" name="Keyskills" id="Keyskills" placeholder="- Languages: C, C++, Java, .NET, JavaScript"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Salary" class="col-sm-2 control-label">Salary</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input type="text" id="Salary" name="Salary" ng-model="Salary" class="form-control input-sm" placeholder="20,000 - 40,000 Baht.">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="NumberPosition" class="col-sm-2 control-label">No. of Position</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input type="text" id="NumberPosition" name="NumberPosition" ng-model="NumberPosition" class="form-control input-sm" placeholder="eg. 2 Position">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Qualification" class="col-sm-2 control-label">Qualification</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <textarea class="form-control" rows="3" ng-model="Qualification" placeholder="Qualification"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
+                <div class="form-group">
+                    <div class="fg-line">
                         <label class="col-sm-2 control-label">Job Type</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <div class="col-sm-9">
-                                    <div class="fg-line select">
-                                        <select class="form-control" id="JobType" name="JobType" ng-model="JobTypeID" ng-options="options.JobTypeID as options.JobTypeName for options in jobtype" required>
-                                            <option value="">-- Select Job Type --</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-sm-3">
+                            <select id="JobTypeID" name="JobTypeID" ng-model="jobonly.JobTypeID" ng-options="options.JobTypeID as options.JobTypeName for options in jobtype" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" required>
+                                <option value="">-- Select Job Type --</option>
+                            </select>
                         </div>
-                        <span class="error text-red" ng-show="FormEditJob.JobType.$error.required">
-                            Required!
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Date range:</label>
-                        <div class="col-sm-4">
-                            <input type="text" ng-model="DateRange" class="form-control input-sm" id="reservation" placeholder="mm/dd/yyyy - mm/dd/yyyy">
-                        </div><!-- /.input group -->
-                    </div><!-- /.form group -->
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Contact Name</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input ng-model="Contactname" name="Contactname" id="Contactname" type="text" class="form-control input-sm" placeholder="Malinee Sittipanit" required>
-                            </div>
-                        </div>
-                        <span class="error text-red" ng-show="FormEditJob.Contactname.$error.required">
-                            Required!
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Position</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input ng-model="Position" name="Position" id="Position" type="text" class="form-control input-sm" placeholder="programmer" required>
-                            </div>
-                        </div>
-                        <span class="error text-red" ng-show="FormEditJob.Position.$error.required">
-                            Required!
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input id="Email" ng-model="Email" type="email" name="email" class="form-control input-sm" placeholder="jobsearch@hotmail.com" required>
-                            </div>
-                        </div>
-                        <span class="error text-red" ng-show="FormEditJob.email.$error.required">
-                            Required!
-                        </span>
-                        <span class="error text-red" ng-show="FormEditJob.email.$error.email">
-                            Not valid email!
-                        </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Telephone</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input ng-model="Telephone" name="Telephone" id="Telephone" type="text" class="form-control input-sm" placeholder="089-999-9999" required>
-                            </div>
-                        </div>
-                        <span class="error text-red" ng-show="FormEditJob.Telephone.$error.required">
-                            Required!
-                        </span>
-                    </div>
-
-                    <!--<div class="form-group">
-                        <label class="col-sm-2 control-label">Web Site</label>
-                        <div class="col-sm-4">
-                            <div class="fg-line">
-                                <input ng-model="WebSite" id="WebSite" type="text" class="form-control input-sm" placeholder="Web Site">
-                            </div>
-                        </div>
-                    </div>-->
-
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10 row dialog">
-                            <button ng-disabled="!FormEditJob.$valid" type="submit" class="btn btn-primary btn-sm">Update Job</button>
-                            <button onclick="parent.location = '#/alljob'" type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                        <label ng-show="jobonly.JobTypeID == 1 || jobonly.JobTypeID == 2" class="col-sm-2 control-label">Date range</label>
+                        <div class="col-sm-3">
+                            <input ng-model="jobonly.DateRange" name="DateRange" id="DateRange" type="text" ng-show="jobonly.JobTypeID == 1 || jobonly.JobTypeID == 2" class="form-control input-sm" placeholder="eg. mm/dd/yyyy - mm/dd/yyyy">
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="JobDescription" class="col-sm-2 control-label">Job Description</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <textarea class="form-control" rows="3" ng-model="jobonly.JobDescription" name="JobDescription" required></textarea>
+                        </div>
+                    </div>
+                    <!--<label class="control-label text-danger">*</label>-->
+                    <span class="error text-danger" ng-show="FormEditJob.JobDescription.$error.required">
+                        Required!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Keyskills" class="col-sm-2 control-label">Key Skills</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <textarea class="form-control" rows="3" ng-model="jobonly.Keyskills" name="Keyskills" id="Keyskills" ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Salary" class="col-sm-2 control-label">Salary</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input type="text" id="Salary" name="Salary" ng-model="jobonly.Salary" class="form-control input-sm" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="NumberPosition" class="col-sm-2 control-label">No. of Position</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input type="text" id="NumberPosition" name="NumberPosition" ng-model="jobonly.NumberPosition" class="form-control input-sm" pattern="\d*">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Qualification" class="col-sm-2 control-label">Qualification</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <textarea class="form-control" rows="3" ng-model="jobonly.Qualification" ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="ClosingDate" class="col-sm-2 control-label">Closing date</label>
+                    <div class="col-sm-4">
+                        <input type="date" ng-model="jobonly.ClosingDate" class="form-control input-sm" id="ClosingDate" required>
+                    </div><!-- /.input group -->
+                    <span class="error text-danger" ng-show="FormEditJob.ClosingDate.$error.required">
+                        Required!
+                    </span>
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                    <label for="Contactname" class="col-sm-2 control-label">Contact Name</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input ng-model="jobonly.Contactname" name="Contactname" id="Contactname" type="text" class="form-control input-sm" required>
+                        </div>
+                    </div>
+                    <span class="error text-danger" ng-show="FormEditJob.Contactname.$error.required">
+                        Required!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Position" class="col-sm-2 control-label">Position</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input ng-model="jobonly.Position" name="Position" id="Position" type="text" class="form-control input-sm" required>
+                        </div>
+                    </div>
+                    <span class="error text-danger" ng-show="FormEditJob.Position.$error.required">
+                        Required!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input id="Email" ng-model="jobonly.Email" type="email" name="Email" class="form-control input-sm" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                        </div>
+                    </div>
+                    <span class="error text-danger" ng-show="FormEditJob.Email.$error.required">
+                        Required!
+                    </span>
+                    <span class="error text-danger" ng-show="FormEditJob.Email.$error.email">
+                        Not valid email!
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Telephone" class="col-sm-2 control-label">Telephone</label>
+                    <div class="col-sm-4">
+                        <div class="fg-line">
+                            <input ng-model="jobonly.Telephone" name="Telephone" id="Telephone" type="text" class="form-control input-sm" required>
+                        </div>
+                    </div>
+                    <span class="error text-danger" ng-show="FormEditJob.Telephone.$error.required">
+                        Required!
+                    </span>
+                </div>
+
+                <!--<div class="form-group">
+            <label class="col-sm-2 control-label">Web Site</label>
+            <div class="col-sm-4">
+                <div class="fg-line">
+                    <input ng-model="WebSite" id="WebSite" type="text" class="form-control input-sm" placeholder="Web Site">
+                </div>
+            </div>
+        </div>-->
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10 row dialog">
+                        <button ng-disabled="!FormEditJob.$valid" type="submit" class="btn btn-primary btn-sm">Update Job</button>
+                        <button onclick="parent.location = '#/alljob'" type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>

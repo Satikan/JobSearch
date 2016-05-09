@@ -1,0 +1,128 @@
+﻿<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+    <title>Job Seekers Register</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="template/RegistrationForm/css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+    <div class="sign_up" ng-controller="RegisterSeekerController">
+        <!----------start form----------->
+        <form class="sign" ng-submit="addjobseeker()">
+            <div class="formtitle">Job Seekers Register</div>
+            <!----------start top_section----------->
+            <div class="top_section">
+                <div class="section">
+                    <div class="input username">
+                        <input type="text" ng-model="Firstname" placeholder="First Name" required />
+
+                    </div>
+                    <div class="input password">
+                        <input type="text" ng-model="Lastname" placeholder="Last Name" required />
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+                <div class="section">
+                    <div class="input-sign email">
+                        <input type="email" ng-model="Email" placeholder="Email" required />
+                    </div>
+                    <div class="input password">
+                        <input type="password" ng-model="Password" placeholder="Password" required />
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+            </div>
+            <!----------end top_section----------->
+            <!----------start personal Details----------->
+            <!----------start bottom-section----------->
+            <div class="bottom-section">
+                <div class="title">Profile</div>
+                <!----------start name section----------->
+                <div class="section">
+                    <div class="input-sign details">
+                        <select id="Gender" class="frm-field required" ng-model="GenderID" ng-options="options.GenderID as options.GenderName for options in gender">
+                            <option value="">-- Select Gender --</option>
+                        </select>
+                    </div>
+                    <div class="input-sign details1">
+                        <select id="Status" class="frm-field required" ng-model="StatusID" ng-options="options.StatusID as options.StatusName for options in status">
+                            <option value="">-- Select Status --</option>
+                        </select>
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+                <!----------start city section----------->
+                <div class="section">
+                    <div class="input-sign details">
+                        <textarea rows="5" ng-model="Education" placeholder="Education"></textarea>
+                    </div>
+                    <div class="input-sign details1">
+                        <textarea rows="5" ng-model="Specialskill" placeholder="Special Skill"></textarea>
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+                <!----------start Address section----------->
+                <div class="section">
+                    <div class="input-sign details">
+                        <input type="text" ng-model="Position" placeholder="Positions" required />
+                    </div>
+                    <div class="input-sign details1">
+                        <input type="text" ng-model="Domicile" placeholder="Domicile" />
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+                <div class="section">
+                    <div class="input-sign details">
+                        <input type="text" ng-model="PresentAddress" placeholder="Present address" required />
+                    </div>
+                    <div class="input-sign details1">
+                        <select id="Province" class="frm-field required" ng-model="ProvinceID" ng-options="options.ProvinceID as options.ProvinceName for options in province" required>
+                            <option value="">-- Select Province --</option>
+                        </select>
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+                <!----------start country section----------->
+                <div class="section">
+                    <div class="input-sign details">
+                        <input type="text" ng-model="District" placeholder="District" />
+                    </div>
+                    <div class="input-sign details1">
+                        <input type="text" ng-model="SubDistrict" placeholder="Sub-district" />
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+                <div class="section">
+                    <div class="input-sign details">
+                        <input type="text" ng-model="Postcode" placeholder="Postcode" />
+                    </div>
+                    <div class="input-sign details1">
+                        <input type="text" ng-model="Telephone" placeholder="Telephone" required />
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+                
+                <div class="submit">
+                    <input class="bluebutton submitbotton" type="submit" value="Register" />
+                </div>
+            </div>
+            <!----------end bottom-section----------->
+        </form>
+        <!----------end form----------->
+    </div>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/ng-file-upload.js"></script>
+    <script src="js/ng-file-upload-shim.js"></script>
+    <script src="js/angular-file-upload.min.js"></script>
+    <script src="js/angularJS/app.js"></script>
+</body>
+</html>

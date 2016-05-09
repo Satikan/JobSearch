@@ -13,11 +13,14 @@
     <link href="template/vendors/noUiSlider/jquery.nouislider.min.css" rel="stylesheet">
     <link href="template/vendors/farbtastic/farbtastic.css" rel="stylesheet">
     <link href="template/vendors/summernote/summernote.css" rel="stylesheet" />
+    <link href="template/vendors/light-gallery/lightGallery.min.css" rel="stylesheet">
+    <link href="template/vendors/mediaelement/mediaelementplayer.css" rel="stylesheet">
     <link href="template/vendors/sweet-alert/sweet-alert.min.css" rel="stylesheet">
     <link href="template/vendors/material-icons/material-design-iconic-font.min.css" rel="stylesheet">
     <link href="template/vendors/socicon/socicon.min.css" rel="stylesheet">
 
     <!-- CSS -->
+    <link href="template/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="template/css/app.min.1.css" rel="stylesheet">
     <link href="template/css/app.min.2.css" rel="stylesheet">
 
@@ -71,33 +74,25 @@
                         </div>
                     </li>-->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="tm-notification" href=""><i class="tmn-counts">9</i></a>
-                        <div class="dropdown-menu dropdown-menu-lg pull-right">
+                        <a data-toggle="dropdown" class="tm-notification" href=""><i ng-hide="count == 0" class="tmn-counts">{{count}}</i></a>
+                        <div class="dropdown-menu dropdown-menu-lg pull-right" ng-controller="ApplicantController">
                             <div class="listview" id="notifications">
                                 <div class="lv-header">
                                     Notification
-
-                                    <ul class="actions">
-                                        <li class="dropdown">
-                                            <a href="" data-clear="notification">
-                                                <i class="md md-done-all"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
                                 <div class="lv-body c-overflow">
-                                    <a class="lv-item" href="">
+                                    <a class="lv-item" href="#/profileUser/{{n.DataID}}" ng-click="counthide(n.ApplyID)" ng-repeat="n in notification">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="template/img/profile-pics/1.jpg" alt="">
+                                                <img class="lv-img-sm" ng-src="../images/{{n.PictureName}}" alt="">
                                             </div>
                                             <div class="media-body">
-                                                <div class="lv-title">David Belle</div>
-                                                <small class="lv-small">Cum sociis natoque penatibus et magnis dis parturient montes</small>
+                                                <div class="lv-title">{{n.Firstname}} {{n.Lastname}}</div>
+                                                <small class="lv-small">{{n.JobTitle}}</small>
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="lv-item" href="">
+                                    <!--<a class="lv-item" href="">
                                         <div class="media">
                                             <div class="pull-left">
                                                 <img class="lv-img-sm" src="template/img/profile-pics/2.jpg" alt="">
@@ -140,7 +135,7 @@
                                                 <small class="lv-small">Proin laoreet commodo eros id faucibus. Donec ligula quam, imperdiet vel ante placerat</small>
                                             </div>
                                         </div>
-                                    </a>
+                                    </a>-->
                                 </div>
 
                                 <a class="lv-footer" href="">View Previous</a>
@@ -260,6 +255,8 @@
     <script src="template/vendors/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
     <script src="template/vendors/sweet-alert/sweet-alert.min.js"></script>
     <script src="template/vendors/waves/waves.min.js"></script>
+    <script src="template/vendors/light-gallery/lightGallery.min.js"></script>
+    <script src="template/vendors/mediaelement/mediaelement-and-player.min.js"></script>
     <script src="template/vendors/summernote/summernote.min.js"></script>
     <script src="template/vendors/summernote/summernote.js"></script>
     <script src="template/js/flot-charts/curved-line-chart.js"></script>

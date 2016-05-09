@@ -12,7 +12,6 @@
                         <div class="col-sm-4">
                                 <input type="text" id="JobTitle" name="JobTitle" ng-model="JobTitle" class="form-control input-sm" placeholder="eg. Developer" required>                        
                         </div>
-                        <!--<label class="control-label text-danger">*</label>-->
                         <span class="error text-danger" ng-show="FormNewJob.JobTitle.$error.required">
                             Required!
                         </span>
@@ -26,12 +25,9 @@
                                     <option value="">-- Select Job Type --</option>
                                 </select>                                                       
                             </div>
-                            <div class="col-sm-3">   
-                                <label class="col-sm-2 control-label">Date range</label>       
-                                <input ng-model="cooperative" name="cooperative" id="cooperative" type="text" ng-show="JobTypeID == 1" class="form-control input-sm" placeholder="eg. mm/dd/yyyy - mm/dd/yyyy">                     
-                            </div>
-                            <div class="col-sm-3">
-                                <input ng-model="Internship" name="Internship" id="Internship" type="text" ng-show="JobTypeID == 2" class="form-control input-sm" placeholder="eg. mm/dd/yyyy - mm/dd/yyyy">
+                            <label ng-show="JobTypeID == 1 || JobTypeID == 2" class="col-sm-2 control-label">Date range</label>
+                            <div class="col-sm-3">                               
+                                <input ng-model="DateRange" name="DateRange" id="DateRange" type="text" ng-show="JobTypeID == 1 || JobTypeID == 2" class="form-control input-sm" placeholder="eg. mm/dd/yyyy - mm/dd/yyyy">                     
                             </div>
                         </div>
                     </div>
@@ -71,7 +67,7 @@
                         <label for="NumberPosition" class="col-sm-2 control-label">No. of Position</label>
                         <div class="col-sm-4">
                             <div class="fg-line">
-                                <input type="text" id="NumberPosition" name="NumberPosition" ng-model="NumberPosition" class="form-control input-sm" placeholder="eg. 2 Position">
+                                <input type="text" id="NumberPosition" name="NumberPosition" ng-model="NumberPosition" class="form-control input-sm" placeholder="eg. 2" pattern="\d*">
                             </div>
                         </div>
                     </div>
@@ -89,7 +85,7 @@
                     <div class="form-group">
                         <label for="ClosingDate" class="col-sm-2 control-label">Closing date</label>
                         <div class="col-sm-4">
-                            <input type="date" ng-model="ClosingDate" class="form-control input-sm" id="ClosingDate" placeholder="eg. mm/dd/yyyy" required>
+                            <input type="date" ng-model="ClosingDate" class="form-control input-sm" placeholder="eg. mm/dd/yyyy" required>
                         </div><!-- /.input group -->
                         <span class="error text-danger" ng-show="FormNewJob.ClosingDate.$error.required">
                             Required!
@@ -124,7 +120,7 @@
                         <label for="Email" class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-4">
                             <div class="fg-line">
-                                <input id="Email" ng-model="Email" type="email" name="Email" class="form-control input-sm" placeholder="eg. jobsearch@hotmail.com" required>
+                                <input id="Email" ng-model="Email" type="email" name="Email" class="form-control input-sm" placeholder="eg. jobsearch@hotmail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                             </div>
                         </div>
                         <span class="error text-danger" ng-show="FormNewJob.Email.$error.required">
@@ -159,7 +155,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10 row dialog">
                             <button ng-disabled="!FormNewJob.$valid" type="submit" class="btn btn-primary btn-sm">Post Job</button>
-                            <button onclick="parent.location = '#/'" type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                            <button onclick="parent.location = '#/'" class="btn btn-danger btn-sm">Cancel</button>
                         </div>
                     </div>
                 </div>

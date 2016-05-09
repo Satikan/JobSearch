@@ -104,6 +104,10 @@ namespace JobSearch.Models
 
         public string Position { get; set; }
 
+        public string JobTitle { get; set; }
+
+        public int Count { get; set; }
+
         public string status { get; set; }
     }
 
@@ -172,6 +176,8 @@ namespace JobSearch.Models
 
         public string DateRange { get; set; }
 
+        public string ClosingDate { get; set; }
+
         public int DataID { get; set; }
 
         public string Companyname { get; set; }
@@ -226,6 +232,23 @@ namespace JobSearch.Models
         public int JobID { get; set; }
 
         public int Deleted { get; set; }
+
+        public int Hide { get; set; }
+    }
+
+    public class Email
+    {
+        public int DataID { get; set; }
+
+        public string EmailFrom { get; set; }
+
+        public string PasswordEmailFrom { get; set; }
+
+        public string EmailTo { get; set; }
+
+        public string Subject { get; set; }
+
+        public string MessageInterview { get; set; }
     }
 
 }

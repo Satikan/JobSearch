@@ -43,11 +43,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CLRUtility">
-      <HintPath>..\..\..\..\Project\Patch Control\PatchControl3\Patch_Control\bin\CLRUtility.dll</HintPath>
+    <Reference Include="CLRUtility, Version=1.2012.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ClassLibrary\CLRUtility.dll</HintPath>
     </Reference>
-    <Reference Include="DbConnLog">
-      <HintPath>..\..\..\..\Project\Patch Control\PatchControl3\Patch_Control\bin\DbConnLog.dll</HintPath>
+    <Reference Include="DbConnLog, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ClassLibrary\DbConnLog.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -56,10 +58,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Project\Patch Control\PatchControl3\Patch_Control\bin\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\ClassLibrary\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="POSMySQL">
-      <HintPath>..\..\..\..\Project\Patch Control\PatchControl3\Patch_Control\bin\POSMySQL.dll</HintPath>
+    <Reference Include="POSMySQL, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\ClassLibrary\POSMySQL.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -131,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="images\1.jpg" />
+    <Content Include="images\2.JPG" />
+    <Content Include="images\3.jpg" />
     <Content Include="images\Admin-icon.png" />
     <Content Include="images\default-user-icon-profile.png" />
     <Content Include="images\Employer.jpg" />
@@ -148,7 +154,9 @@
     <Content Include="js\ng-file-upload.js" />
     <Content Include="js\ng-file-upload.min.js" />
     <Content Include="login.html" />
+    <Content Include="registerEm.html" />
     <Content Include="registerEmployer.html" />
+    <Content Include="registerSe.html" />
     <Content Include="registerSeeker.html" />
     <Content Include="template\bootstrap\css\bootstrap.css" />
     <Content Include="template\bootstrap\css\bootstrap.min.css" />
@@ -1367,7 +1375,6 @@
     <Content Include="template\RegistrationForm\images\arrow.png" />
     <Content Include="template\RegistrationForm\images\close.png" />
     <Content Include="template\RegistrationForm\images\select.png" />
-    <Content Include="addDataProfile.html" />
     <Content Include="template\vendors\animate-css\._animate.css" />
     <Content Include="template\vendors\animate-css\._animate.min.css" />
     <Content Include="template\vendors\animate-css\animate.css" />
@@ -1814,6 +1821,8 @@
     <Content Include="views\applicant.html" />
     <Content Include="views\cooperativeEducation.html" />
     <Content Include="views\editJob.html" />
+    <Content Include="views\editProfileEmployer.html" />
+    <Content Include="views\editProfileUser.html" />
     <Content Include="views\fullTime.html" />
     <Content Include="views\home.html" />
     <Content Include="views\newJob.html" />

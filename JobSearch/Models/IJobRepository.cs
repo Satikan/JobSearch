@@ -16,21 +16,28 @@ namespace JobSearch.Models
         IEnumerable<Datajob> GetCooperativeAll();
         IEnumerable<Datajob> GetInternshipAll();
         Employer GetUserOnly(int id);
+        Datajob GetJobOnlyAll(int id);
         Employer GetEmployerOnly(int id);
         IEnumerable<Employer> GetApplicantAll(int id);
         IEnumerable<Employer> PostEmployerAll(Employer item);
+        IEnumerable<Employer> PostEditProfileEmployerAll(Employer item);
         IEnumerable<Employer> PostSeekerAll(Employer item);
         IEnumerable<Postjob> PostPostjobAll(Postjob item);
-        IEnumerable<Postjob> PostJobDeleteAll(Postjob item);
+        IEnumerable<Postjob> PostPostEditjobAll(Postjob item);
+        IEnumerable<Postjob> PostJobDeleteAll(Postjob item); 
         IEnumerable<Apply> PostApplyCancleAll(Apply item);
+        IEnumerable<Apply> PostCountHideAll(Apply item);
         IEnumerable<Postjob> PostJobEmployerDeleteAll(Postjob item);
         IEnumerable<Datajob> PostDetailJobAll(Datajob item);
         IEnumerable<Datajob> PostAlljobAll(Datajob item);
         IEnumerable<Apply> PostApplyCoopAll(Apply item);
+        IEnumerable<Employer> PostNotificationEmployerAll(Employer item);
         IEnumerable<PermissionItemdata> PostPermissionGroupAll(PermissionItemdata item);
         Employer PostLoginAll(Employer item);
         Employer PostJobImageAll(string imageName, int dataid);
         Employer PostJobFileAll(string filename, int dataid);
         Employer PostIndexAll(Employer item);
+        Employer PostInterviewOnly(Employer item);
+        IEnumerable<Email> sentMail(Email items);
     }
 }
