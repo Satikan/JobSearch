@@ -1,0 +1,42 @@
+﻿<div class="container">
+
+    <div class="card">
+        <div class="card-header bgm-cyan">
+            <h2>Detail Job</h2>
+            <br />
+        </div>
+
+        <form class="form-horizontal" role="form">
+            <div class="card-body card-padding" ng-init="getdetailjob()">
+                <div class="form-group" style="border-left-width: 20px;padding-left: 40px;">
+                    <div class="col-md-12">
+                        <h5><b>JobTitle &nbsp;:</b>&nbsp; {{detailjobonly.JobTitle}}</h5>
+                        <h5><b>Company Name &nbsp;:</b>&nbsp; {{detailjobonly.Companyname}}</h5>
+                        <h5><b>Job Description &nbsp;:</b>&nbsp; {{detailjobonly.JobDescription}}</h5>
+                        <h5><b>Qualification &nbsp;:</b>&nbsp; {{detailjobonly.Qualification}}</h5>
+                        <h5><b>Key Skills &nbsp;:</b>&nbsp; {{detailjobonly.Keyskills}}</h5>
+                        <!--<h5><b>Keyskills :</b> </h5><ul>
+                            <li>{{detailjobonly.Keyskills}}</li>
+                        </ul>-->
+                        <h5><b>Salary &nbsp;:</b>&nbsp; {{detailjobonly.Salary}}</h5>
+                        <h5><b>Total job number &nbsp;:</b>&nbsp; {{detailjobonly.NumberPosition}}</h5>
+                        <h5><b>Address &nbsp;:</b>&nbsp; {{detailjobonly.EmployerAddress}}</h5>
+                        <h5><b>District &nbsp;:</b>&nbsp; {{detailjobonly.District}}</h5>
+                        <h5><b>Sub-District &nbsp;:</b>&nbsp; {{detailjobonly.SubDistrict}}</h5>
+                        <h5><b>Province &nbsp;:</b>&nbsp; {{detailjobonly.ProvinceName}}</h5>
+                        <h5><b>Contact Name &nbsp;:</b>&nbsp; {{detailjobonly.Contactname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Position &nbsp;:</b>&nbsp; {{detailjobonly.Position}}</h5>
+                        <h5><b>Tel &nbsp;:</b>&nbsp; {{detailjobonly.Telephone}}</h5>
+                        <h5><b>Email &nbsp;:</b>&nbsp; {{detailjobonly.Email}}</h5>
+                        <h5><b>Website &nbsp;:</b>&nbsp; {{detailjobonly.Website}}</h5><br />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10 row dialog">
+                            <button type="button" ng-click="apply(detailjobonly.JobID)" class="btn btn-primary btn-sm">Apply Now</button>&nbsp;
+                            <button type="button" onclick="parent.location = '#/'" class="btn btn-danger btn-sm">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+        </form>
+    </div>
+</div>

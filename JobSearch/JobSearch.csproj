@@ -135,7 +135,9 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="images\1.jpg" />
+    <Content Include="images\15081_124690831060758_442371299_n.jpg" />
     <Content Include="images\Admin-icon.png" />
+    <Content Include="images\IMG_0013.JPG" />
     <Content Include="template\img\bg.png" />
     <Content Include="images\default-user-icon-profile.png" />
     <Content Include="images\Employer.jpg" />
@@ -1815,15 +1817,19 @@
     <Content Include="template\vendors\waves\waves.js" />
     <Content Include="template\vendors\waves\waves.min.js" />
     <Content Include="views\alljob.html" />
+    <Content Include="views\alljobadmin.html" />
     <Content Include="views\applicant.html" />
     <Content Include="views\cooperativeEducation.html" />
+    <Content Include="views\detailJob.html" />
     <Content Include="views\editJob.html" />
+    <Content Include="views\editJobAdmin.html" />
     <Content Include="views\editProfileEmployer.html" />
     <Content Include="views\editProfileUser.html" />
     <Content Include="views\fullTime.html" />
     <Content Include="views\home.html" />
     <Content Include="views\newJob.html" />
     <Content Include="views\partTime.html" />
+    <Content Include="views\postJob.html" />
     <Content Include="views\profileEmployer.html" />
     <Content Include="views\profileUser.html" />
     <Content Include="views\internship.html" />

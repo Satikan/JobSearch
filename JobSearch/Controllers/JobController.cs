@@ -71,12 +71,36 @@ namespace JobSearch.Controllers
             return repository.GetInternshipAll();
         }
 
+        // GET api/job/parttime
+        [HttpGet]
+        [ActionName("Parttime")]
+        public IEnumerable<Datajob> GetParttime()
+        {
+            return repository.GetParttimeAll();
+        }
+
+        // GET api/job/fulltime
+        [HttpGet]
+        [ActionName("Fulltime")]
+        public IEnumerable<Datajob> GetFulltime()
+        {
+            return repository.GetFulltimeAll();
+        }
+
         // GET api/<controller>/5
         [HttpGet]
         [ActionName("JobOnly")]
         public Datajob GetJobOnly(int id)
         {
             return repository.GetJobOnlyAll(id);
+        }
+
+        // GET api/<controller>/5
+        [HttpGet]
+        [ActionName("JobOnlyAdmin")]
+        public Datajob GetJobOnlyAdmin(int id)
+        {
+            return repository.GetJobOnlyAdminAll(id);
         }
 
         // GET api/<controller>/5
@@ -96,19 +120,19 @@ namespace JobSearch.Controllers
         }
 
         // GET api/<controller>/5
-        //[HttpGet]
-        //[ActionName("ProfileEmployer")]
-        //public Employer GetProfileEmployer(int id)
-        //{
-        //    return repository.GetProfileEmployerOnly(id);
-        //}
-
-        // GET api/<controller>/5
         [HttpGet]
         [ActionName("Applicant")]
         public IEnumerable<Employer> GetApplicant(int id)
         {
             return repository.GetApplicantAll(id);
+        }
+
+        // GET api/<controller>/5
+        [HttpGet]
+        [ActionName("DetailJob")]
+        public Datajob GetDetailJob(int id)
+        {
+            return repository.GetDetailJobAll(id);
         }
 
         // POST api/job/employer
@@ -118,6 +142,15 @@ namespace JobSearch.Controllers
         {
 
             return repository.PostEmployerAll(item);
+        }
+
+        // POST api/job/editprofileuser
+        [HttpPost]
+        [ActionName("EditProfileUser")]
+        public IEnumerable<Employer> PostEditProfileUser(Employer item)
+        {
+
+            return repository.PostEditProfileUserAll(item);
         }
 
         // POST api/job/editprofileemployer
@@ -147,6 +180,15 @@ namespace JobSearch.Controllers
             return repository.PostPostjobAll(item);
         }
 
+        // POST api/job/adminpostjob
+        [HttpPost]
+        [ActionName("AdminPostjob")]
+        public IEnumerable<Postjob> PostAdminPostjob(Postjob item)
+        {
+
+            return repository.PostAdminPostjobAll(item);
+        }
+
         // POST api/job/posteditjob
         [HttpPost]
         [ActionName("PostEditjob")]
@@ -154,6 +196,24 @@ namespace JobSearch.Controllers
         {
 
             return repository.PostPostEditjobAll(item);
+        }
+
+        // POST api/job/posteditjobadmin
+        [HttpPost]
+        [ActionName("PostEditJobAdmin")]
+        public IEnumerable<Postjob> PostPostEditJobAdmin(Postjob item)
+        {
+
+            return repository.PostPostEditJobAdminAll(item);
+        }
+
+        // POST api/job/notificationuser
+        [HttpPost]
+        [ActionName("NotificationUser")]
+        public IEnumerable<Datajob> PostNotificationUser(Datajob item)
+        {
+
+            return repository.PostNotificationUserAll(item);
         }
 
         // POST api/job/notificationemployer
@@ -165,7 +225,7 @@ namespace JobSearch.Controllers
             return repository.PostNotificationEmployerAll(item);
         }
 
-        // POST api/job/DetailJob
+        // POST api/job/detailjob
         [HttpPost]
         [ActionName("DetailJob")]
         public IEnumerable<Datajob> PostDetailJob(Datajob item)
@@ -179,6 +239,14 @@ namespace JobSearch.Controllers
         public IEnumerable<Postjob> PostJobDelete(Postjob item)
         {
             return repository.PostJobDeleteAll(item);
+        }
+
+        // POST api/job/counthideuser
+        [HttpPost]
+        [ActionName("CountHideUser")]
+        public IEnumerable<Datajob> PostCountHideUser(Datajob item)
+        {
+            return repository.PostCountHideUserAll(item);
         }
 
         // POST api/job/counthide
@@ -246,12 +314,12 @@ namespace JobSearch.Controllers
             return repository.PostLoginAll(item);
         }
 
-        // POST api/job/applycoop
+        // POST api/job/apply
         [HttpPost]
-        [ActionName("ApplyCoop")]
-        public IEnumerable<Apply> PostApplyCoop(Apply item)
+        [ActionName("Apply")]
+        public IEnumerable<Apply> PostApply(Apply item)
         {
-            return repository.PostApplyCoopAll(item);
+            return repository.PostApplyAll(item);
         }
 
         // POST api/job/image

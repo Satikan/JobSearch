@@ -6,7 +6,7 @@
             <br />
         </div>
 
-        <form name="FormNewJob" class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form">
             <div class="card-body card-padding">
                 <div class="form-group pull-right">
                     <label for="Province" class="col-sm-3 control-label">Search</label>
@@ -22,7 +22,7 @@
                             <th><center>Company Name</center></th>
                             <th><center>Province</center></th>
                             <th><center>Positions</center></th>
-                            <th><center>Salary</center></th>
+                            <!--<th><center>Salary</center></th>-->
                             <th><center>Total job number</center></th>
                             <th><center>Date range</center></th>
                             <th><center>Detail</center></th>
@@ -34,16 +34,16 @@
                             <td align="center">{{n.Companyname}}</td>
                             <td align="center">{{n.ProvinceName}}</td>
                             <td align="center">{{n.JobTitle}}</td>
-                            <td align="center">{{n.Salary}}</td>
+                            <!--<td align="center">{{n.Salary}}</td>-->
                             <td align="center">{{n.NumberPosition}}</td>
                             <td align="center">{{n.DateRange}}</td>
-                            <td align="center"><button class="btn btn-info btn-icon" ng-click="detail(n.JobID)" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="md md-description"></i></button></td>
+                            <td align="center"><button class="btn btn-info btn-icon" ng-click="detailCooperative(n.JobID)" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="md md-description"></i></button></td>
                             <td align="center" ng-show="buttondelete == 1"><button class="btn btn-danger btn-icon" ng-click="deleteCooperative(n.JobID)"><i class="md md-delete"></i></button></td>
                                             
                         </tr>
-
                     </tbody>
                 </table>
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div><!-- /.box-body -->
         </form>
 
@@ -52,6 +52,9 @@
                 <div class="modal-content">
                     <div class="card">
                         <div class="modal-header card-padding">
+                            <div class="pull-left">
+                                <h3 class="modal-title text-primary"><U>Detail</U></h3>
+                            </div>
                             <div class="pull-right">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="ma md-close"></i></button>
                             </div>
@@ -59,28 +62,30 @@
                         <div class="modal-body card-padding">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h5><b>JobTitle :</b> {{detailjob.JobTitle}}</h5>
-                                    <h5><b>Company Name :</b> {{detailjob.Companyname}}</h5>
-                                    <h5><b>Job Description :</b> {{detailjob.JobDescription}}</h5>
+                                    <h5><b>JobTitle :</b> {{detailCooperativejob.JobTitle}}</h5>
+                                    <h5><b>Company Name :</b> {{detailCooperativejob.Companyname}}</h5>
+                                    <h5><b>Job Description :</b> {{detailCooperativejob.JobDescription}}</h5>
                                     <h5><b>Qualification :</b> </h5><ul>
-                                        <li>{{detailjob.Qualification}}</li>
+                                        <li>{{detailCooperativejob.Qualification}}</li>
                                     </ul>
                                     <h5><b>Keyskills :</b> </h5><ul>
-                                        <li>{{detailjob.Keyskills}}</li>
+                                        <li>{{detailCooperativejob.Keyskills}}</li>
                                     </ul>
-                                    <h5><b>Address :</b> {{detailjob.EmployerAddress}}</h5>
-                                    <h5><b>District :</b> {{detailjob.District}}</h5>
-                                    <h5><b>Sub-District :</b> {{detailjob.SubDistrict}}</h5>
-                                    <h5><b>Province :</b> {{detailjob.ProvinceName}}</h5>
-                                    <h5><b>Contact Name :</b> {{detailjob.Contactname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Position :</b> {{detailjob.Position}}</h5>
-                                    <h5><b>Tel :</b> {{detailjob.Telephone}}</h5>
-                                    <h5><b>Email :</b> {{detailjob.Email}}</h5>
-                                    <h5><b>Website :</b> {{detailjob.Website}}</h5>
+                                    <h5><b>Salary :</b> {{detailCooperativejob.Salary}}</h5>
+                                    <h5><b>Total job number :</b> {{detailCooperativejob.NumberPosition}}</h5>
+                                    <h5><b>Address :</b> {{detailCooperativejob.EmployerAddress}}</h5>
+                                    <h5><b>District :</b> {{detailCooperativejob.District}}</h5>
+                                    <h5><b>Sub-District :</b> {{detailCooperativejob.SubDistrict}}</h5>
+                                    <h5><b>Province :</b> {{detailCooperativejob.ProvinceName}}</h5>
+                                    <h5><b>Contact Name :</b> {{detailCooperativejob.Contactname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Position :</b> {{detailCooperativejob.Position}}</h5>
+                                    <h5><b>Tel :</b> {{detailCooperativejob.Telephone}}</h5>
+                                    <h5><b>Email :</b> {{detailCooperativejob.Email}}</h5>
+                                    <h5><b>Website :</b> {{detailCooperativejob.Website}}</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" ng-click="applycoop(detailjob.JobID)" class="btn btn-primary">Apply Now</button>
+                            <button type="button" ng-show="buttonapply == 1" ng-click="apply(detailCooperativejob.JobID)" class="btn btn-primary">Apply Now</button>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->

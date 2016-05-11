@@ -113,6 +113,8 @@ namespace JobSearch.Models
 
     public class Postjob
     {
+        public string Companyname { get; set; }
+
         public int JobID { get; set; }
 
         public int DataID { get; set; }
@@ -134,6 +136,20 @@ namespace JobSearch.Models
         public string Contactname { get; set; }
 
         public string Position { get; set; }
+
+        public string EmployerAddress { get; set; }
+
+        public string District { get; set; }
+
+        public string SubDistrict { get; set; }
+
+        public int ProvinceID { get; set; }
+
+        public string ProvinceName { get; set; }
+
+        public string Postcode { get; set; }
+
+        public string Website { get; set; }
 
         public string Email { get; set; }
 
@@ -198,7 +214,11 @@ namespace JobSearch.Models
 
         public string Website { get; set; }
 
+        public string PictureName { get; set; }
+
         public string status { get; set; }
+
+        public int Hide { get; set; }
     }
 
     public class PermissionItemdata

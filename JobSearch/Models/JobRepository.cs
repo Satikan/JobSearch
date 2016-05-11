@@ -128,7 +128,7 @@ namespace JobSearch.Models
         {
             objConn = objDB.EstablishConnection();
             List<Datajob> cooperative = new List<Datajob>();
-            string strSQL = "SELECT * FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE JobTypeID = 1 AND pv.LangID = 1 AND pj.Deleted = 0;";
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE JobTypeID = 1 AND pj.Deleted = 0 AND pv.LangID = 1 AND pj.Deleted = 0;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
             if (dt.Rows.Count > 0)
@@ -150,6 +150,7 @@ namespace JobSearch.Models
                     cooperativeData.Email = dt.Rows[i]["Email"].ToString();
                     cooperativeData.Telephone = dt.Rows[i]["Telephone"].ToString();
                     cooperativeData.DateRange = dt.Rows[i]["DateRange"].ToString();
+                    cooperativeData.ClosingDate = dt.Rows[i]["ClosingDateFormat"].ToString();
                     cooperativeData.Companyname = dt.Rows[i]["Companyname"].ToString();
                     cooperativeData.EmployerAddress = dt.Rows[i]["EmployerAddress"].ToString();
                     cooperativeData.ProvinceName = dt.Rows[i]["ProvinceName"].ToString();
@@ -168,7 +169,7 @@ namespace JobSearch.Models
         {
             objConn = objDB.EstablishConnection();
             List<Datajob> internship = new List<Datajob>();
-            string strSQL = "SELECT * FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE JobTypeID = 2 AND pv.LangID = 1;";
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE JobTypeID = 2 AND pj.Deleted = 0 AND pv.LangID = 1;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
             if (dt.Rows.Count > 0)
@@ -190,6 +191,7 @@ namespace JobSearch.Models
                     internshipData.Email = dt.Rows[i]["Email"].ToString();
                     internshipData.Telephone = dt.Rows[i]["Telephone"].ToString();
                     internshipData.DateRange = dt.Rows[i]["DateRange"].ToString();
+                    internshipData.ClosingDate = dt.Rows[i]["ClosingDateFormat"].ToString();
                     internshipData.Companyname = dt.Rows[i]["Companyname"].ToString();
                     internshipData.EmployerAddress = dt.Rows[i]["EmployerAddress"].ToString();
                     internshipData.ProvinceName = dt.Rows[i]["ProvinceName"].ToString();
@@ -202,6 +204,88 @@ namespace JobSearch.Models
                 }
             }
             return internship.ToArray();
+        }
+
+        public IEnumerable<Datajob> GetParttimeAll()
+        {
+            objConn = objDB.EstablishConnection();
+            List<Datajob> parttime = new List<Datajob>();
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE JobTypeID = 3 AND pj.Deleted = 0 AND pv.LangID = 1;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Datajob parttimeData = new Datajob();
+
+                    parttimeData.JobID = Convert.ToInt32(dt.Rows[i]["JobID"].ToString());
+                    parttimeData.JobTitle = dt.Rows[i]["JobTitle"].ToString();
+                    parttimeData.JobDescription = dt.Rows[i]["JobDescription"].ToString();
+                    parttimeData.Keyskills = dt.Rows[i]["Keyskills"].ToString();
+                    parttimeData.Salary = dt.Rows[i]["Salary"].ToString();
+                    parttimeData.NumberPosition = dt.Rows[i]["NumberPosition"].ToString();
+                    parttimeData.Qualification = dt.Rows[i]["Qualification"].ToString();
+                    parttimeData.JobTypeID = Convert.ToInt32(dt.Rows[i]["JobTypeID"].ToString());
+                    parttimeData.Contactname = dt.Rows[i]["Contactname"].ToString();
+                    parttimeData.Position = dt.Rows[i]["Position"].ToString();
+                    parttimeData.Email = dt.Rows[i]["Email"].ToString();
+                    parttimeData.Telephone = dt.Rows[i]["Telephone"].ToString();
+                    parttimeData.DateRange = dt.Rows[i]["DateRange"].ToString();
+                    parttimeData.ClosingDate = dt.Rows[i]["ClosingDateFormat"].ToString();
+                    parttimeData.Companyname = dt.Rows[i]["Companyname"].ToString();
+                    parttimeData.EmployerAddress = dt.Rows[i]["EmployerAddress"].ToString();
+                    parttimeData.ProvinceName = dt.Rows[i]["ProvinceName"].ToString();
+                    parttimeData.District = dt.Rows[i]["District"].ToString();
+                    parttimeData.SubDistrict = dt.Rows[i]["SubDistrict"].ToString();
+                    parttimeData.Postcode = dt.Rows[i]["Postcode"].ToString();
+                    parttimeData.Website = dt.Rows[i]["Website"].ToString();
+
+                    parttime.Add(parttimeData);
+                }
+            }
+            return parttime.ToArray();
+        }
+
+        public IEnumerable<Datajob> GetFulltimeAll()
+        {
+            objConn = objDB.EstablishConnection();
+            List<Datajob> fulltime = new List<Datajob>();
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE JobTypeID = 4 AND pj.Deleted = 0 AND pv.LangID = 1;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Datajob fulltimeData = new Datajob();
+
+                    fulltimeData.JobID = Convert.ToInt32(dt.Rows[i]["JobID"].ToString());
+                    fulltimeData.JobTitle = dt.Rows[i]["JobTitle"].ToString();
+                    fulltimeData.JobDescription = dt.Rows[i]["JobDescription"].ToString();
+                    fulltimeData.Keyskills = dt.Rows[i]["Keyskills"].ToString();
+                    fulltimeData.Salary = dt.Rows[i]["Salary"].ToString();
+                    fulltimeData.NumberPosition = dt.Rows[i]["NumberPosition"].ToString();
+                    fulltimeData.Qualification = dt.Rows[i]["Qualification"].ToString();
+                    fulltimeData.JobTypeID = Convert.ToInt32(dt.Rows[i]["JobTypeID"].ToString());
+                    fulltimeData.Contactname = dt.Rows[i]["Contactname"].ToString();
+                    fulltimeData.Position = dt.Rows[i]["Position"].ToString();
+                    fulltimeData.Email = dt.Rows[i]["Email"].ToString();
+                    fulltimeData.Telephone = dt.Rows[i]["Telephone"].ToString();
+                    fulltimeData.DateRange = dt.Rows[i]["DateRange"].ToString();
+                    fulltimeData.ClosingDate = dt.Rows[i]["ClosingDateFormat"].ToString();
+                    fulltimeData.Companyname = dt.Rows[i]["Companyname"].ToString();
+                    fulltimeData.EmployerAddress = dt.Rows[i]["EmployerAddress"].ToString();
+                    fulltimeData.ProvinceName = dt.Rows[i]["ProvinceName"].ToString();
+                    fulltimeData.District = dt.Rows[i]["District"].ToString();
+                    fulltimeData.SubDistrict = dt.Rows[i]["SubDistrict"].ToString();
+                    fulltimeData.Postcode = dt.Rows[i]["Postcode"].ToString();
+                    fulltimeData.Website = dt.Rows[i]["Website"].ToString();
+
+                    fulltime.Add(fulltimeData);
+                }
+            }
+            return fulltime.ToArray();
         }
 
         public Datajob GetJobOnlyAll(int id)
@@ -229,6 +313,73 @@ namespace JobSearch.Models
             jobDataOnly.ClosingDate = dt.Rows[0]["ClosingDate"].ToString();
 
             return jobDataOnly;
+        }
+
+        public Datajob GetJobOnlyAdminAll(int id)
+        {
+            objConn = objDB.EstablishConnection();
+            Datajob jobDataadminOnly = new Datajob();
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataAdminID WHERE pj.JobID = '" + id + "';";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            jobDataadminOnly.JobID = Convert.ToInt32(dt.Rows[0]["JobID"].ToString());
+            jobDataadminOnly.DataID = Convert.ToInt32(dt.Rows[0]["DataAdminID"].ToString());
+            jobDataadminOnly.JobTitle = dt.Rows[0]["JobTitle"].ToString();
+            jobDataadminOnly.JobDescription = dt.Rows[0]["JobDescription"].ToString();
+            jobDataadminOnly.Keyskills = dt.Rows[0]["Keyskills"].ToString();
+            jobDataadminOnly.Salary = dt.Rows[0]["Salary"].ToString();
+            jobDataadminOnly.NumberPosition = dt.Rows[0]["NumberPosition"].ToString();
+            jobDataadminOnly.Qualification = dt.Rows[0]["Qualification"].ToString();
+            jobDataadminOnly.JobTypeID = Convert.ToInt32(dt.Rows[0]["JobTypeID"].ToString());
+            jobDataadminOnly.ProvinceID = Convert.ToInt32(dt.Rows[0]["ProvinceID"].ToString());
+            jobDataadminOnly.Contactname = dt.Rows[0]["Contactname"].ToString();
+            jobDataadminOnly.Position = dt.Rows[0]["Position"].ToString();
+            jobDataadminOnly.Email = dt.Rows[0]["Email"].ToString();
+            jobDataadminOnly.Telephone = dt.Rows[0]["Telephone"].ToString();
+            jobDataadminOnly.DateRange = dt.Rows[0]["DateRange"].ToString();
+            jobDataadminOnly.ClosingDate = dt.Rows[0]["ClosingDateFormat"].ToString();
+            jobDataadminOnly.Companyname = dt.Rows[0]["Companyname"].ToString();
+            jobDataadminOnly.EmployerAddress = dt.Rows[0]["EmployerAddress"].ToString();
+            jobDataadminOnly.District = dt.Rows[0]["District"].ToString();
+            jobDataadminOnly.SubDistrict = dt.Rows[0]["SubDistrict"].ToString();
+            jobDataadminOnly.Postcode = dt.Rows[0]["Postcode"].ToString();
+            jobDataadminOnly.Website = dt.Rows[0]["Website"].ToString();
+
+            return jobDataadminOnly;
+        }
+
+        public Datajob GetDetailJobAll(int id)
+        {
+            objConn = objDB.EstablishConnection();
+            Datajob detailjob = new Datajob();
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE pj.JobID = " + id + " AND pv.LangID = 1;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            detailjob.JobID = Convert.ToInt32(dt.Rows[0]["JobID"].ToString());
+            detailjob.JobTitle = dt.Rows[0]["JobTitle"].ToString();
+            detailjob.JobDescription = dt.Rows[0]["JobDescription"].ToString();
+            detailjob.Keyskills = dt.Rows[0]["Keyskills"].ToString();
+            detailjob.Salary = dt.Rows[0]["Salary"].ToString();
+            detailjob.NumberPosition = dt.Rows[0]["NumberPosition"].ToString();
+            detailjob.Qualification = dt.Rows[0]["Qualification"].ToString();
+            detailjob.JobTypeID = Convert.ToInt32(dt.Rows[0]["JobTypeID"].ToString());
+            detailjob.Contactname = dt.Rows[0]["Contactname"].ToString();
+            detailjob.Position = dt.Rows[0]["Position"].ToString();
+            detailjob.Email = dt.Rows[0]["Email"].ToString();
+            detailjob.Telephone = dt.Rows[0]["Telephone"].ToString();
+            detailjob.DateRange = dt.Rows[0]["DateRange"].ToString();
+            detailjob.ClosingDate = dt.Rows[0]["ClosingDateFormat"].ToString();
+            detailjob.Companyname = dt.Rows[0]["Companyname"].ToString();
+            detailjob.EmployerAddress = dt.Rows[0]["EmployerAddress"].ToString();
+            detailjob.ProvinceName = dt.Rows[0]["ProvinceName"].ToString();
+            detailjob.District = dt.Rows[0]["District"].ToString();
+            detailjob.SubDistrict = dt.Rows[0]["SubDistrict"].ToString();
+            detailjob.Postcode = dt.Rows[0]["Postcode"].ToString();
+            detailjob.Website = dt.Rows[0]["Website"].ToString();
+
+            return detailjob;
         }
 
         public Employer GetUserOnly(int id)
@@ -369,6 +520,20 @@ namespace JobSearch.Models
             return employer.ToArray();
         }
 
+        public IEnumerable<Employer> PostEditProfileUserAll(Employer item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Employer> postedituser = new List<Employer>();
+
+            string strSQL = "UPDATE datacompanyanduser SET Firstname = '" + item.Firstname + "', Lastname = '" + item.Lastname + "', Email = '" + item.Email + "', GenderID = '" + item.GenderID + "', StatusID = '" + item.StatusID + "', Education = '" + item.Education + "', Specialskill = '" + item.Specialskill + "', Position = '" + item.Position + "', Domicile = '" + item.Domicile + "', PresentAddress = '" + item.PresentAddress + "', ProvinceID = '" + item.ProvinceID + "', District = '" + item.District + "', SubDistrict = '" + item.SubDistrict + "', Postcode = '" + item.Postcode + "', Telephone = '" + item.Telephone + "'";
+            strSQL += "WHERE DataID = '" + item.DataID + "';";
+
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return postedituser.ToArray();
+        }
+
         public IEnumerable<Employer> PostEditProfileEmployerAll(Employer item)
         {
             objConn = objDB.EstablishConnection();
@@ -439,7 +604,46 @@ namespace JobSearch.Models
             return postjob.ToArray();
         }
 
-        public IEnumerable<Apply> PostApplyCoopAll(Apply item)
+        public IEnumerable<Postjob> PostAdminPostjobAll(Postjob item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Postjob> postjob = new List<Postjob>();
+
+            int rowjobid;
+            int rowdcid;
+
+            string strSQL1 = "SELECT MAX(JobID) AS rowjobid FROM postjob;";
+            DataTable dt = objDB.List(strSQL1, objConn);
+            rowjobid = Convert.ToInt32(dt.Rows[0]["rowjobid"].ToString());
+            int maxjobid = rowjobid + 1;
+
+            string strSQL2 = "SELECT MAX(DataID) AS rowdcid FROM datacompanyanduser;";
+            DataTable dt1 = objDB.List(strSQL2, objConn);
+            rowdcid = Convert.ToInt32(dt1.Rows[0]["rowdcid"].ToString());
+            int maxdcid = rowdcid + 1;
+
+            string strSQL3 = "BEGIN; ";
+            strSQL3 += "INSERT INTO postjob(JobID, DataID, JobTitle, JobDescription, Keyskills, ";
+            strSQL3 += "Salary, NumberPosition, Qualification, JobTypeID, Contactname, Position, ";
+            strSQL3 += "Email, Telephone, DateRange, DateStart, ClosingDate) ";
+            strSQL3 += "VALUES('" + maxjobid + "','" + item.DataID + "' , '" + item.JobTitle + "', '" 
+                + item.JobDescription + "','" + item.Keyskills + "','" + item.Salary + "','" 
+                + item.NumberPosition + "','" + item.Qualification + "','" + item.JobTypeID + "','" + item.Contactname 
+                + "','" + item.Position + "','" + item.Email + "','" + item.Telephone + "','" 
+                + item.DateRange + "','" + item.DateStart + "','" + item.ClosingDate + "');";
+            strSQL3 += "INSERT INTO datacompanyanduser(DataID, Companyname, EmployerAddress, District, ";
+            strSQL3 += "SubDistrict, ProvinceID, Postcode, Website, Telephone, Email) ";
+            strSQL3 += "VALUES('" + maxdcid + "','" + item.Companyname + "','" + item.EmployerAddress + "','" + item.District + "','" + item.SubDistrict + "','" 
+                + item.ProvinceID + "','" + item.Postcode + "','" + item.Website + "','" + item.Telephone + "','" + item.Email + "'); ";
+            strSQL3 += "COMMIT;";
+
+            objDB.sqlExecute(strSQL3, objConn);
+            objConn.Close();
+
+            return postjob.ToArray();
+        }
+
+        public IEnumerable<Apply> PostApplyAll(Apply item)
         {
             objConn = objDB.EstablishConnection();
             List<Apply> postjob = new List<Apply>();
@@ -474,11 +678,29 @@ namespace JobSearch.Models
             return posteditjob.ToArray();
         }
 
+        public IEnumerable<Postjob> PostPostEditJobAdminAll(Postjob item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Postjob> posteditjob = new List<Postjob>();
+
+            string strSQL = "BEGIN; ";
+            strSQL += "UPDATE postjob SET JobID = '" + item.JobID + "', JobTitle = '" + item.JobTitle + "', JobDescription = '" + item.JobDescription + "', Keyskills = '" + item.Keyskills + "', Salary = '" + item.Salary + "', NumberPosition = '" + item.NumberPosition + "', Qualification = '" + item.Qualification + "', JobTypeID = '" + item.JobTypeID + "', Contactname = '" + item.Contactname + "', Position = '" + item.Position + "', Email = '" + item.Email + "', Telephone = '" + item.Telephone + "', DateRange = '" + item.DateRange + "', ClosingDate = '" + item.ClosingDate + "' ";
+            strSQL += "WHERE JobID = '" + item.JobID + "'; ";
+            strSQL += "UPDATE datacompanyanduser SET DataID = '" + item.DataID + "', Companyname = '" + item.Companyname + "', EmployerAddress = '" + item.EmployerAddress + "', District = '" + item.District + "', SubDistrict = '" + item.SubDistrict + "', ProvinceID = '" + item.ProvinceID + "', Postcode = '" + item.Postcode + "', Website = '" + item.Website + "', Telephone = '" + item.Telephone + "', Email = '" + item.Email + "' ";
+            strSQL += "WHERE DataID = '" + item.DataID + "'; ";
+            strSQL += " COMMIT; ";
+
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return posteditjob.ToArray();
+        }
+
         public IEnumerable<Datajob> PostDetailJobAll(Datajob item)
         {
             objConn = objDB.EstablishConnection();
             List<Datajob> jobdetail = new List<Datajob>();
-            string strSQL = "SELECT * FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE pj.JobID = " + item.JobID + " AND pv.LangID = 1;";
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE pj.JobID = " + item.JobID + " AND pv.LangID = 1;";
             DataTable dt = objDB.List(strSQL, objConn);
             objConn.Close();
 
@@ -501,6 +723,7 @@ namespace JobSearch.Models
                     alljobdetail.Email = dt.Rows[i]["Email"].ToString();
                     alljobdetail.Telephone = dt.Rows[i]["Telephone"].ToString();
                     alljobdetail.DateRange = dt.Rows[i]["DateRange"].ToString();
+                    alljobdetail.ClosingDate = dt.Rows[i]["ClosingDateFormat"].ToString();
                     alljobdetail.Companyname = dt.Rows[i]["Companyname"].ToString();
                     alljobdetail.EmployerAddress = dt.Rows[i]["EmployerAddress"].ToString();
                     alljobdetail.ProvinceName = dt.Rows[i]["ProvinceName"].ToString();
@@ -513,6 +736,49 @@ namespace JobSearch.Models
                 }
             }
             return jobdetail.ToArray();
+        }
+
+        public IEnumerable<Datajob> PostNotificationUserAll(Datajob item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Datajob> notificationuser = new List<Datajob>();
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces p ON p.ProvinceID = dc.ProvinceID  WHERE pj.JobTitle = '" + item.Position + "' AND pj.Hide = 0 AND p.LangID = 1 ORDER BY pj.JobID;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Datajob notificationuserData = new Datajob();
+
+                    notificationuserData.JobID = Convert.ToInt32(dt.Rows[i]["JobID"].ToString());
+                    notificationuserData.JobTitle = dt.Rows[i]["JobTitle"].ToString();
+                    notificationuserData.JobDescription = dt.Rows[i]["JobDescription"].ToString();
+                    notificationuserData.Keyskills = dt.Rows[i]["Keyskills"].ToString();
+                    notificationuserData.Salary = dt.Rows[i]["Salary"].ToString();
+                    notificationuserData.NumberPosition = dt.Rows[i]["NumberPosition"].ToString();
+                    notificationuserData.Qualification = dt.Rows[i]["Qualification"].ToString();
+                    notificationuserData.JobTypeID = Convert.ToInt32(dt.Rows[i]["JobTypeID"].ToString());
+                    notificationuserData.Contactname = dt.Rows[i]["Contactname"].ToString();
+                    notificationuserData.Position = dt.Rows[i]["Position"].ToString();
+                    notificationuserData.Email = dt.Rows[i]["Email"].ToString();
+                    notificationuserData.Telephone = dt.Rows[i]["Telephone"].ToString();
+                    notificationuserData.DateRange = dt.Rows[i]["DateRange"].ToString();
+                    notificationuserData.ClosingDate = dt.Rows[i]["ClosingDateFormat"].ToString();
+                    notificationuserData.Companyname = dt.Rows[i]["Companyname"].ToString();
+                    notificationuserData.EmployerAddress = dt.Rows[i]["EmployerAddress"].ToString();
+                    notificationuserData.ProvinceName = dt.Rows[i]["ProvinceName"].ToString();
+                    notificationuserData.District = dt.Rows[i]["District"].ToString();
+                    notificationuserData.SubDistrict = dt.Rows[i]["SubDistrict"].ToString();
+                    notificationuserData.Postcode = dt.Rows[i]["Postcode"].ToString();
+                    notificationuserData.Website = dt.Rows[i]["Website"].ToString();
+                    notificationuserData.PictureName = dt.Rows[i]["PictureName"].ToString();
+
+                    notificationuser.Add(notificationuserData);
+                }
+            }
+            return notificationuser.ToArray();
         }
 
         public IEnumerable<Employer> PostNotificationEmployerAll(Employer item)
@@ -569,6 +835,19 @@ namespace JobSearch.Models
             objConn.Close();
 
             return applycancle;
+        }
+
+        public IEnumerable<Datajob> PostCountHideUserAll(Datajob item)
+        {
+            objConn = objDB.EstablishConnection();
+            List<Datajob> CountHideUser = new List<Datajob>();
+
+            string strSQL = "UPDATE postjob SET Hide = '" + item.Hide + "'";
+            strSQL += "WHERE JobID = '" + item.JobID + "';";
+            objDB.sqlExecute(strSQL, objConn);
+            objConn.Close();
+
+            return CountHideUser;
         }
 
         public IEnumerable<Apply> PostCountHideAll(Apply item)
@@ -766,6 +1045,7 @@ namespace JobSearch.Models
                 login.RoleID = Convert.ToInt32(dt.Rows[0]["RoleID"].ToString());
                 login.Firstname = dt.Rows[0]["Firstname"].ToString();
                 login.Lastname = dt.Rows[0]["Lastname"].ToString();
+                login.Position = dt.Rows[0]["Position"].ToString();
                 login.Companyname = dt.Rows[0]["Companyname"].ToString();
                 login.PictureName = dt.Rows[0]["PictureName"].ToString();
                 login.Email = dt.Rows[0]["Email"].ToString();

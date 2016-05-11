@@ -24,7 +24,6 @@
                             <th><center>Contact Name</center></th>
                             <th><center>Salary</center></th>
                             <th><center>Total job number</center></th>
-                            <th><center>Applicant</center></th>
                             <th><center>Edit Job</center></th>
                             <th><center>Delete Job</center></th>
                         </tr>
@@ -35,13 +34,12 @@
                             <td align="center">{{n.Contactname}}</td>
                             <td align="center">{{n.Salary}}</td>
                             <td align="center">{{n.NumberPosition}}</td>
-                            <td align="center"><button ng-click="applicantjob(n.JobID)" class="btn btn-info btn-icon"><i class="md md-people"></i></button></td>
-                            <td align="center"><button ng-click="editjob(n.JobID)" class="btn btn-warning btn-icon"><i class="md md-edit"></i></button></td>
+                            <td align="center"><button ng-click="editjobadmin(n.JobID)" class="btn btn-warning btn-icon"><i class="md md-edit"></i></button></td>
                             <td align="center"><button ng-click="deletejob(n.JobID)" class="btn btn-danger btn-icon"><i class="md md-delete"></i></button></td>
                         </tr>
                     </tbody>
                 </table>
             </div><!-- /.box-body -->
-            </form>
+        </form>
     </div>
-    </div>
+</div>
