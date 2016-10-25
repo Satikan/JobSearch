@@ -12,7 +12,7 @@
                     <div class="col-sm-4">
                         <input type="text" id="Firstname" name="Firstname" ng-model="profileuser.Firstname" class="form-control input-sm" required>
                     </div>
-                    <span class="error text-danger" ng-show="FormEditProfileEmployer.Firstname.$error.required">
+                    <span class="error text-danger" ng-show="FormEditProfileUser.Firstname.$error.required">
                         Required!
                     </span>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="col-sm-4">
                         <input type="text" id="Lastname" name="Lastname" ng-model="profileuser.Lastname" class="form-control input-sm" required>
                     </div>
-                    <span class="error text-danger" ng-show="FormEditProfileEmployer.Lastname.$error.required">
+                    <span class="error text-danger" ng-show="FormEditProfileUser.Lastname.$error.required">
                         Required!
                     </span>
                 </div>
@@ -32,8 +32,11 @@
                     <div class="col-sm-4">
                         <input type="email" id="Email" name="Email" ng-model="profileuser.Email" class="form-control input-sm" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                     </div>
-                    <span class="error text-danger" ng-show="FormEditProfileEmployer.Email.$error.required">
+                    <span class="error text-danger" ng-show="FormEditProfileUser.Email.$error.required">
                         Required!
+                    </span>
+                    <span class="error text-danger" ng-show="FormEditProfileUser.Email.$error.email">
+                        Not valid email!
                     </span>
                 </div>
 
@@ -45,7 +48,7 @@
                                 <option value="">-- Select Gender --</option>
                             </select>
                         </div>
-                        <span class="error text-danger" ng-show="FormEditProfileEmployer.GenderID.$error.required">
+                        <span class="error text-danger" ng-show="FormEditProfileUser.GenderID.$error.required">
                             Required!
                         </span>
                     </div>
@@ -59,7 +62,7 @@
                                 <option value="">-- Select Status --</option>
                             </select>
                         </div>
-                        <span class="error text-danger" ng-show="FormEditProfileEmployer.StatusID.$error.required">
+                        <span class="error text-danger" ng-show="FormEditProfileUser.StatusID.$error.required">
                             Required!
                         </span>
                     </div>
@@ -118,7 +121,7 @@
                                 <option value="">-- Select Province --</option>
                             </select>
                         </div>
-                        <span class="error text-danger" ng-show="FormEditProfileEmployer.ProvinceID.$error.required">
+                        <span class="error text-danger" ng-show="FormEditProfileUser.ProvinceID.$error.required">
                             Required!
                         </span>
                     </div>
@@ -146,7 +149,7 @@
                     <label for="Contactname" class="col-sm-2 control-label">Postcode</label>
                     <div class="col-sm-4">
                         <div class="fg-line">
-                            <input ng-model="profileuser.Postcode" name="Postcode" id="Postcode" type="text" class="form-control input-sm">
+                            <input ng-model="profileuser.Postcode" name="Postcode" id="Postcode" type="text" class="form-control input-sm" pattern="\d*">
                         </div>
                     </div>
                 </div>
@@ -158,7 +161,7 @@
                             <input ng-model="profileuser.Telephone" name="Telephone" id="Telephone" type="text" class="form-control input-sm" required>
                         </div>
                     </div>
-                    <span class="error text-danger" ng-show="FormEditProfileEmployer.Telephone.$error.required">
+                    <span class="error text-danger" ng-show="FormEditProfileUser.Telephone.$error.required">
                         Required!
                     </span>
                 </div>

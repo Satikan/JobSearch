@@ -87,6 +87,14 @@ namespace JobSearch.Controllers
             return repository.GetFulltimeAll();
         }
 
+        // GET api/job/newfeed
+        [HttpGet]
+        [ActionName("NewFeed")]
+        public IEnumerable<Datajob> GetNewFeed()
+        {
+            return repository.GetNewFeedAll();
+        }
+
         // GET api/<controller>/5
         [HttpGet]
         [ActionName("JobOnly")]

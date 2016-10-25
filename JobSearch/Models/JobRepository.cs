@@ -288,6 +288,47 @@ namespace JobSearch.Models
             return fulltime.ToArray();
         }
 
+        public IEnumerable<Datajob> GetNewFeedAll()
+        {
+            objConn = objDB.EstablishConnection();
+            List<Datajob> newfeed = new List<Datajob>();
+            string strSQL = "SELECT *, DATE_FORMAT(pj.ClosingDate, '%d %M %Y') AS ClosingDateFormat FROM postjob pj INNER JOIN datacompanyanduser dc ON dc.DataID = pj.DataID INNER JOIN provinces pv ON dc.ProvinceID = pv.ProvinceID WHERE pj.Deleted = 0 AND pv.LangID = 1 ORDER BY pj.JobID DESC;";
+            DataTable dt = objDB.List(strSQL, objConn);
+            objConn.Close();
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Datajob newfeedData = new Datajob();
+
+                    newfeedData.JobID = Convert.ToInt32(dt.Rows[i]["JobID"].ToString());
+                    newfeedData.JobTitle = dt.Rows[i]["JobTitle"].ToString();
+                    newfeedData.JobDescription = dt.Rows[i]["JobDescription"].ToString();
+                    newfeedData.Keyskills = dt.Rows[i]["Keyskills"].ToString();
+                    newfeedData.Salary = dt.Rows[i]["Salary"].ToString();
+                    newfeedData.NumberPosition = dt.Rows[i]["NumberPosition"].ToString();
+                    newfeedData.Qualification = dt.Rows[i]["Qualification"].ToString();
+                    newfeedData.JobTypeID = Convert.ToInt32(dt.Rows[i]["JobTypeID"].ToString());
+                    newfeedData.Contactname = dt.Rows[i]["Contactname"].ToString();
+                    newfeedData.Position = dt.Rows[i]["Position"].ToString();
+                    newfeedData.Email = dt.Rows[i]["Email"].ToString();
+                    newfeedData.Telephone = dt.Rows[i]["Telephone"].ToString();
+                    newfeedData.DateRange = dt.Rows[i]["DateRange"].ToString();
+                    newfeedData.ClosingDate = dt.Rows[i]["ClosingDateFormat"].ToString();
+                    newfeedData.Companyname = dt.Rows[i]["Companyname"].ToString();
+                    newfeedData.EmployerAddress = dt.Rows[i]["EmployerAddress"].ToString();
+                    newfeedData.ProvinceName = dt.Rows[i]["ProvinceName"].ToString();
+                    newfeedData.District = dt.Rows[i]["District"].ToString();
+                    newfeedData.SubDistrict = dt.Rows[i]["SubDistrict"].ToString();
+                    newfeedData.Postcode = dt.Rows[i]["Postcode"].ToString();
+                    newfeedData.Website = dt.Rows[i]["Website"].ToString();
+
+                    newfeed.Add(newfeedData);
+                }
+            }
+            return newfeed.ToArray();
+        }
+
         public Datajob GetJobOnlyAll(int id)
         {
             objConn = objDB.EstablishConnection();

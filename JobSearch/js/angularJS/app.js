@@ -5,7 +5,7 @@ app.config(['$routeProvider',
            $routeProvider.
                when('/', {
                    templateUrl: 'views/home.html',
-                   //controller: 'homeController'
+                   controller: 'homeController'
                }).
                when('/registerEmployer', {
                    templateUrl: 'registerEmployer.html',
@@ -402,16 +402,10 @@ app.controller("RegisterSeekerController", function ($scope, $http, $routeParams
             $scope.Username = "";
             $scope.Companyname = "";
             $scope.BusinessTypeID = "";
-            $scope.Website = "";
-            $scope.GenderID = "";
             $scope.EmployerAddress = "";
             $scope.Domicile = "";
-            $scope.StatusID = "";
             $scope.Education = "";
             $scope.Specialskill = "";
-            $scope.District = "";
-            $scope.SubDistrict = "";
-            $scope.Postcode = ""
             $scope.FileResume = "";
         }
         $scope.RoleID = 3;
@@ -1474,6 +1468,16 @@ app.controller("EditProfileEmployer", function ($scope, $http, $routeParams, $fi
         
         window.location = '#/profileEmployer/' + localStorage.getItem('DataID');
     }
+
+});
+
+app.controller("homeController", function ($scope, $http, $routeParams, $filter) {
+
+    $http.get("api/job/newfeed").success(function (data) {
+
+        $scope.newfeed = data;
+        console.log($scope.newfeed)
+    });
 
 });
 

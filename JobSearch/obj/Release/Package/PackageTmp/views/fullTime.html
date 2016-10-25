@@ -1,0 +1,97 @@
+﻿<div class="container">
+
+    <div class="card">
+        <div class="card-header bgm-cyan">
+            <h2>Full Time</h2>
+            <br />
+        </div>
+
+        <form class="form-horizontal" role="form">
+            <div class="card-body card-padding">
+                <div class="form-group pull-right">
+                    <label for="Province" class="col-sm-3 control-label">Search</label>
+                    <div class="col-sm-8">
+                        <div class="fg-line">
+                            <input type="text" id="search" name="search" ng-model="search" class="form-control input-sm" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th><center>Company Name</center></th>
+                            <th><center>Province</center></th>
+                            <th><center>Positions</center></th>
+                            <th><center>Salary</center></th>
+                            <th><center>No. of Position</center></th>
+                            <!--<th><center>Date Range</center></th>-->
+                            <th><center>Closing Date</center></th>
+                            <th><center>Detail</center></th>
+                            <th ng-show="buttondelete == 1"><center>Delete</center></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="n in fulltime | filter:search">
+                            <td align="center">{{n.Companyname}}</td>
+                            <td align="center">{{n.ProvinceName}}</td>
+                            <td align="center">{{n.JobTitle}}</td>
+                            <td align="center">{{n.Salary}}</td>
+                            <td align="center">{{n.NumberPosition}}</td>
+                            <!--<td align="center">{{n.DateRange}}</td>-->
+                            <td align="center">{{n.ClosingDate}}</td>
+                            <td align="center"><button class="btn btn-info btn-icon" ng-click="detailFulltime(n.JobID)" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="md md-description"></i></button></td>
+                            <td align="center" ng-show="buttondelete == 1"><button class="btn btn-danger btn-icon" ng-click="deleteFulltime(n.JobID)"><i class="md md-delete"></i></button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            </div><!-- /.box-body -->
+        </form>
+
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myLargeModalLabel" ng-controller="ImageController">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="modal-header card-padding">
+                            <div class="pull-left">
+                                <h3 class="modal-title text-primary"><U>Detail</U></h3>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="ma md-close"></i></button>
+                            </div>
+                        </div>
+                        <div class="modal-body card-padding">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5><b>JobTitle :</b> {{detailfulltimejob.JobTitle}}</h5>
+                                    <h5><b>Company Name :</b> {{detailfulltimejob.Companyname}}</h5>
+                                    <h5><b>Job Description :</b> {{detailfulltimejob.JobDescription}}</h5>
+                                    <h5><b>Qualification :</b> </h5><ul>
+                                        <li>{{detailfulltimejob.Qualification}}</li>
+                                    </ul>
+                                    <h5><b>Keyskills :</b> </h5><ul>
+                                        <li>{{detailfulltimejob.Keyskills}}</li>
+                                    </ul>
+                                    <h5><b>Salary :</b> {{detailfulltimejob.Salary}}</h5>
+                                    <h5><b>Total job number :</b> {{detailfulltimejob.NumberPosition}}</h5>
+                                    <h5><b>Address :</b> {{detailfulltimejob.EmployerAddress}}</h5>
+                                    <h5><b>District :</b> {{detailfulltimejob.District}}</h5>
+                                    <h5><b>Sub-District :</b> {{detailfulltimejob.SubDistrict}}</h5>
+                                    <h5><b>Province :</b> {{detailfulltimejob.ProvinceName}}</h5>
+                                    <h5><b>Contact Name :</b> {{detailfulltimejob.Contactname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Position :</b> {{detailfulltimejob.Position}}</h5>
+                                    <h5><b>Tel :</b> {{detailfulltimejob.Telephone}}</h5>
+                                    <h5><b>Email :</b> {{detailfulltimejob.Email}}</h5>
+                                    <h5><b>Website :</b> {{detailfulltimejob.Website}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" ng-show="buttonapply == 1" ng-click="apply(detailfulltimejob.JobID)" class="btn btn-primary" data-dismiss="modal">Apply Now</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+</div>

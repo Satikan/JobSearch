@@ -1,11 +1,66 @@
-﻿<div class="container">
-    <form class="form-horizontal" role="form">
-        <div class="card">
-            <div class="card-body card-padding">
-                <div style="text-align: center">
-                    <img ng-src="../images/1.jpg" alt="" style="width:800px; height:450px; ">
+﻿<div class="container" ng-app="app">
+    <div class="card">
+        <div class="card-header bgm-teal">
+            <div class="dropdown-btn-demo pull-right">
+                <div class="col-sm-12">
+                    <div class="fg-line">
+                        <input type="text" id="search" name="search" ng-model="search" class="form-control input-sm" placeholder="Search">
+                    </div>
                 </div>
             </div>
+            <h2>
+                News Feed
+            </h2>
+            <br />
         </div>
-    </form>
+
+        <form class="form-horizontal" role="form">
+            <div class="card-body card-padding">
+                <div class="btn-demo">
+                    <table style="width:100%;" class="table table-striped table-vmiddle">
+                        <tbody>
+                            <tr ng-repeat="text in newfeed | filter:search">
+                                <td>
+                                    <a> {{ text.Companyname }}</a>
+                                    <br />
+                                    <button class="btn btn-primary waves-effect waves-b+utton waves-float pull-right" type="button" data-toggle="collapse" data-target="#collapseExample{{ text.JobID }}" aria-expanded="false" aria-controls="collapseExample" tooltip-placement="top" uib-tooltip="Press to display details">
+                                        Detail
+                                    </button>
+                                    <!--<b>-->
+                                    <small>{{ text.JobTitle}}</small>
+                                    <br />
+                                    <small>Closing Date: {{ text.ClosingDate }}</small>
+                                    <!--</b>-->
+
+                                    <div class="collapse m-t-10" id="collapseExample{{ text.JobID }}">
+                                        <div class="col-md-12">
+                                            <h5><b>JobTitle :</b> {{text.JobTitle}}</h5>
+                                            <h5><b>Company Name :</b> {{text.Companyname}}</h5>
+                                            <h5><b>Job Description :</b> {{text.JobDescription}}</h5>
+                                            <h5><b>Qualification :</b> </h5><ul>
+                                                <li>{{text.Qualification}}</li>
+                                            </ul>
+                                            <h5><b>Keyskills :</b> </h5><ul>
+                                                <li>{{text.Keyskills}}</li>
+                                            </ul>
+                                            <h5><b>Salary :</b> {{text.Salary}}</h5>
+                                            <h5><b>Total job number :</b> {{text.NumberPosition}}</h5>
+                                            <h5><b>Address :</b> {{text.EmployerAddress}}</h5>
+                                            <h5><b>District :</b> {{text.District}}</h5>
+                                            <h5><b>Sub-District :</b> {{text.SubDistrict}}</h5>
+                                            <h5><b>Province :</b> {{text.ProvinceName}}</h5>
+                                            <h5><b>Contact Name :</b> {{text.Contactname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Position :</b> {{text.Position}}</h5>
+                                            <h5><b>Tel :</b> {{text.Telephone}}</h5>
+                                            <h5><b>Email :</b> {{text.Email}}</h5>
+                                            <h5><b>Website :</b> {{text.Website}}</h5>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

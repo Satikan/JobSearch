@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JobSystem</title>
+
+    <!-- Vendor CSS -->
+    <link href="template/vendors/animate-css/animate.css" rel="stylesheet" />
+    <link href="template/vendors/animate-css/animate.min.css" rel="stylesheet">
+    <link href="template/vendors/noUiSlider/jquery.nouislider.min.css" rel="stylesheet">
+    <link href="template/vendors/farbtastic/farbtastic.css" rel="stylesheet">
+    <link href="template/vendors/summernote/summernote.css" rel="stylesheet" />
+    <link href="template/vendors/light-gallery/lightGallery.min.css" rel="stylesheet">
+    <link href="template/vendors/mediaelement/mediaelementplayer.css" rel="stylesheet">
+    <link href="template/vendors/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+    <link href="template/vendors/material-icons/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="template/vendors/socicon/socicon.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="template/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="template/css/app.min.1.css" rel="stylesheet">
+    <link href="template/css/app.min.2.css" rel="stylesheet">
+
+</head>
+<body ng-controller="PermissionGroupController">
+    <header id="header">
+        <ul class="header-inner">
+            <li id="menu-trigger" data-trigger="#sidebar">
+                <div class="line-wrap">
+                    <div class="line top"></div>
+                    <div class="line center"></div>
+                    <div class="line bottom"></div>
+                </div>
+            </li>
+
+            <li class="logo hidden-xs">
+                <a href="index.html#/">Job S&P</a>
+            </li>
+
+            <li class="pull-right">
+                <ul class="top-menu">
+
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href=""><img class="img-circle" ng-src="../images/{{index.PictureName}}" style="width:42px; height:42px;" alt=""></a>
+                        
+                        <ul class="dropdown-menu dm-icon pull-right">
+                            <li>
+                                <a>
+                                    <b>{{index.Companyname}}{{index.Firstname}}&nbsp;{{index.Lastname}}</b><br />
+                                    {{index.Email}}
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="" ng-click="profile(index.DataID)"><i class="md md-person"></i> View Profile</a>
+                            </li>
+                            <li>
+                                <a href="" ng-click="logout()"><i class="md md-history"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="pull-right">
+                <ul class="top-menu">
+                    <!--<li id="toggle-width">
+                        <div class="toggle-switch">
+                            <input id="tw-switch" type="checkbox" hidden="hidden">
+                            <label for="tw-switch" class="ts-helper"></label>
+                        </div>
+                    </li>-->
+                    <li class="dropdown" ng-show="notificationusers == 1">
+                        <a data-toggle="dropdown" class="tm-notification" href=""><i ng-hide="countuser == 0" class="tmn-counts">{{countuser}}</i></a>
+                        <div class="dropdown-menu dropdown-menu-lg pull-right" ng-controller="ApplicantController">
+                            <div class="listview" id="notifications">
+                                <div class="lv-header">
+                                    Notification
+                                </div>
+                                <div class="lv-body c-overflow">
+                                    <a class="lv-item" href="#/detailJob/{{n.JobID}}" ng-click="counthideuser(n.JobID)" ng-repeat="n in notificationuser">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <img class="lv-img-sm" ng-src="../images/{{n.PictureName}}" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="lv-title">{{n.Companyname}}</div>
+                                                <small class="lv-small">{{n.JobTitle}}</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <a class="lv-footer" href="">View Previous</a>
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li class="dropdown" ng-show="notificationemployers == 1">
+                        <a data-toggle="dropdown" class="tm-notification" href=""><i ng-hide="countemployer == 0" class="tmn-counts">{{countemployer}}</i></a>
+                        <div class="dropdown-menu dropdown-menu-lg pull-right" ng-controller="ApplicantController">
+                            <div class="listview" id="notifications">
+                                <div class="lv-header">
+                                    Notification
+                                </div>
+                                <div class="lv-body c-overflow">
+                                    <a class="lv-item" href="#/profileUser/{{n.DataID}}" ng-click="counthideemployer(n.ApplyID)" ng-repeat="n in notification">
+                                        <div class="media">
+                                            <div class="pull-left">
+                                                <img class="lv-img-sm" ng-src="../images/{{n.PictureName}}" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="lv-title">{{n.Firstname}} {{n.Lastname}}</div>
+                                                <small class="lv-small">{{n.JobTitle}}</small>
+                                            </div>
+                                        </div>
+                                    </a>                                    
+                                </div>
+
+                                <a class="lv-footer" href="">View Previous</a>
+                            </div>
+
+                        </div>
+                    </li>
+                    
+                </ul>
+            </li>
+
+        </ul>
+
+        <!-- Top Search Content -->
+        <div id="top-search-wrap">
+            <input type="text">
+            <i id="top-search-close">&times;</i>
+        </div>
+    </header>
+
+    <section id="main">
+        <aside id="sidebar">
+            <div class="sidebar-inner">
+                <div class="si-inner">
+                    <div class="profile-menu">
+                        <a href="">
+                            <div class="profile-pic">
+                                <img ng-src="../images/{{index.PictureName}}" alt="">
+                            </div>
+
+                            <div class="profile-info">
+                                <center>{{index.Companyname}}{{index.Firstname}}&nbsp;{{index.Lastname}}</center>
+                            </div>
+                        </a>
+                    </div>
+
+                    <ul class="main-menu">
+                        <li class="active"><a href="#/"><i class="md md-home"></i>Home</a></li>
+
+                        <li class="sub-menu" ng-repeat="permission in permissiongroup">
+                            <a href=""><i class="md md-now-widgets"></i> {{permission.GroupName}} </a>
+                            <ul>
+
+                                <li ng-repeat="parent in permission.GroupParent"><a href="{{parent.PermissionItemUrl}}"><i class="md {{ parent.PermissionItemIcon }}"></i> &nbsp;{{parent.PermissionItemName}}</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <section id="content" ng-view></section>
+
+    </section>
+
+    <!-- Older IE warning message -->
+    <!--[if lt IE 9]>
+        <div class="ie-warning">
+            <h1 class="c-white">IE SUCKS!</h1>
+            <p>You are using an outdated version of Internet Explorer, upgrade to any of the following web browser <br/>in order to access the maximum functionality of this website. </p>
+            <ul class="iew-download">
+                <li>
+                    <a href="http://www.google.com/chrome/">
+                        <img src="img/browsers/chrome.png" alt="">
+                        <div>Chrome</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.mozilla.org/en-US/firefox/new/">
+                        <img src="img/browsers/firefox.png" alt="">
+                        <div>Firefox</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.opera.com">
+                        <img src="img/browsers/opera.png" alt="">
+                        <div>Opera</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.apple.com/safari/">
+                        <img src="img/browsers/safari.png" alt="">
+                        <div>Safari</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                        <img src="img/browsers/ie.png" alt="">
+                        <div>IE (New)</div>
+                    </a>
+                </li>
+            </ul>
+            <p>Upgrade your browser for a Safer and Faster web experience. <br/>Thank you for your patience...</p>
+        </div>
+    <![endif]-->
+    <!-- Javascript Libraries -->
+    <script src="template/js/jquery-2.1.1.min.js"></script>
+    <script src="template/js/bootstrap.min.js"></script>
+    <script src="template/vendors/moment/moment.min.js"></script>
+    <script src="template/vendors/nicescroll/jquery.nicescroll.min.js"></script>
+
+    <script src="template/vendors/flot/jquery.flot.min.js"></script>
+    <script src="template/vendors/flot/jquery.flot.resize.min.js"></script>
+    <script src="template/vendors/flot/plugins/curvedLines.js"></script>
+    <script src="template/vendors/sparklines/jquery.sparkline.min.js"></script>
+    <script src="template/vendors/easypiechart/jquery.easypiechart.min.js"></script>
+
+    <script src="template/vendors/simpleWeather/jquery.simpleWeather.min.js"></script>
+    <script src="template/vendors/auto-size/jquery.autosize.min.js"></script>
+    <script src="template/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="template/vendors/chosen/chosen.jquery.min.js"></script>
+    <script src="template/vendors/input-mask/input-mask.min.js"></script>
+    <script src="template/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="template/vendors/fileinput/fileinput.min.js"></script>
+    <script src="template/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+    <script src="template/vendors/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    <script src="template/vendors/sweet-alert/sweet-alert.min.js"></script>
+    <script src="template/vendors/waves/waves.min.js"></script>
+    <script src="template/vendors/light-gallery/lightGallery.min.js"></script>
+    <script src="template/vendors/mediaelement/mediaelement-and-player.min.js"></script>
+    <script src="template/vendors/summernote/summernote.min.js"></script>
+    <script src="template/vendors/summernote/summernote.js"></script>
+    <script src="template/js/flot-charts/curved-line-chart.js"></script>
+    <script src="template/js/flot-charts/line-chart.js"></script>
+
+    <script src="template/js/charts.js"></script>
+    <script src="template/js/functions.js"></script>
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/ng-file-upload.js"></script>
+    <script src="js/ng-file-upload-shim.js"></script>
+    <script src="js/angular-file-upload.min.js"></script>
+    <script src="js/angularJS/app.js"></script>
+
+</body>
+</html>

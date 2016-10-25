@@ -17,6 +17,7 @@ namespace JobSearch.Models
         IEnumerable<Datajob> GetInternshipAll();
         IEnumerable<Datajob> GetParttimeAll();
         IEnumerable<Datajob> GetFulltimeAll();
+        IEnumerable<Datajob> GetNewFeedAll();
         Employer GetUserOnly(int id);
         Datajob GetJobOnlyAll(int id);
         Datajob GetJobOnlyAdminAll(int id);

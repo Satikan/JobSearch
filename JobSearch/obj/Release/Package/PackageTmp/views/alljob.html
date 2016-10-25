@@ -1,0 +1,47 @@
+﻿<div class="container">
+
+    <div class="card">
+        <div class="card-header bgm-cyan">
+            <h2>All Job</h2>
+            <br />
+        </div>
+
+        <form ng-submit="" class="form-horizontal" role="form">
+            <div class="card-body card-padding">
+                <div class="form-group pull-right">
+                    <label for="Province" class="col-sm-3 control-label">Search</label>
+                    <div class="col-sm-8">
+                        <div class="fg-line">
+                            <input type="text" id="search" name="search" ng-model="search" class="form-control input-sm" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th><center>Job Title</center></th>
+                            <th><center>Contact Name</center></th>
+                            <th><center>Salary</center></th>
+                            <th><center>Total job number</center></th>
+                            <th><center>Applicant</center></th>
+                            <th><center>Edit Job</center></th>
+                            <th><center>Delete Job</center></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="n in alljob | filter:search">
+                            <td align="center">{{n.JobTitle}}</td>
+                            <td align="center">{{n.Contactname}}</td>
+                            <td align="center">{{n.Salary}}</td>
+                            <td align="center">{{n.NumberPosition}}</td>
+                            <td align="center"><button ng-click="applicantjob(n.JobID)" class="btn btn-info btn-icon"><i class="md md-people"></i></button></td>
+                            <td align="center"><button ng-click="editjob(n.JobID)" class="btn btn-warning btn-icon"><i class="md md-edit"></i></button></td>
+                            <td align="center"><button ng-click="deletejob(n.JobID)" class="btn btn-danger btn-icon"><i class="md md-delete"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
+            </form>
+    </div>
+    </div>
